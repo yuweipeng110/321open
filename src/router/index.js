@@ -5,6 +5,11 @@ import { Message } from 'element-ui';
 Vue.use(Router)
 import Layout from '@/layout'
 export const constantRoutes = [
+  {
+    path: '/api',
+    component: () => import('@/views/api'),
+    hidden: true
+  },
 
   {
     path: '/404',
@@ -169,7 +174,7 @@ const createRouter = () => new Router({
 const router = createRouter()
 
 router.beforeEach((to, from, next) => {
-  console.log( this )
+  // console.log( this )
   if (to.name === "PersonalCenter") {
     const token = localStorage.getItem("id");
    if(token){
@@ -181,7 +186,7 @@ router.beforeEach((to, from, next) => {
       type: 'warning'
     });
    }
-   
+
   } else {
     next();
   }
