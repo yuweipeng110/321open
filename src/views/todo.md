@@ -42,7 +42,7 @@ xiaofei: "50.00"
 
 拍摄资源
 
-## catePull 拍摄资源发布 /api/index/zy_add    数据库少了 ‘contnet’字段
+## catePull 拍摄资源发布 /api/index/zy_add  
 
 
 ##  cateLog 资源记录接口 /api/index/zy  OK
@@ -63,5 +63,44 @@ xiaofei: "50.00"
 ## ServerListLog 服务进度 api/index/server_jindu    OK
 
 ## shangjiaruzhuLog  商家入驻查询 /api/index/user_detail_f   没有返回值
+
+
+
+
+
+
+
+user
+## getLogin 用户登录基本信息 /api/index/user ok
+
+## withdrawDeposit 申请提现接口 /api/index/tx 未测
+
+## enndPull 需求发布 /api/index/request_add
+
+## enndRecord 需求记录 /api/index/request
+
+## updataUser 用户修改资料 /api/index/update_user
+
+## withdrawDepositList 提现列表 /api/index/my_tx
+ 
+## YieldLog 收益记录 /api/index/my_hav
+
+## consumeLog 消费记录 /api/index/my_order
+
+## attention 我的关注 /api/index/my_like
+
+## collect 我的收藏 /api/index/my_collect
+
+## UserEmail 用户登录验证码发送接口 /api/index/send_code
+
+## CodeLogin 用户验证码登录接口 /api/index/mobile_login
+
+## imageUpload 图片上传 /api/index/upload
+
+## tenderList /api/index/my_toubiao
+
+## xiadan 资源下单 /api/index/goumai
+
+
 
 

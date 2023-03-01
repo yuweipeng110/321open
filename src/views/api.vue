@@ -35,10 +35,22 @@ export default {
         wenList: { cate_id: '1' },
 
         art_detail: { id: '6' },
-        //tenant
-        catePull: { cate: '', title: '', area_id: '', img: '', yajin: '', zujin: '', chao: '', uid: 1 }
 
-        , cateLog: { uid: '1', page: '1', limit: 10 },
+        // tenant
+        // catePull: { cate: '', content: '123', title: '', area_id: '', img: '', yajin: '', zujin: '', chao: '', uid: 1 }
+
+        catePull: {
+          cate: [],
+          title: "",
+          area_id: "1",
+          img: "",
+          yajin: "",
+          zujin: "",
+          chao: "",
+          content: "",
+        },
+
+        cateLog: { uid: '1', page: '1', limit: 10 },
 
         toubiaoApi: { r_id: 23, uid: 18, pic: '', video: '', mobile: '', money: '', message: '' },
 
@@ -48,11 +60,31 @@ export default {
 
         ServeCHApi: { uid: '1', type: '', ying: '', remark: '' },
 
-        ServeZXApi: { uid: '1', remark: '' },
+        ServeZXApi: { uid: '1', remark: '123', zi: ['法务咨询'] },
 
         ServerListLog: { uid: '1' },
 
-        shangjiaruzhuLog: { uid: '1' }
+        shangjiaruzhuLog: { uid: '1' },
+
+
+
+        // user
+        getLogin: {
+          id: '17'
+        },
+
+        enndPull: {
+          title: "123",
+          imglist: "",
+          zhao_start: "",
+          zhao_end: "",
+          use_start: "",
+          use_end: "",
+          money: "",
+          img: "",
+
+          description: "",
+        }
       },
       name: '',
       param: null,
@@ -64,8 +96,8 @@ export default {
     this.list = [].concat(
       // this.getModule(home),
       // this.getModule(table),
-      this.getModule(tenant),
-      // this.getModule(user),
+      // this.getModule(tenant),
+      this.getModule(user),
     );
   },
   methods: {
