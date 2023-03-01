@@ -6,6 +6,8 @@
       </li>
     </ul>
     <div style="flex:1">
+      <div>name: {{ name }}</div>
+      <hr>
       <div style="color:blue">param: {{ param }}</div>
       <hr>
       <div style="color:green;">res: {{ res }}</div>
@@ -26,8 +28,15 @@ export default {
       list: [],
       params: {
         // home
-        wenList: { id: '1' }
+        homeQuantity: { page: "1", limit: "10", status: "0", area_id: "1", addtime: "1", t_num: "1" },
+
+        demandDitial: { id: '23' },
+
+        wenList: { cate_id: '1' },
+
+        art_detail: { id: '6' },
       },
+      name: '',
       param: null,
       res: null,
       err: null
@@ -56,13 +65,13 @@ export default {
     async api(name, i) {
       let value = this.list[i].value;
       let param = this.params[name] || null;
-      console.log(name, value, param);
+      this.name = name;
       this.param = param;
       this.res = null;
       this.err = null;
       try {
         let res = await value(param);
-        this.res = res;
+        this.res = res.data.data;
       } catch (err) {
         this.err = err;
       }
