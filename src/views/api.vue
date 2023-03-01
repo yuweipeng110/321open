@@ -52,7 +52,12 @@ export default {
 
         ServerListLog: { uid: '1' },
 
-        shangjiaruzhuLog: { uid: '1' }
+        shangjiaruzhuLog: { uid: '1' },
+
+
+        // table
+        classifyEssay:{ cate_id: 2, page: '1', limit: '10' },
+        ruzhu:{ uid: '1', name: '', phone: '', address: '', card_z: '' ,card_f: '', yingye: '', company: ''},
       },
       name: '',
       param: null,
@@ -63,8 +68,8 @@ export default {
   created() {
     this.list = [].concat(
       // this.getModule(home),
-      // this.getModule(table),
-      this.getModule(tenant),
+      this.getModule(table),
+      // this.getModule(tenant),
       // this.getModule(user),
     );
   },
