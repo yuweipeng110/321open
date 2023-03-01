@@ -41,14 +41,11 @@ xiaofei: "50.00"
 
 
 拍摄资源
-
 ## catePull 拍摄资源发布 /api/index/zy_add  
-
 
 ##  cateLog 资源记录接口 /api/index/zy  OK
 
 ## cateClassify  资源分类 /api/index/zy_cate  Ok  
-
 
 ## toubiaoApi 投标下单  api/index/toubiao   ok
 
@@ -73,41 +70,51 @@ xiaofei: "50.00"
 user
 ## getLogin 用户登录基本信息 /api/index/user ok
 
-## withdrawDeposit 申请提现接口 /api/index/tx 未测
+## withdrawDeposit 申请提现接口 /api/index/tx ok
 
-## enndPull 需求发布 /api/index/request_add
+## enndPull 需求发布 /api/index/request_add ok
 
-## enndRecord 需求记录 /api/index/request
+## enndRecord 需求记录 /api/index/request ok
 
-## updataUser 用户修改资料 /api/index/update_user
+## updataUser 用户修改资料 /api/index/update_user ok
 
-## withdrawDepositList 提现列表 /api/index/my_tx
+## withdrawDepositList 提现列表 /api/index/my_tx 没有数据
  
-## YieldLog 收益记录 /api/index/my_hav
+## YieldLog 收益记录 /api/index/my_hav 没有数据
 
-## consumeLog 消费记录 /api/index/my_order
+## consumeLog 消费记录 /api/index/my_order 没有数据
 
-## attention 我的关注 /api/index/my_like
+## attention 我的关注 /api/index/my_like ok
 
-## collect 我的收藏 /api/index/my_collect
+## collect 我的收藏 /api/index/my_collect 没有数据
 
-## UserEmail 用户登录验证码发送接口 /api/index/send_code
 
-## CodeLogin 用户验证码登录接口 /api/index/mobile_login
+## imageUpload 图片上传 /api/index/upload 未测
+```
+axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
+  console.log(res);
+  this.imageUrl = res.data.url;
+});
+```
 
-## imageUpload 图片上传 /api/index/upload
+## tenderList 投标记录异步接口信息 /api/index/my_toubiao 暂无数据
 
-## tenderList /api/index/my_toubiao
+## xiadan 资源下单 /api/index/goumai 数据库报错
+```
+[10501] PDOException in Connection.php line 764
+SQLSTATE[HY000]: General error: 1364 Field 'completetime' doesn't have a default value
+```
 
-## xiadan 资源下单 /api/index/goumai
+## UserEmail 用户登录验证码发送接口 /api/index/send_code 未测
+
+## CodeLogin 用户验证码登录接口 /api/index/mobile_login 未测
 
 
 
 
 // table
-##  getAddressList  获取地区列表 /api/index/area  OK
-##   essayClassify 获取文章分类  /api/index/art_cate OK
-##   classifyEssay  获取分类下的文章   /api/index/art  OK
-##  ruzhu   商家入驻  /api/index/add_user_detail ok
-
+## getAddressList  获取地区列表 /api/index/area  OK
+## essayClassify 获取文章分类  /api/index/art_cate OK
+## classifyEssay  获取分类下的文章   /api/index/art  OK
+## ruzhu   商家入驻  /api/index/add_user_detail ok
 
