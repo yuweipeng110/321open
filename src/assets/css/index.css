@@ -1,0 +1,84 @@
+.el-popper .popper__arrow,
+.el-popper .popper__arrow::after {
+  display: none !important;
+}
+
+.el-popper {
+  min-width       : 101px !important;
+  position        : absolute;
+  top             : 87px !important;
+  text-align      : center !important;
+  border-radius   : 0;
+  left            : 51px !important;
+  transform-origin: center top;
+  z-index         : 2001;
+  box-shadow      : none !important;
+  background-color: #fff !important;
+  opacity         : 0.8 !important;
+  border          : none !important;
+}
+
+.el-select-dropdown__item.selected {
+  color      : #606266 !important;
+  font-weight: 500 !important;
+}
+
+.swp-dom {
+  width           : 750px;
+  background      : black;
+  height          : 154px;
+  position        : absolute;
+  left            : 29%;
+  top             : 700px;
+  background-color: #000000;
+  /* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */
+  background-color: rgb(0 0 0 / 50%);
+  /* IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂，但解析为透明 */
+}
+
+.swp-top {
+  margin: 26px 26px 20px 26px;
+}
+
+.swp-dom .el-radio__label {
+  color    : #fff !important;
+  font-size: 16px;
+}
+
+.swp-dom.el-radio__inner {
+  width : 16px;
+  height: 16px;
+}
+
+.swp-dom .el-radio__input.is-checked .el-radio__inner {
+  border-color: #BE791A;
+  background  : #BE791A;
+}
+
+.swp-do {
+  margin: 0px 30px;
+}
+
+.swp-dom .el-input-group__append {
+  background  : #be791a;
+  border-color: #be791a;
+  color       : #fff;
+  font-size   : 16px;
+  padding     : 8px 48px;
+}
+
+.mt50 {
+  margin-top: 50px;
+}
+
+.main-btn {
+  color       : #be791a !important;
+  background  : #fff !important;
+  border-color: #be791a !important;
+  border-radius: 0 !important;
+  padding: 12px 36px !important;
+}
+
+.tc {
+  text-align: center;
+}
