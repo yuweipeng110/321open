@@ -104,3 +104,10 @@ user
 
 
 
+// table
+##  getAddressList  获取地区列表 /api/index/area  OK
+##   essayClassify 获取文章分类  /api/index/art_cate OK
+##   classifyEssay  获取分类下的文章   /api/index/art  OK
+##  ruzhu   商家入驻  /api/index/add_user_detail ok
+
+

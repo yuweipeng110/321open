@@ -23,10 +23,11 @@ export function essayClassify(){
   })
 }
 // 获取分类下的文章
-export function classifyEssay(){
+export function classifyEssay(params){
   return request({
     url:"/api/index/art",
-    method:"post"
+    method:"post",
+    params
   })
 }
 
