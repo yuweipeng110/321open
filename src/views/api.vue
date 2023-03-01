@@ -35,6 +35,24 @@ export default {
         wenList: { cate_id: '1' },
 
         art_detail: { id: '6' },
+        //tenant
+        catePull: { cate: '', title: '', area_id: '', img: '', yajin: '', zujin: '', chao: '', uid: 1 }
+
+        , cateLog: { uid: '1', page: '1', limit: 10 },
+
+        toubiaoApi: { r_id: 23, uid: 18, pic: '', video: '', mobile: '', money: '', message: '' },
+
+        ServeRZApi: { uid: '1', gong: '', chang: '', cai: '', remark: '' },
+
+        ServeZZApi: { uid: '1', xu: '', ying: '', xie: '', remark: '' },
+
+        ServeCHApi: { uid: '1', type: '', ying: '', remark: '' },
+
+        ServeZXApi: { uid: '1', remark: '' },
+
+        ServerListLog: { uid: '1' },
+
+        shangjiaruzhuLog: { uid: '1' }
       },
       name: '',
       param: null,
@@ -44,9 +62,9 @@ export default {
   },
   created() {
     this.list = [].concat(
-      this.getModule(home),
+      // this.getModule(home),
       // this.getModule(table),
-      // this.getModule(tenant),
+      this.getModule(tenant),
       // this.getModule(user),
     );
   },

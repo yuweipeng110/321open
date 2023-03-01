@@ -36,3 +36,32 @@ xiaofei: "50.00"
 
 ## art_detail 文章详情接口 /api/index/art_detail ok
 
+
+
+
+
+拍摄资源
+
+## catePull 拍摄资源发布 /api/index/zy_add    数据库少了 ‘contnet’字段
+
+
+##  cateLog 资源记录接口 /api/index/zy  OK
+
+## cateClassify  资源分类 /api/index/zy_cate  Ok  
+
+
+## toubiaoApi 投标下单  api/index/toubiao   ok
+
+##  ServeRZApi 企业服务  /api/index/user_server  Ok
+
+##  ServeZZApi 资质办理  /api/index/user_zz  OK
+
+## ServeCHApi 活动策划  /api/index/user_act  OK
+
+## ServeZXApi  政策咨询  /api/index/user_zh  数据库少了 'zi'字段
+
+## ServerListLog 服务进度 api/index/server_jindu    OK
+
+## shangjiaruzhuLog  商家入驻查询 /api/index/user_detail_f   没有返回值
+
+

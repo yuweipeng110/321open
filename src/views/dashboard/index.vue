@@ -136,9 +136,9 @@ export default {
         path: '/vedioList/vedioList'
       })
     },
-   
-   
-  
+
+
+
   }
 }
 </script>
