@@ -6,6 +6,8 @@
       </li>
     </ul>
     <div style="flex:1">
+      <div style="color:blue">param: {{ param }}</div>
+      <hr>
       <div style="color:green;">res: {{ res }}</div>
       <hr>
       <div style="color:red;">err: {{ err }}</div>
@@ -26,6 +28,7 @@ export default {
         // home
         wenList: { id: '1' }
       },
+      param: null,
       res: null,
       err: null
     };
@@ -54,13 +57,13 @@ export default {
       let value = this.list[i].value;
       let param = this.params[name] || null;
       console.log(name, value, param);
-
+      this.param = param;
+      this.res = null;
+      this.err = null;
       try {
         let res = await value(param);
         this.res = res;
-        this.err = null;
       } catch (err) {
-        this.res = null;
         this.err = err;
       }
     }
