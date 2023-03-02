@@ -416,6 +416,11 @@ export default {
         this.list = res.data.data;
         console.log('xxxxx', res.data.data)
       }
+      this.list.forEach(res => {
+          res.chang.forEach(res1 => {
+            res1.img = 'https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/e8906c062f684b5ca649b5529a59a5c4_mergeImage.png'
+          })
+        })
     },
     handClickBtn() {
       this.actBtn = true

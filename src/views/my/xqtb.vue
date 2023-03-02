@@ -10,6 +10,7 @@
           </a>
           <div class="content">
             <a href="#" class="title" target="_blank">{{ item.title }}</a>
+            <p> {{ item.description }}</p>
             <div class="meta">
               <span class="jsd-meta"> <i class="el-icon-time" /> 投标时间 </span>
               <a class="nickname" target="_blank" href="#">{{ item.addtime }}</a>
