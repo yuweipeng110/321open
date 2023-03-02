@@ -411,6 +411,9 @@ export default {
 
         // console.log("体现数据", this.tixian);
       }
+      if(val==1){
+        this.$store.dispatch("user/getShouyiLog", { uid: String(this.id) });
+      }
 
       this.tabb = val;
 

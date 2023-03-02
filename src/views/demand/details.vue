@@ -2,9 +2,7 @@
   <div>
     <div v-if="seen" class="des_content flex-col">
       <div class="group_2 flex-col">
-        <span
-          class="text_11"
-        >首页&gt;交易中心&gt;
+        <span class="text_11">首页&gt;交易中心&gt;
           {{ detial.title }}
           ></span>
         <div class="box_9 flex-row justify-between">
@@ -19,9 +17,7 @@
               <span class="text_16">如果您也在寻求类似帮助，我们可以为您轻松搞定！</span>
               <div class="text-wrapper_3">
                 <span class="text_17">距离截止：</span>
-                <span
-                  class="text_18"
-                >{{ detial.zhao_end }}
+                <span class="text_18">{{ detial.zhao_end }}
                   <!-- <countTo :start-val="21" :end-val="0" :duration="2800000" />分
                   <countTo :start-val="60" :end-val="0" :duration="350000" />秒 -->
                 </span>
@@ -37,9 +33,7 @@
                 </div>
                 <div class="text-wrapper_6">
                   <span class="text_23">使用时间：</span>
-                  <span
-                    class="paragraph_1"
-                  >{{ detial.use_start }}至{{
+                  <span class="paragraph_1">{{ detial.use_start }}至{{
                     detial.use_end
                   }}&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </div>
@@ -67,7 +61,7 @@
 
         <div v-html="detial.content"></div>
 
-<!--
+        <!--
         <span
           class="paragraph_2"
         >北京绿棚出租，可以提供绿幕抠像，xr直播，线上虚拟发布会，电商直播，电视栏目制作等服务，讯道摇壁机械摄像导播讯道拍摄直<br>播推流</span>
@@ -77,49 +71,35 @@
 -->
         <div class="box_10 flex-row justify-between">
           <div class="image-text_6 flex-row justify-between">
-            <img
-              class="label_3"
-              referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng38480e2b4b93eec71530d9b2c7899b54018512a60fd489e71c44625751603ac7"
-            >
+            <img class="label_3" referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng38480e2b4b93eec71530d9b2c7899b54018512a60fd489e71c44625751603ac7">
             <span class="text-group_2">{{ detial.addtime }}</span>
           </div>
           <div class="image-text_7 flex-row justify-between">
-            <img
-              class="label_4"
-              referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng6fabdfa92c083a69cd1ff9546c3bed3f35f377b80ec11821213a8cbdedddee50"
-            >
+            <img class="label_4" referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng6fabdfa92c083a69cd1ff9546c3bed3f35f377b80ec11821213a8cbdedddee50">
             <span class="text-group_3">收藏</span>
           </div>
           <div class="image-text_8 flex-row justify-between">
-            <img
-              class="image_2"
-              referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng5ea877c6ac97bfe03f2f5b21a6b9acd8ec3d52750421599a7f16b51df4393203"
-            >
+            <img class="image_2" referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng5ea877c6ac97bfe03f2f5b21a6b9acd8ec3d52750421599a7f16b51df4393203">
             <span class="text-group_4">手机</span>
           </div>
           <div class="image-text_9 flex-row justify-between">
-            <img
-              class="label_5"
-              referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngf33390960efa52283f8892051ad31e75ba6ab8841640cc0f2334e690687d3d8c"
-            >
+            <img class="label_5" referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngf33390960efa52283f8892051ad31e75ba6ab8841640cc0f2334e690687d3d8c">
             <span class="text-group_5">举报</span>
           </div>
         </div>
 
-        <div
-          v-if="detial.toubiao && detial.toubiao.length > 0"
-          class="group_16 flex-row justify-between dbs"
-        >
+        <div v-if="detial.toubiao && detial.toubiao.length > 0" class="group_16 flex-row justify-between dbs">
 
           <div v-for="item in detial.toubiao" class="antiu">
             <div class="block_2q flex-col">
               <span class="text_29">投标者</span>
               <div class="image-text_10 flex-col justify-between">
-                <div class="group_10 flex-col" />
+                <!-- <div class="group_10 flex-col" /> -->
+                <img :src="item.avatar" class="group_10 flex-col">
                 <div class="text-group_12 flex-col">
                   <span class="text_30">{{ item.nick || "默认用户" + item.uid }}</span>
                   <span class="text_31">报价：{{ item.money }}</span>
@@ -155,22 +135,14 @@
           </div>
           <div class="box_11 flex-row">
             <div class="image-text_10 flex-row justify-between">
-              <img
-                class="image_3"
-                referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng4148530bff34e1b926664201f82db45d8a9390bc38411f564f39d6d430a936bb"
-              >
+              <img class="image_3" referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng4148530bff34e1b926664201f82db45d8a9390bc38411f564f39d6d430a936bb">
               <span class="text-group_6">暂无投标{{ detial.toubiao }}</span>
             </div>
           </div>
         </div>
       </div>
-      <el-dialog
-        title="投标信息框"
-        class="tb_dio"
-        :visible.sync="dialogFormVisible"
-        width="31%"
-      >
+      <el-dialog title="投标信息框" class="tb_dio" :visible.sync="dialogFormVisible" width="31%">
         <el-form :model="form">
           <el-form-item label="联系方式" :label-width="formLabelWidth">
             <el-input v-model="form.mobile" autocomplete="off" />
@@ -183,14 +155,8 @@
           </el-form-item>
 
           <el-form-item label="图片上传">
-            <el-upload
-              class="avatar-uploader"
-              action=""
-              :on-change="handleelchange"
-              :auto-upload="false"
-              list-type="picture"
-              :show-file-list="false"
-            >
+            <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
+              list-type="picture" :show-file-list="false">
               <img v-if="imageUrl" :src="imageUrl" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon" />
             </el-upload>
@@ -212,28 +178,14 @@
         </el-form>
         <div slot="footer" class="dialog-footer tc">
           <el-button class="btn" @click="dialogFormVisible = false">取 消</el-button>
-          <el-button
-            class="btn"
-            type="warning"
-            @click="addToubiaoFun"
-          >确认投标</el-button>
+          <el-button class="btn" type="warning" @click="addToubiaoFun">确认投标</el-button>
         </div>
       </el-dialog>
-      <el-dialog
-        title="电话拨打"
-        :visible.sync="centerDialogVisible"
-        width="30%"
-        center
-        class="desDio"
-      >
+      <el-dialog title="电话拨打" :visible.sync="centerDialogVisible" width="30%" center class="desDio">
         <span class="tc"> <i class="el-icon-phone" /> +86 1388888888888</span>
         <span slot="footer" class="dialog-footer tc">
           <el-button class="btn" @click="centerDialogVisible = false">取 消</el-button>
-          <el-button
-            class="btn"
-            type="primary"
-            @click="centerDialogVisible = false"
-          >呼 叫</el-button>
+          <el-button class="btn" type="primary" @click="centerDialogVisible = false">呼 叫</el-button>
         </span>
       </el-dialog>
     </div>
@@ -256,7 +208,7 @@ export default {
       dialogFormVisible: false,
       centerDialogVisible: false,
       pngDialog: false,
-      defaultImage:require("@/assets/img/spzy/defaultImg.png"),
+      defaultImage: require("@/assets/img/spzy/defaultImg.png"),
       detial: {
         toubiao: [
           {
@@ -303,13 +255,13 @@ export default {
     }
   },
   computed: {
-    uid: function() {
+    uid: function () {
       return this.$store.state.user.id
     }
   },
   watch: {
     $route: {
-      handler: function(val, oldVal) {
+      handler: function (val, oldVal) {
         if (document.body.clientWidth > 700) {
           this.seen = true
         } else {
@@ -436,11 +388,13 @@ export default {
   height: 4346px;
   overflow: hidden;
 }
-.flexcontents{
+
+.flexcontents {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .box_1 {
   background-color: rgba(255, 255, 255, 0.88);
   width: 1920px;
@@ -655,8 +609,7 @@ export default {
 .block_2 {
   width: 1029px;
   height: 365px;
-  background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng363d2ff3a52b2d14e8be58be03577ff76a30d4c859df83c08de0b24897acd8c2)
-    100% no-repeat;
+  background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng363d2ff3a52b2d14e8be58be03577ff76a30d4c859df83c08de0b24897acd8c2) 100% no-repeat;
   background-size: 100% 100%;
 }
 
@@ -908,7 +861,8 @@ export default {
   height: 120px;
   margin: 25px 0 0 122px;
 }
-.box_4 img{
+
+.box_4 img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -1515,6 +1469,7 @@ div/deep/.upload-demo .el-upload-dragger {
   width: 100%;
   height: 120px;
 }
+
 div/deep/.el-upload-dragger .el-icon-upload {
   margin: 18px 0 16px;
 }
@@ -1723,43 +1678,52 @@ div/deep/.desDio .el-dialog__body {
   width: 160px;
   font-size: 16px;
 }
+
 div/deep/.tb_dio .el-dialog {
   margin-top: 5vh !important;
 }
+
 @media (max-width: 1400px) {
   .group_2 {
     transform: translateX(-21px) scaleX(0.96);
   }
 }
-.antiu{
+
+.antiu {
   display: flex;
-    width: -webkit-fill-available;
-    margin-bottom: 15px;
-    margin-top: 10px;
+  width: -webkit-fill-available;
+  margin-bottom: 15px;
+  margin-top: 10px;
 }
-.dbs{
+
+.dbs {
   display: contents;
 }
-.mb10{
+
+.mb10 {
   margin-bottom: 10px;
 }
+
 .block_5 {
   width: 913px;
   height: 213px;
   margin: 22px 0 36px 36px;
 
 }
+
 .text-wrapper_12 {
   width: 74px;
   height: 33px;
   margin: 36px 0 0 51px;
 }
-.maskInfo20{
- filter: blur(20px);
+
+.maskInfo20 {
+  filter: blur(20px);
   -webkit-filter: blur(20px);
 }
-.maskInfo3{
- filter: blur(3px);
+
+.maskInfo3 {
+  filter: blur(3px);
   -webkit-filter: blur(3px);
 }
 </style>
