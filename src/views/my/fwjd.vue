@@ -1,13 +1,10 @@
 <template>
-  <div class="tab_content">123
-    {{ progressServe }}
-    <template v-for="item in progressServe">
+  <div class="tab_content">
+    <template v-for="item in list">
       <el-row :gutter="20">
-
-        {{ item }}
         <el-col :span="24" class="tc mt20 mb20">
           <el-steps :active="1" align-center>
-            <el-step :title="item.tname" :description="item.time" />
+            <el-step :title="item.tname" :description="item.addtime" />
             <el-step title="审核中" description="2023-2-14 15:15提交" />
             <el-step title="处理中" description="2023-2-14 15:15提交" />
             <el-step title="已完成" description="2023-2-14 15:15提交" />
@@ -36,7 +33,8 @@ export default {
       checkList7: ["院线电影"],
       checkList8: ["影视行业政策解读"],
       textarea3: "",
-      progressServes: []
+      progressServes: [],
+      list: []
     };
   },
   mounted() {
@@ -57,26 +55,33 @@ export default {
       if (res.status == 200) {
 
         let data = res.data;
-        let list = [];
+
         data.zh && data.zh.forEach((v) => {
-          console.log(v);
-          v.aaa = 'zh';
-          list.push(v);
+          v.tname = '政策咨询';
+          this.list.push(v);
         });
 
         data.zz && data.zz.forEach((v) => {
-          v.aaa = 'zh';
-          list.push(v);
+          v.tname = '资质办理';
+          this.list.push(v);
+        });
+        data.act && data.act.forEach((v) => {
+          v.tname = '活动策划';
+          this.list.push(v);
+        });
+        data.server && data.server.forEach((v) => {
+          v.tname = '企业服务';
+          this.list.push(v);
         });
 
-        list.sort((a, b) => {
-          return a.addtime > b.addtime ? 1 : -1;
+        this.list.sort((a, b) => {
+          return  Date.parse(a.addtime) - Date.parse(b.addtime);
         })
 
         console.log(list);
 
 
-        // this.progressServes = [...data.act, ...data.server, ...data.zh, ...data.zz];
+
         // console.log(this.progressServes);
       }
 
