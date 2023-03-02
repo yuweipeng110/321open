@@ -3,7 +3,7 @@
     <div class="list-container">
       {{ shoucang }}00000
       <!-- 文章列表模块 -->
-      <ul class="note-list" infinite-scroll-url="/" v-if="shoucang.length">
+      <ul class="note-list" infinite-scroll-url="/" v-if="shoucang && shoucang.length">
         <li v-for="(item, index) in shoucang" :key="index" class="have-img">
           <a class="wrap-img" href="#" target="_blank">
             <img class="img-blur-done" :src="item.img" :alt="item.info" />
@@ -64,7 +64,7 @@
 export default {
   computed: {
     shoucang: function () {
-      this.$store.state.user.shouchang;
+      return this.$store.state.user.shouchang;
     },
   },
   data() {
