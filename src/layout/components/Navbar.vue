@@ -248,7 +248,7 @@ export default {
     // 点击跳转到需求中心
 
     xuqiuHome() {
-      this.$store.dispatch('user/get_contentAct',{page:"1",limit:"10",status:"0",area_id:"1",addtime:"1",t_num:"1"})
+      // this.$store.dispatch('user/get_contentAct',{page:"1",limit:"10",status:"0",area_id:"1",addtime:"1",t_num:"1"})
     },
 
     dialoFromShowFun(e) {

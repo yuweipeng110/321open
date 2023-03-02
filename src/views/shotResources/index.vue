@@ -119,6 +119,7 @@
 
 <script>
 import waterfall from '@/components/waterfall'
+import {homezyList} from '@/api/home';
 export default {
   name: 'Dashboard',
   components: {
@@ -267,7 +268,14 @@ export default {
       }
     })
   },
+  mounted() {
+    this.fetchData();
+  },
   methods: {
+    async fetchData() {
+      let res = await homezyList();
+      console.log('res', res.data.data);
+    },
     handle(val) {
       this.tabtn = val
     },
