@@ -225,7 +225,7 @@ export default {
       //   let {file}=e
       axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
         // console.log(res);
-        this.img = res.data.url;
+        this.form.img = res.data.url;
       });
       // imageUpload(formdata).then(res=>{
       //   console.log(res);

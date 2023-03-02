@@ -78,7 +78,7 @@ export default {
           return  Date.parse(a.addtime) - Date.parse(b.addtime);
         })
 
-        console.log(list);
+        // console.log(list);
 
 
 

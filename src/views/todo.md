@@ -1,4 +1,10 @@
 
+chao: "22.00"
+yajin: "2222.00"
+zujin: "222.00"
+
+
+
 ## homeSwiper 首页轮播图 /api/index/lunbo 图片缺少前缀
 ```
 pic: "https://cgbox-1313228505.cos.ap-shanghai.myqcloud.com/image/2022/12/14/1671013779-48615.jpg"
