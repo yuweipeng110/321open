@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { ServerListLog } from "@/api/tenant";
 export default {
   data() {
     return {
@@ -32,7 +33,12 @@ export default {
       checkList7: ["院线电影"],
       checkList8: ["影视行业政策解读"],
       textarea3: "",
+      progressServes: []
     };
+  },
+  mounted() {
+    this.getServerListLog();
+    console.log("submit!");
   },
   computed: {
     progressServe: function () {
@@ -43,6 +49,16 @@ export default {
     onSubmit() {
       // console.log("submit!");
     },
+    async getServerListLog() {
+      let res = await ServerListLog({ uid: this.$store.state.user.id })
+      if (res.status == 200) {
+        console.log('res222', res.data);
+      let  data=res.data;
+        this.progressServes = [...data.act, ...data.server, ...data.zh, ...data.zz];
+        console.log(this.progressServes);
+      }
+
+    }
   },
 };
 </script>
@@ -52,38 +68,46 @@ export default {
   padding: 20px;
   border: 1px solid #e4e7ed;
 }
+
 .box {
   height: 40px;
   line-height: 40px;
   text-align: left;
   background: #d9d9d9;
 }
+
 .box div {
   padding-left: 20px;
 }
+
 .boxCheck div {
   padding-left: 20px;
 }
+
 .boxCheck {
   height: 50px;
   line-height: 50px;
   border: 1px solid #e7e7e7;
   text-align: left;
 }
+
 .boxText {
   height: 180px;
   line-height: 158px;
   text-align: center;
   border: 1px solid #e7e7e7;
 }
+
 .boxText div {
   padding: 20px;
 }
+
 .tc {
   text-align: center;
   /* border-bottom: 1px dashed #ccc;
     padding-bottom: 25px; */
 }
+
 .xx {
   height: 6px;
   width: 90%;
@@ -91,5 +115,4 @@ export default {
   display: block;
   margin: auto;
   margin-bottom: 10px;
-}
-</style>
+}</style>

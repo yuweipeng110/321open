@@ -48,7 +48,8 @@
 </template>
 
 <script lang="js">
-import { ServeZCApi } from "@/api/tenant";
+import { ServeRZApi } from "@/api/tenant";
+
 export default {
   data() {
     return {
@@ -75,13 +76,14 @@ export default {
   },
   methods: {
     async pullServe() {
-      let res = await ServeZCApi({
+      let res = await ServeRZApi({
         uid: this.id,
         gong: this.checkList,
         chang: this.checkList1,
         cai: this.checkList2,
         remark: this.textarea,
       });
+
       if (res.status == 200) {
         // console.log("res", res);
         this.$message({
