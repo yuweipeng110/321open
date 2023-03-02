@@ -260,16 +260,20 @@
 </template>
 <script>
 import $ from 'jquery'
+import { homeMessage } from "@/api/home";
 export default {
   name: 'Layout',
   data() {
     return {
       atuokey: true,
-      input2: ''
+      input2: '',
+      list: []
     }
   },
   mounted() {
-    $(function() {
+
+    this.getMessage();
+    $(function () {
       var oFocus = $('#focus')
 
       var oRight = oFocus.find('.right')
@@ -288,7 +292,7 @@ export default {
 
       var timer = null
 
-      aRLi.click(function() {
+      aRLi.click(function () {
         index = $(this).index()
 
         $(this).addClass('active').siblings().removeClass()
@@ -314,7 +318,7 @@ export default {
         stopFoucs()
       })
 
-      aRLi.mouseenter(function() {
+      aRLi.mouseenter(function () {
         index = $(this).index()
 
         $(this).addClass('active').siblings().removeClass()
@@ -343,7 +347,7 @@ export default {
       // .mouseleave(function () {
       //   startFocus()
       // })
-      setInterval(function() {
+      setInterval(function () {
         if (timeIndex === 5) {
           timeIndex = 0
         }
@@ -414,7 +418,16 @@ export default {
       }
     })
   },
-  methods: {}
+  methods: {
+    async getMessage() {
+      let res = await homeMessage()
+      if(res.status==200){
+        this.list=res.data.data
+        console.log(  this.list, 'res');
+      }
+
+    }
+  }
 }
 </script>
 <style scoped>
