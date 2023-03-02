@@ -301,59 +301,67 @@ export default {
     },
 
     handleClick(tab, event) {
-      // console.log(tab.index, event);
-      switch (Number(tab.index)) {
-        case 1:
-          // console.log("个人信息");
 
-          break;
-        case 2:
-          // console.log("剧组需求记录");
-          this.$store.dispatch("user/getEnndAct", { uid: String(this.id) });
+      console.log(tab.name)
 
+      switch(tab.name) {
+        case 'fwjd':
           break;
-        case 3:
-          // console.log("个人信息3");
-          break;
-        case 4:
-          // console.log("个人信息4");
-
-          this.$store.dispatch("user/getUserLog", { uid: String(this.id) });
-
-          break;
-        case 5:
-          // console.log("个人信息5");
-
-          shangjiaruzhuLog({ uid: this.id }).then((res) => {
-            // console.log(res);
-            this.$store.commit("user/SET_SERVEJINDUS", res.data.data[0].status);
-          });
-
-          // axios({
-          //   url: "http://kelerk.178tqw.com/api/index/user_detail_f",
-          //   method: "post",
-          //   query: { uid: String(this.id) },
-          // }).then((res) => {
-          //   console.log(res);
-          // });
-          break;
-        case 6:
-          // console.log("个人信息6");
-          break;
-        default:
-          // console.log("个人信息");
       }
 
-      if (tab.index == 3) {
-        // console.log("我是投标记录");
-        this.$store.dispatch("user/getTenderAct", { uid: this.id });
-      }
+      // // console.log(tab.index, event);
+      // switch (Number(tab.index)) {
+      //   case 1:
+      //     // console.log("个人信息");
 
-      if (tab.index === 9 || tab.index === "9") {
-        this.$router.push({
-          path: "/",
-        });
-      }
+      //     break;
+      //   case 2:
+      //     // console.log("剧组需求记录");
+      //     this.$store.dispatch("user/getEnndAct", { uid: String(this.id) });
+
+      //     break;
+      //   case 3:
+      //     // console.log("个人信息3");
+      //     break;
+      //   case 4:
+      //     // console.log("个人信息4");
+
+      //     this.$store.dispatch("user/getUserLog", { uid: String(this.id) });
+
+      //     break;
+      //   case 5:
+      //     // console.log("个人信息5");
+
+      //     shangjiaruzhuLog({ uid: this.id }).then((res) => {
+      //       // console.log(res);
+      //       this.$store.commit("user/SET_SERVEJINDUS", res.data.data[0].status);
+      //     });
+
+      //     // axios({
+      //     //   url: "http://kelerk.178tqw.com/api/index/user_detail_f",
+      //     //   method: "post",
+      //     //   query: { uid: String(this.id) },
+      //     // }).then((res) => {
+      //     //   console.log(res);
+      //     // });
+      //     break;
+      //   case 6:
+      //     // console.log("个人信息6");
+      //     break;
+      //   default:
+      //     // console.log("个人信息");
+      // }
+
+      // if (tab.index == 3) {
+      //   // console.log("我是投标记录");
+      //   this.$store.dispatch("user/getTenderAct", { uid: this.id });
+      // }
+
+      // if (tab.index === 9 || tab.index === "9") {
+      //   this.$router.push({
+      //     path: "/",
+      //   });
+      // }
     },
     handleTab(val) {
       this.tabVal = val;

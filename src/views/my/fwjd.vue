@@ -1,7 +1,10 @@
 <template>
-  <div class="tab_content">
+  <div class="tab_content">123
+    {{ progressServe }}
     <template v-for="item in progressServe">
       <el-row :gutter="20">
+
+        {{ item }}
         <el-col :span="24" class="tc mt20 mb20">
           <el-steps :active="1" align-center>
             <el-step :title="item.tname" :description="item.time" />
@@ -52,10 +55,29 @@ export default {
     async getServerListLog() {
       let res = await ServerListLog({ uid: this.$store.state.user.id })
       if (res.status == 200) {
-        console.log('res222', res.data);
-      let  data=res.data;
-        this.progressServes = [...data.act, ...data.server, ...data.zh, ...data.zz];
-        console.log(this.progressServes);
+
+        let data = res.data;
+        let list = [];
+        data.zh && data.zh.forEach((v) => {
+          console.log(v);
+          v.aaa = 'zh';
+          list.push(v);
+        });
+
+        data.zz && data.zz.forEach((v) => {
+          v.aaa = 'zh';
+          list.push(v);
+        });
+
+        list.sort((a, b) => {
+          return a.addtime > b.addtime ? 1 : -1;
+        })
+
+        console.log(list);
+
+
+        // this.progressServes = [...data.act, ...data.server, ...data.zh, ...data.zz];
+        // console.log(this.progressServes);
       }
 
     }
@@ -115,4 +137,5 @@ export default {
   display: block;
   margin: auto;
   margin-bottom: 10px;
-}</style>
+}
+</style>
