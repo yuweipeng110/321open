@@ -155,10 +155,10 @@ export default {
   },
   created() {
     this.list = [].concat(
-      // this.getModule(home),
+      this.getModule(home),
       // this.getModule(table),
       // this.getModule(tenant),
-      this.getModule(user),
+      // this.getModule(user),
     );
   },
   methods: {

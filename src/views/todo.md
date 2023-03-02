@@ -87,7 +87,7 @@ user
 
 ## updataUser 用户修改资料 /api/index/update_user ok
 
-## withdrawDepositList 提现列表 /api/index/my_tx 没有数据
+## withdrawDepositList 提现列表 /api/index/my_tx OK
 先申请提现才有数据
  
 ## YieldLog 收益记录 /api/index/my_hav 没有数据
@@ -113,12 +113,9 @@ axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => 
 ## tenderList 投标记录异步接口信息 /api/index/my_toubiao 暂无数据
 先接投标接口
 
-## xiadan 资源下单 /api/index/goumai 数据库报错
+## xiadan 资源下单 /api/index/goumai 等待数据测试 
 ```
-[10501] PDOException in Connection.php line 764
-SQLSTATE[HY000]: General error: 1364 Field 'completetime' doesn't have a default value
-```
-已处理
+
 
 ## UserEmail 用户登录验证码发送接口 /api/index/send_code 未测
 

@@ -413,6 +413,7 @@ export default {
       }
 
       this.tabb = val;
+
     },
     handlePl(val) {
       this.form.textarea = this.form.textarea + val + " ; ";

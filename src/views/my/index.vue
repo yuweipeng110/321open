@@ -370,7 +370,7 @@ export default {
     // 我的关注
 
     async myLike() {
-      let resLike = await attention({ uid: "1" });
+      let resLike = await attention({ uid: this.id });
       if (resLike.status == 200 && resLike.data.data) {
         this.myLikeList = resLike.data.data;
       }
