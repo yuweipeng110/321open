@@ -109,6 +109,7 @@ export default {
   },
   computed: {
     xuqiuHome: function() {
+      // console.log('this.$store.state.user.homeNeedCenter', this.$store.state.user.homeNeedCenter);
       return this.$store.state.user.homeNeedCenter
     }
   },

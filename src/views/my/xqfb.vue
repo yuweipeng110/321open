@@ -8,41 +8,20 @@
           </el-form-item>
           <el-form-item label="招标时间">
             <el-col :span="11">
-              <el-date-picker
-                v-model="form.zhao_start"
-                type="date"
-                placeholder="选择日期"
-                class="aaa"
-              />
+              <el-date-picker v-model="form.zhao_start" type="date" placeholder="选择日期" class="aaa" />
             </el-col>
             <el-col class="line" :span="2">-</el-col>
             <el-col :span="11">
-              <el-date-picker
-                v-model="form.zhao_end"
-                placeholder="选择时间"
-                style="width: 100%"
-                class="t9"
-              />
+              <el-date-picker v-model="form.zhao_end" placeholder="选择时间" style="width: 100%" class="t9" />
             </el-col>
           </el-form-item>
           <el-form-item label="使用时间">
             <el-col :span="11">
-              <el-date-picker
-                v-model="form.use_start"
-                type="date"
-                placeholder="选择日期"
-                style="width: 100%"
-                class="aaa"
-              />
+              <el-date-picker v-model="form.use_start" type="date" placeholder="选择日期" style="width: 100%" class="aaa" />
             </el-col>
             <el-col class="line" :span="2">-</el-col>
             <el-col :span="11">
-              <el-date-picker
-                v-model="form.use_end"
-                placeholder="选择时间"
-                style="width: 100%"
-                class="t9"
-              />
+              <el-date-picker v-model="form.use_end" placeholder="选择时间" style="width: 100%" class="t9" />
             </el-col>
           </el-form-item>
           <el-form-item label="预计价格">
@@ -50,36 +29,21 @@
           </el-form-item>
 
           <el-form-item label="简介内容">
-            <el-input
-              v-model="form.description"
-              type="textarea"
-              :rows="3"
-              placeholder="请输入你的简介内容"
-              maxlength="200"
-              show-word-limit
-            />
+            <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入你的简介内容" maxlength="200"
+              show-word-limit />
           </el-form-item>
 
           <el-form-item label="资源图片">
-            <el-upload
-              class="avatar-uploader"
-              action=""
-              :on-change="handleelchange"
-              :auto-upload="false"
-              list-type="picture"
-              :show-file-list="false"
-            >
+            <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
+              list-type="picture" :show-file-list="false">
               <img v-if="imageUrl" :src="imageUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
 
-          <quill-editor
-            ref="mwQuillEditor"
-            v-model="html"
-            class="ml10"
-            :options="editorOption"
-          />
+          <quill-editor ref="mwQuillEditor" v-model="html" class="ml10" :options="editorOption" />
+          <el-upload style="display:none;" class="avatar-uploader2" action="" :on-change="handleelchange2"
+            :auto-upload="false" list-type="picture" :show-file-list="false"></el-upload>
           <div class="tc mt20">
             <el-button type="warning" @click="onSubmitFun">提交</el-button>
           </div>
@@ -124,6 +88,7 @@ const toolbarOptions = [
   [{ size: fontSizeStyle.whitelist }], // 字体大小-----[{ size: ['small', false, 'large', 'huge'] }]
   [{ font: fonts }], // 字体种类-----[{ font: [] }]
   [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+  ['image', 'video']
 ];
 export default {
   name: "VueQuillEditor",
@@ -146,6 +111,15 @@ export default {
         modules: {
           toolbar: {
             container: toolbarOptions,
+            handlers: {
+              'image': function (value) {
+                if (value) { // value === true
+                  document.querySelector('.avatar-uploader2 input').click()
+                } else {
+                  this.quill.format('image', false)
+                }
+              },
+            },
           },
         },
       },
@@ -182,6 +156,27 @@ export default {
     },
   },
   methods: {
+    handleelchange2(file, fileList) {
+      let formdata = new FormData();
+      fileList.map((item) => {
+        formdata.append("file", item.raw); //将每一个文件图片都加进formdata
+      });
+
+      return axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
+        this.onUploadHandler(res.data.url);
+      });
+    },
+    async onUploadHandler(imageUrl) {
+      // 获取光标所在位置
+      let quill = this.$refs.mwQuillEditor.quill
+      let length = quill.getSelection().index
+
+      // 插入图片
+      quill.insertEmbed(length, 'image', imageUrl)
+      // 调整光标到最后
+      quill.setSelection(length + 1)
+    },
+
     // t
     handleelchange(file, fileList) {
       // console.log("file", file);
@@ -200,7 +195,7 @@ export default {
 
       // console.log(e);
       //   let {file}=e
-      axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
+      return axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
         // console.log(res);
         this.imageUrl = res.data.url;
       });
@@ -291,14 +286,17 @@ export default {
 div/deep/.ql-editor {
   /* height: 500px; */
 }
+
 .tab_content {
   padding: 20px;
   border: 1px solid #e4e7ed;
 }
+
 .wf80 {
   width: 100%;
   margin: auto;
 }
+
 .mt72 {
   margin-top: 72px;
 }
@@ -370,20 +368,25 @@ div/deep/.btn_i {
 div/deep/.my_btn.el-button--text {
   color: rgba(195, 123, 33, 1);
 }
+
 div/deep/.el-button {
   width: 160px;
   font-size: 16px;
 }
+
 .aaa {
   width: 102%;
   transform: translateX(-8px);
 }
+
 .t9 {
   transform: translateX(9px);
 }
+
 .pl0 {
   padding-left: 0 !important;
 }
+
 .ml10 {
   margin-left: 10px;
 }

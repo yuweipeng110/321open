@@ -6,6 +6,22 @@
       </li>
     </ul>
     <div style="flex:1">
+
+      <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)"
+        @focus="onEditorFocus($event)" @change="onEditorChange($event)" @ready="onEditorReady($event)">
+      </quill-editor>
+
+      <el-upload style="display:none;" class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false" list-type="picture"
+        :show-file-list="false">
+        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon" />
+      </el-upload>
+
+      imageUrl: {{ imageUrl }}
+      <hr>
+      content: {{ content }}
+
+
       <div>name: {{ name }}</div>
       <hr>
       <div style="color:blue">param: {{ param }}</div>
@@ -22,9 +38,23 @@ import * as home from "@/api/home";
 import * as table from "@/api/table";
 import * as tenant from "@/api/tenant";
 import * as user from "@/api/user";
+import axios from 'axios'
+
+import { quillEditor, Quill } from "vue-quill-editor";
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 export default {
+  components: {
+    quillEditor
+  },
+
   data() {
+    let self = this;
     return {
+      imageUrl: "",
+      content: '',
       list: [],
       params: {
         // home
@@ -150,7 +180,47 @@ export default {
       name: '',
       param: null,
       res: null,
-      err: null
+      err: null,
+
+      fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }],
+
+
+      // 富文本编辑器配置
+      editorOption: {
+        modules: {
+          toolbar: {
+            container: [
+              // ['bold', 'italic', 'underline', 'strike'], // 加粗 斜体 下划线 删除线
+              // ['blockquote', 'code-block'], // 引用  代码块
+              // [{ header: 1 }, { header: 2 }], // 1、2 级标题
+              // [{ list: 'ordered' }, { list: 'bullet' }], // 有序、无序列表
+              // [{ script: 'sub' }, { script: 'super' }], // 上标/下标
+              // [{ indent: '-1' }, { indent: '+1' }], // 缩进
+              // [{ direction: 'rtl' }], // 文本方向
+              // [{ size: ['12', '14', '16', '18', '20', '22', '24', '28', '32', '36'] }], // 字体大小
+              // [{ header: [1, 2, 3, 4, 5, 6] }], // 标题
+              // [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色
+              // // [{ font: ['songti'] }], // 字体种类
+              // [{ align: [] }], // 对齐方式
+              // ['clean'], // 清除文本格式
+              ['image', 'video'] // 链接、图片、视频
+            ],
+
+            handlers: {
+              'image': function (value) {
+                if (value) { // value === true
+                  document.querySelector('.avatar-uploader input').click()
+                } else {
+                  this.quill.format('image', false)
+                }
+              },
+            },
+          },
+
+        },
+
+        placeholder: '请输入正文'
+      },
     };
   },
   created() {
@@ -162,6 +232,77 @@ export default {
     );
   },
   methods: {
+    handleelchange(file, fileList) {
+      // console.log("file", file);
+      // console.log("fililist", fileList);
+
+      let formdata = new FormData();
+      // console.log("formdata", formdata);
+      fileList.map((item) => {
+        //fileList本来就是数组，就不用转为真数组了
+        formdata.append("file", item.raw); //将每一个文件图片都加进formdata
+      });
+
+      formdata.forEach((item) => {
+        // console.log(item);
+      });
+
+      // console.log(e);
+      //   let {file}=e
+      axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
+        // console.log(res);
+
+        let imageUrl = res.data.url;
+        this.imageUrl = imageUrl;
+
+        this.onUploadHandler(imageUrl);
+      });
+      // imageUpload(formdata).then(res=>{
+      //   console.log(res);
+      // })
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    async onUploadHandler(imageUrl) {
+      // 获取光标所在位置
+      let quill = this.$refs.myQuillEditor.quill
+
+      console.log('onUploadHandler', imageUrl, quill);
+
+      let length = quill.getSelection().index
+
+
+
+      // 插入图片
+      quill.insertEmbed(length, 'image', imageUrl)
+      // 调整光标到最后
+      quill.setSelection(length + 1)
+      // this.content += url
+    },
+
+    // 失去焦点事件
+    onEditorBlur(quill) {
+      console.log('editor blur!', quill)
+    },
+    // 获得焦点事件
+    onEditorFocus(quill) {
+      console.log('editor focus!', quill)
+    },
+    // 准备富文本编辑器
+    onEditorReady(quill) {
+      // console.log('editor ready!', quill)
+    },
+    // 内容改变事件
+    onEditorChange({ quill, html, text }) {
+      console.log('editor change!', quill, html, text)
+      this.content = html
+    },
+
+
     getModule(module) {
       let list = [];
       for (let name in module) {

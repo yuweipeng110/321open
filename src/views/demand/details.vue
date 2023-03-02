@@ -64,12 +64,17 @@
         </div>
         <!-- <span class="text_28"></span> -->
         <div class="cjxq">场景需求</div>
+
+        <div v-html="detial.content"></div>
+
+<!--
         <span
           class="paragraph_2"
         >北京绿棚出租，可以提供绿幕抠像，xr直播，线上虚拟发布会，电商直播，电视栏目制作等服务，讯道摇壁机械摄像导播讯道拍摄直<br>播推流</span>
         <div class="block_4 flex-col" />
         <div class="block_6 flex-col" />
         <div class="block_7 flex-col" />
+-->
         <div class="box_10 flex-row justify-between">
           <div class="image-text_6 flex-row justify-between">
             <img
@@ -77,7 +82,7 @@
               referrerpolicy="no-referrer"
               src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng38480e2b4b93eec71530d9b2c7899b54018512a60fd489e71c44625751603ac7"
             >
-            <span class="text-group_2">2022/10/29</span>
+            <span class="text-group_2">{{ detial.addtime }}</span>
           </div>
           <div class="image-text_7 flex-row justify-between">
             <img
@@ -104,6 +109,7 @@
             <span class="text-group_5">举报</span>
           </div>
         </div>
+
         <div
           v-if="detial.toubiao && detial.toubiao.length > 0"
           class="group_16 flex-row justify-between dbs"
@@ -405,9 +411,9 @@ export default {
     async Detial(id) {
       const res = await demandDitial({ id: id })
       if (res.state == 200 && res.data.data) {
-        // console.log('需求详情信息详情', res)
+        console.log('需求详情信息详情', res)
       }
-      // console.log('需求详情信息详情', res)
+      console.log('需求详情信息详情', res.data.data)
       this.detial = res.data.data
     },
     handleClick() {
