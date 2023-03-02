@@ -65,22 +65,20 @@
             <!-- <el-radio label="评论数" border ></el-radio> -->
             <el-button type="primary" class="tab_btn_t">推荐</el-button>
             <el-button v-if="tabtn === 1" type="primary" class="tab_btn_t" @click="handle(2)">评论数<i
-              class="el-icon-caret-bottom"
-            /></el-button>
+                class="el-icon-caret-bottom" /></el-button>
             <el-button v-if="tabtn === 2" type="primary" class="tab_btn_t" @click="handle(1)">评论数<i
-              class="el-icon-caret-top"
-            /></el-button>
+                class="el-icon-caret-top" /></el-button>
             <el-button v-if="tabtn1 === 1" type="primary" class="tab_btn_t" @click="handle1(2)">价格<i
-              class="el-icon-caret-bottom"
-            /></el-button>
+                class="el-icon-caret-bottom" /></el-button>
             <el-button v-if="tabtn1 === 2" type="primary" class="tab_btn_t" @click="handle1(1)">价格<i
-              class="el-icon-caret-top"
-            /></el-button>
+                class="el-icon-caret-top" /></el-button>
             <!-- <el-radio label="价格" border /> -->
           </el-radio-group>
           <el-divider />
         </div>
-        <div class="box_8 flex-row justify-between wfc">
+
+        <!-- <div class="box_8 flex-row justify-between wfc"  v-for="(item, index) in loopData0"
+            :key="index">
           <div class="block_3 flex-col">
             <div class="box_1 flex-col" />
             <div class="text-group_11 flex-col justify-between">
@@ -156,10 +154,35 @@
               <span class="text_31">影棚C</span>
             </div>
           </div>
+        </div> -->
+
+        <div class="box_8 flex-row justify-between wfc" v-for="(item, index) in list" :key="index">
+          <div class="block_3 flex-col">
+            <!-- <div class="box_1 flex-col" /> -->
+            <img :src="item.avatar"  class="box_1 flex-col">
+            <div class="text-group_11 flex-col justify-between">
+              <span class="text_14">{{ item.nick }}</span>
+              <span class="text_15">场景&nbsp;{{ item.chang_num }} ｜评分 {{ item.eva }}</span>
+            </div>
+            <div class="text-wrapper_5 flex-col gzBtn" :class="{ 'activeBtn': actBtn }" @click="handClickBtn()">
+              <span class="text_16">{{ actBtn ? '已关注' : '关注' }}</span>
+            </div>
+          </div>
+          <div class="section_15 flex-col justify-between">
+            <div class="block_13 flex-row justify-between w1100">
+              <div class="text-wrapper_6 flex-col card_cls w540" @click="handleClick">
+                <span class="text_17">影棚A</span>
+              </div>
+              <div class="text-wrapper_7 flex-col card_cls" @click="handleClick">
+                <span class="text_18">影棚B</span>
+              </div>
+            </div>
+            <div class="text-wrapper_8 flex-col card_cls w1100" @click="handleClick">
+              <span class="text_19">影棚C</span>
+            </div>
+          </div>
         </div>
 
-
-        
         <div class="box_12 flex-row justify-between wfc">
           <div class="section_6 flex-col">
             <div class="block_6 flex-col" />
@@ -243,9 +266,9 @@
     </div>
     <des v-else />
   </div>
-
 </template>
 <script>
+import { homeOuterLink } from "@/api/home";
 import des from './phoneDes.vue'
 export default {
   components: {
@@ -264,6 +287,7 @@ export default {
       seen: true,
       radio: 1,
       input2: '',
+      list: [],
       choList1: [
         '不限',
         '301-600m',
@@ -368,6 +392,7 @@ export default {
     }
   },
   mounted() {
+    this.getHomeOuterLink();
     this.imgObj = this.$route.query.imgObj
     if (document.body.clientWidth > 700) {
       this.seen = true
@@ -384,6 +409,13 @@ export default {
     })
   },
   methods: {
+    async getHomeOuterLink() {
+      let res = await homeOuterLink();
+      if (res.status == 200) {
+        this.list = res.data.data;
+        console.log('xxxxx', res.data.data)
+      }
+    },
     handClickBtn() {
       this.actBtn = true
     },
@@ -2189,12 +2221,14 @@ div/deep/.el-checkbox.is-bordered.is-checked span {
   color: #c37b21;
   margin: 13px 0 0 52px;
 }
+
 @media only screen and (min-width: 390px) and (max-width: 400px) {
 
   .section_11 {
     width: 100%;
     transform: translateX(21px) scaleX(1.05);
   }
+
   .section_10 {
 
     width: 94%;

@@ -29,7 +29,8 @@
       </div> -->
       <div class="card_act" v-for="(item, index) in list.slice(0, 2)" :key="index">
         <div class="imgcls">
-          <div class="section_15 flex-col cart_img" />
+          <!-- <div class="section_15 flex-col cart_img" /> -->
+          <img :src="item.img" alt="" class="section_15 flex-col cart_img">
         </div>
         <div class="block_5 flex-col ">
           <span class="text_41 newA">{{ item.content }}</span>
@@ -55,7 +56,7 @@
 
         </div>
         <div class="imgcls">
-          <div class="section_15 flex-col cart_img" />
+          <img :src="item.img" alt="" class="section_15 flex-col cart_img">
         </div>
       </div>
       <!-- <div class="card_act">

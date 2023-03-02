@@ -64,7 +64,7 @@ export default {
     async pullServe() {
       let res = await ServeZXApi({
         uid: this.id,
-        zi: this.checkList8,
+        zi: this.checkList8.toString() ,
         remark: this.textarea2,
       });
       if (res.status == 200) {

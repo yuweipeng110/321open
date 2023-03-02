@@ -95,14 +95,13 @@
         </div>
 
         <div v-if="detial && detial.toubiao && detial.toubiao.length > 0" class="group_16 flex-row justify-between dbs">
-
           <div v-for="item in detial.toubiao" class="antiu">
             <div class="block_2q flex-col">
               <span class="text_29">投标者</span>
               <div class="image-text_10 flex-col" style="width:100%;margin-left:0;text-align: center;justify-content: center;align-items: center;">
-                <div class="group_10 flex-col" style="margin-left: 0;" />
+                <img :src="item.avatar" class="group_10 flex-col" style="margin-left: 0;">
                 <div class="text-group_12 flex-col" style="width: 100%;align-items: center;">
-                  <span class="text_30">{{ item.nick || "默认用户" + item.uid }}</span>
+                <span class="text_30">{{ item.nick || "默认用户" + item.uid }}</span>
                   <span class="text_31" style="margin-left:0;">报价：{{ isbm(item)?'*****':item.money }}</span>
 
                   <span class="text_32" style="width:100%;text-align:center;">联系方式：{{ isbm(item)?'*****':item.mobile }}</span>
