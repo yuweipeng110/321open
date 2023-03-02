@@ -96,30 +96,50 @@
         <!-- <el-radio label="评论数" border ></el-radio> -->
         <el-button type="primary" class="tab_btn_t">推荐</el-button>
         <el-button v-if="tabtn === 1" type="primary" class="tab_btn_t" @click="handle(2)">评论数<i
-          class="el-icon-caret-bottom"
-        /></el-button>
+            class="el-icon-caret-bottom" /></el-button>
         <el-button v-if="tabtn === 2" type="primary" class="tab_btn_t" @click="handle(1)">评论数<i
-          class="el-icon-caret-top"
-        /></el-button>
+            class="el-icon-caret-top" /></el-button>
         <el-button v-if="tabtn1 === 1" type="primary" class="tab_btn_t" @click="handle1(2)">价格<i
-          class="el-icon-caret-bottom"
-        /></el-button>
+            class="el-icon-caret-bottom" /></el-button>
         <el-button v-if="tabtn1 === 2" type="primary" class="tab_btn_t" @click="handle1(1)">价格<i
-          class="el-icon-caret-top"
-        /></el-button>
+            class="el-icon-caret-top" /></el-button>
         <!-- <el-radio label="价格" border /> -->
       </el-radio-group>
       <el-divider />
     </div>
-    <div class="img__content mt56">
-      <waterfall :seen="seen" />
+    <div class="img__content mt56 shotcontent">
+      <!-- <waterfall :seen="seen" /> -->
+
+      <el-row :gutter="10">
+        <template v-for="item in list">
+          <el-col v-if="seen" :span="seen ? 6 : 12" :gutter="5">
+            <el-card shadow="hover" @click.native="handleClick(item.id)">
+              <div class="shotbox">
+                <img class="img" src="static/img/a3.926621c6.png" alt="">
+                <div class="txt-five">
+                  <div class="oneRow">标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称</div>
+                  <div>
+                    <div class="fl">
+                      <div><img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""
+                          class="bot-img"><span class="tyf12">名字名字名字名字名字</span></div>
+                    </div>
+                    <div class="fr">
+                      <div class="pcmon phoneMon">9999/天</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </template>
+      </el-row>
     </div>
   </div>
 </template>
 
 <script>
 import waterfall from '@/components/waterfall'
-import {homezyList} from '@/api/home';
+import { homezyList } from '@/api/home';
 export default {
   name: 'Dashboard',
   components: {
@@ -236,12 +256,13 @@ export default {
       isOpen1: true,
       isOpen2: true,
       isOpen3: true,
-      isOpen4: true
+      isOpen4: true,
+      list: null
     }
   },
   watch: {
     $route: {
-      handler: function(val, oldVal) {
+      handler: function (val, oldVal) {
         if (document.body.clientWidth > 700) {
           this.seen = true
         } else {
@@ -275,6 +296,8 @@ export default {
     async fetchData() {
       let res = await homezyList();
       console.log('res', res.data.data);
+
+      this.list = res.data.data;
     },
     handle(val) {
       this.tabtn = val
@@ -298,6 +321,95 @@ export default {
 </script>
 
 <style scoped>
+.shotcontent/deep/ .el-card__body {
+  padding: 0;
+}
+
+.shotbox {
+  position: relative;
+}
+
+.shotbox .img {
+  height: 222px;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.shotbox .txt-five {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 68px;
+  line-height: 37px;
+  padding: 0 33px;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, .6);
+}
+
+.shotbox .oneRow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 29px;
+  font-size: 20px;
+  text-align: left;
+  width: 100%;
+}
+
+.shotbox .bot-img {
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 25px !important;
+  margin-top: 5px !important;
+  margin-right: 10px !important;
+  color: #070707;
+  font-size: 15px;
+  -webkit-transform: translateY(-7px);
+  transform: translateY(-6px);
+  object-fit: cover;
+}
+
+.shotbox .tyf12 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 150px;
+}
+
+.shotbox .pcmon {
+  height: 22px;
+  text-align: left;
+  opacity: .9;
+}
+
+.shotbox .fl {
+  float: left;
+}
+
+.shotbox .fr {
+  float: right;
+}
+
+/* <div class="shotbox">
+  <img class="img" src="static/img/a3.926621c6.png" alt="">
+  <div class="txt-five">
+    <div class="oneRow">标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称</div>
+    <div>
+      <div class="fl">
+        <div><img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""
+            class="bot-img"><span class="tyf12">名字名字名字名字名字</span></div>
+      </div>
+      <div class="fr">
+        <div class="pcmon phoneMon">9999/天</div>
+      </div>
+    </div>
+  </div>
+</div> */
+
 .search-top {
   max-width: 1378px;
   height: 120px;
@@ -421,7 +533,7 @@ div/deep/.tab_content .el-radio.is-bordered.is-checked {
   /* margin-top: 50px; */
   /* height: 2000px; */
   margin: 50px auto;
-      width: 98.5%;
+  width: 98.5%;
 }
 
 div/deep/.choice_content .el-checkbox.is-bordered+.el-checkbox.is-bordered {
@@ -749,11 +861,13 @@ div/deep/.el-checkbox.is-bordered.is-checked span {
   .el-form-item {
     transform: translateX(10px);
   }
-  .tab_content{
+
+  .tab_content {
     transform: translateX(8px);
   }
 }
-.seenCls .img__content{
+
+.seenCls .img__content {
   margin: 0px auto;
 }
 </style>
