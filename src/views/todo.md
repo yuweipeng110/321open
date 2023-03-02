@@ -32,7 +32,7 @@ xiaofei: "50.00"
 ## homeVideo 首页视频精选 /api/index/video 暂无数据
 后端再做，会尽快加上
 
-## homezyList 首页拍摄资源 /api/index/zy_list 暂无数据
+## homezyList 首页拍摄资源 /api/index/zy_list 接了资源发布还是没有数据
 先接资源发布接口，这个数据是前端发布的
 
 ## homezydetail 首页拍摄资源详情 /api/index/zy_detail 列表无数据，详情无数据
@@ -47,7 +47,7 @@ xiaofei: "50.00"
 
 
 拍摄资源
-## catePull 拍摄资源发布 /api/index/zy_add  
+## catePull 拍摄资源发布 /api/index/zy_add   
 
 ##  cateLog 资源记录接口 /api/index/zy  OK
 
