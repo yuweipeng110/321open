@@ -4,41 +4,17 @@
       <el-row>
         <el-col :span="24">
           <div class="tabBtn">
-            <el-button
-              type="warning"
-              :class="{ active: tabVal === 0 }"
-              plain
-              @click="handleTab(0)"
-              >我是剧组</el-button
-            >
-            <el-button
-              type="warning"
-              :class="{ active: tabVal === 1 }"
-              plain
-              @click="handleTab(1)"
-              >我是商户</el-button
-            >
-            <el-button
-              type="warning"
-              :class="{ active: tabVal === 2 }"
-              plain
-              @click="handleTab(2)"
-              >我是企业</el-button
-            >
+            <el-button type="warning" :class="{ active: tabVal === 0 }" plain @click="handleTab(0)">我是剧组</el-button>
+            <el-button type="warning" :class="{ active: tabVal === 1 }" plain @click="handleTab(1)">我是商户</el-button>
+            <el-button type="warning" :class="{ active: tabVal === 2 }" plain @click="handleTab(2)">我是企业</el-button>
           </div>
         </el-col>
       </el-row>
 
       <transition name="bounce">
         <div v-show="isTab" class="dafsa">
-          <el-tabs
-            v-show="tabVal === 0"
-            v-model="activeName"
-            tab-position="left"
-            type="card"
-            class=""
-            @tab-click="handleClick"
-          >
+          <el-tabs v-show="tabVal === 0" v-model="activeName" tab-position="left" type="card" class=""
+            @tab-click="handleClick">
             <el-tab-pane name="grzx">
               <span slot="label"> 个人信息 <i class="el-icon-arrow-right" /> </span>
               <grzx />
@@ -73,14 +49,8 @@
               <span slot="label"> 退出登录 <i class="el-icon-arrow-right" /> </span>
             </el-tab-pane>
           </el-tabs>
-          <el-tabs
-            v-show="tabVal === 1"
-            v-model="activeName"
-            tab-position="left"
-            type="card"
-            class=""
-            @tab-click="handleClick"
-          >
+          <el-tabs v-show="tabVal === 1" v-model="activeName" tab-position="left" type="card" class=""
+            @tab-click="handleClick">
             <el-tab-pane name="grzx">
               <span slot="label"> 个人信息 <i class="el-icon-arrow-right" /> </span>
               <grzx />
@@ -121,14 +91,8 @@
               <span slot="label"> 退出登录 <i class="el-icon-arrow-right" /> </span>
             </el-tab-pane>
           </el-tabs>
-          <el-tabs
-            v-show="tabVal === 2"
-            v-model="activeName"
-            tab-position="left"
-            type="card"
-            class=""
-            @tab-click="handleClick"
-          >
+          <el-tabs v-show="tabVal === 2" v-model="activeName" tab-position="left" type="card" class=""
+            @tab-click="handleClick">
             <el-tab-pane name="grzx">
               <span slot="label"> 个人信息 <i class="el-icon-arrow-right" /> </span>
               <grzx />
@@ -302,11 +266,50 @@ export default {
 
     handleClick(tab, event) {
 
-      console.log(tab.name)
 
-      switch(tab.name) {
-        case 'fwjd':
+
+      switch (tab.name) {
+        //个人信息
+        case 'grzx':
+        console.log('个人信息')
           break;
+        //需求发布
+        case 'xqfb':
+        console.log('需求发布')
+          break;
+        //需求记录
+        case 'zyjl':
+        console.log('需求记录')
+          break;
+        //投标记录
+        case 'xqtb':
+        console.log('投标记录')
+          break;
+        //订单管理
+        case 'ddgl':
+        console.log('订单管理')
+          break;
+        //我的关注
+        case 'wdgz':
+        console.log('我的关注')
+          break;
+        //我的收藏
+        case 'wdsc':
+        console.log('我的收藏')
+          break;
+        //退出登录
+        case 'tcdl':
+        console.log('退出登录')
+          break;
+        //资源发布
+        case 'zyfb':
+        console.log('资源发布')
+          break;
+        //资源记录
+        case 'xqjl':
+        console.log('资源记录')
+          break;
+
       }
 
       // // console.log(tab.index, event);
@@ -529,9 +532,11 @@ div/deep/.el-tabs__nav {
   transition: all 0.3s ease 0s;
   /* background: #fff; */
 }
+
 div/deep/.el-tabs--left.el-tabs--card .el-tabs__nav {
   border-bottom: none;
 }
+
 div/deep/.is-left {
   padding-top: 0;
   padding-bottom: 0;
