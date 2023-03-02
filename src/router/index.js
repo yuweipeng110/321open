@@ -35,7 +35,7 @@ export const constantRoutes = [
       {
         path: 'shot',
         component: () => import('@/views/shotResources/index'),
-        name: 'shotResources',
+        name: 'shotResourcesindex',
         meta: { title: '拍摄' }
       }
     ]
@@ -47,7 +47,7 @@ export const constantRoutes = [
       {
         path: 'details',
         component: () => import('@/views/shotResources/details'),
-        name: 'shotResources',
+        name: 'shotResourcesdetails',
         meta: { title: '拍摄' }
       }
     ]
@@ -59,7 +59,7 @@ export const constantRoutes = [
       {
         path: 'form',
         component: () => import('@/views/shotResources/form'),
-        name: 'shotResources',
+        name: 'shotResourcesform',
         meta: { title: '拍摄' }
       }
     ]
@@ -71,7 +71,7 @@ export const constantRoutes = [
       {
         path: 'demand',
         component: () => import('@/views/demand/index'),
-        name: 'shotResources',
+        name: 'demandindex',
         meta: { title: '需求' }
       }
     ]
@@ -83,7 +83,7 @@ export const constantRoutes = [
       {
         path: 'details',
         component: () => import('@/views/demand/details'),
-        name: 'details',
+        name: 'demanddetails',
         meta: { title: '需求' }
       }
     ]
@@ -95,7 +95,7 @@ export const constantRoutes = [
       {
         path: 'goodOutreach',
         component: () => import('@/views/goodOutreach/index'),
-        name: 'goodOutreach',
+        name: 'goodOutreachindex',
         meta: { title: '外联' }
       }
     ]
@@ -107,7 +107,7 @@ export const constantRoutes = [
       {
         path: 'details',
         component: () => import('@/views/goodOutreach/details'),
-        name: 'goodOutreach',
+        name: 'goodOutreachdetails',
         meta: { title: '外联' }
       }
     ]
@@ -119,7 +119,7 @@ export const constantRoutes = [
       {
         path: 'article/:id(\\d+)',
         component: () => import('@/views/article/index'),
-        name: 'article',
+        name: 'articleindex',
         meta: { title: '文章' }
       }
     ]
@@ -131,7 +131,7 @@ export const constantRoutes = [
       {
         path: 'details',
         component: () => import('@/views/article/details'),
-        name: 'article',
+        name: 'articledetails',
         meta: { title: '文章' }
       }
     ]
