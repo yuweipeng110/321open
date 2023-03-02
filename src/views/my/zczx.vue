@@ -65,7 +65,6 @@ export default {
       let res = await ServeZXApi({
         uid: this.id,
         zi: this.checkList8,
-
         remark: this.textarea2,
       });
       if (res.status == 200) {

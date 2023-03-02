@@ -293,7 +293,7 @@ export default {
     //
     zyFun() {
       this.$store.dispatch("user/getZy", {
-        id: String(this.id),
+        uid: String(this.id),
         page: this.page,
         limit: this.limit,
       });
@@ -305,6 +305,7 @@ export default {
       switch (Number(tab.index)) {
         case 1:
           // console.log("个人信息");
+
           break;
         case 2:
           // console.log("剧组需求记录");
