@@ -1,6 +1,6 @@
 <template>
   <div class="shotdes_content flex-col" :class="{ seenCls: !seen }">
-    <div v-if="seen" class="section_11 flex-col">
+    <div v-if="seen && objDetail" class="section_11 flex-col">
       <span class="text_11">{{ objDetail.title }}</span>
       <div class="block_9 flex-row">
         <div class="text-wrapper_2">
@@ -632,7 +632,7 @@ export default {
   },
 
   mounted() {
-    this.imgObj = this.$route.query.imgObj;
+    this.imgObj = this.$route.query.imgObj || {};
     this.id = this.$route.query.id;
     this.zyDetail(this.id);
     if (document.body.clientWidth > 700) {
@@ -654,7 +654,7 @@ export default {
       let res = await homezydetail({ id: String(id) });
 
       this.objDetail = res.data.data;
-      // console.log("资源详情页面信息", res);
+      console.log("资源详情页面信息", this.objDetail);
     },
 
     handleClick(id) {

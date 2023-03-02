@@ -85,10 +85,11 @@ export function homezyList(){
 
 // 首页拍摄资源详情
 
-export function homezydetail(){
+export function homezydetail(data){
     return request({
         url:"/api/index/zy_detail",
-        method:"post"
+        method:"post",
+        params:data
     })
 }
 

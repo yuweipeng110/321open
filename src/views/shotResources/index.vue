@@ -117,14 +117,14 @@
               <div class="shotbox">
                 <img class="img" src="static/img/a3.926621c6.png" alt="">
                 <div class="txt-five">
-                  <div class="oneRow">标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称标题名称</div>
+                  <div class="oneRow">{{ item.title }}</div>
                   <div>
                     <div class="fl">
-                      <div><img src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" alt=""
-                          class="bot-img"><span class="tyf12">名字名字名字名字名字</span></div>
+                      <div><img :src="item.avatar" alt=""
+                          class="bot-img"><span class="tyf12">{{ item.nick }}</span></div>
                     </div>
                     <div class="fr">
-                      <div class="pcmon phoneMon">9999/天</div>
+                      <div class="pcmon phoneMon">{{item.zujin }}/天</div>
                     </div>
                   </div>
                 </div>
@@ -315,6 +315,16 @@ export default {
       } else if (val === 3) {
         this.isOpen4 = !this.isOpen4
       }
+
+      console.log('handleClick', val);
+
+      this.$router.push({
+        path: '/shotDetails/details',
+        query: {
+          id: val,
+          imgObj: ''
+        }
+      })
     }
   }
 }
