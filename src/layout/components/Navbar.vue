@@ -59,7 +59,7 @@
           index="/article/article/4"
           class="header-title"
         >服务案例</el-menu-item>
-      </el-menu> 
+      </el-menu>
     </div>
     <div v-if="!(userinfo&&userinfo.id)" class="right-nav">
      <!-- {{ userinfo }} -->
@@ -77,12 +77,12 @@
     </div>
     <!-- 登录成功之后的 -->
    <div v-else class="right-nav">
-   
+
    <!-- {{ userinfo }} -->
       <img class="right-img-btn" @click="go" :src="userinfo.avatar || defaultimg" alt="">
    <span @click="go" class="usernameCu">{{userinfo.nick || "默认用户"+userinfo.id }}</span>
 
-     
+
    <el-button
         type="text"
         style="margin-right: 20px"
@@ -93,7 +93,7 @@
 
    </div>
 
-          
+
 
     <!-- 手机端菜单导航 v-bind:style="{backgroundColor:'#409EFF'}" -->
     <div v-if="!seen" class="phone">
@@ -163,11 +163,11 @@ export default {
   },
   mounted() {
       // this.userinfo=this.$store.state.user.userInfo
-    console.log("userinfo",this.userinfo);
+    // console.log("userinfo",this.userinfo);
     this.menuSeen()
     window.addEventListener('setItem', () => {
       const clientWidth = sessionStorage.getItem('seen')
-      console.log(clientWidth, 'this.seen')
+      // console.log(clientWidth, 'this.seen')
       if (clientWidth > 700) {
         this.seen = true
       } else {
@@ -182,10 +182,10 @@ export default {
         // console.log("取到了城市name====>",JSON.parse(localStorage.getItem("address"))[0].name);
         this.value = JSON.parse(localStorage.getItem('address'))[0].name
       }
-      console.log('城市默认值', this.value)
+      // console.log('城市默认值', this.value)
       // this.value="佛山"
     } catch (e) {
-      console.log('错误信息', e)
+      // console.log('错误信息', e)
       //  this.value="佛山"
     }
 
@@ -207,23 +207,23 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-         
+
           this.$message({
             type: 'success',
             message: '退出登录成功!'
           });
-           location.reload() 
+           location.reload()
           // localStorage.clear()
           this.$store.commit("user/SET_CLEAR")
          this.$router.push({
           name:"Dashboard"
          })
-         
+
         }).catch(() => {
           this.$message({
             type: 'info',
             message: '已取消操作'
-          });          
+          });
         });
 
 
@@ -237,7 +237,7 @@ export default {
 
 
 
-     
+
     },
 
     zhengce() {
@@ -380,7 +380,7 @@ export default {
     // 获取地区列表
     async addressList() {
       const res = await getAddressList()
-      console.log(res.data.data)
+      // console.log(res.data.data)
       this.options = res.data.data
     },
     // 点击切换地区

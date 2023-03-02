@@ -47,7 +47,7 @@ export default {
   },
   mounted() {
     this.getSwiper();
-    console.log("生命周期啦啦啦啦啦啦21121212121");
+    // console.log("生命周期啦啦啦啦啦啦21121212121");
     (function (a) {
       a.fn.pgwSlider = function (i) {
         var e = {

@@ -121,8 +121,8 @@ export default {
     window.addEventListener('setItem', () => {
       const clientWidth = sessionStorage.getItem('seen')
       const titleWatch = sessionStorage.getItem('title')
-      console.log(clientWidth, 'this.seen')
-      console.log(titleWatch, 'titleWatch')
+      // console.log(clientWidth, 'this.seen')
+      // console.log(titleWatch, 'titleWatch')
       if (clientWidth > 700) {
         this.seen = true
       } else {

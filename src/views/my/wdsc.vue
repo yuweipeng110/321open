@@ -170,11 +170,11 @@ export default {
     // this.imgsArr.map(item => {
     //   item.sc = true
     // })
-    console.log("5454545454545", this.shoucang);
+    // console.log("5454545454545", this.shoucang);
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      // console.log("submit!");
     },
   },
 };
