@@ -1,6 +1,6 @@
 <template>
-  <div class="form_content" :class="{ seenCls: !seen }">
-    <div class="top_wz">北京绿棚出租</div>
+  <div v-if="objDetail" class="form_content" :class="{ seenCls: !seen }">
+    <div class="top_wz">{{ objDetail.title }}</div>
     <el-steps :active="active" finish-status="success" class="w50p">
       <el-step title="第一步" description="填写信息" />
       <el-step title="第二步" description="确认信息" />
@@ -58,12 +58,12 @@
           <el-descriptions-item label="联系方式:">{{
             form.num ? form.num : "1388888888888"
           }}</el-descriptions-item>
-          <el-descriptions-item label="索要发票:">
-            <el-row>
+          <el-descriptions-item label="索要发票:">{{ form.desc }}
+            <!-- <el-row>
               <el-col :span="24">郑州某某科技有限公司</el-col>
               <el-col :span="24">916511561564564564564</el-col>
               <el-col :span="24">河南省郑州市地址地址地址地址地址地址地</el-col>
-            </el-row>
+            </el-row> -->
           </el-descriptions-item>
           <el-descriptions-item label="选择时长:"
             >{{ form.time ? form.time : "2023-01-11 至 2023-02-15" }}
@@ -166,6 +166,7 @@
 <script>
 import step from "./step.vue";
 import moment from "moment";
+import { homezydetail } from "@/api/home";
 
 export default {
   components: {
@@ -173,6 +174,7 @@ export default {
   },
   data() {
     return {
+      id: this.$route.query.id,
       radio1: "1",
       active: 0,
       seen: true,
@@ -183,6 +185,8 @@ export default {
         desc: "",
         time: "",
       },
+
+      objDetail: null
     };
   },
   watch: {
@@ -213,8 +217,15 @@ export default {
         this.seen = false;
       }
     });
+
+    this.zyDetail();
   },
   methods: {
+    async zyDetail() {
+      let res = await homezydetail({ id: this.id });
+      this.objDetail = res.data.data;
+      console.log('this.objDetail', this.objDetail);
+    },
     next(i) {
       if (this.active == 0) {
         let statetime = moment(this.form.use_end).format("YYYY-MM-DD HH:mm:ss");
