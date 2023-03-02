@@ -236,7 +236,7 @@ export default {
 }
 
 .text-wrapper_6 {
-  background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/15e99e49066d48a3aa1f28b20d54bc09_mergeImage.png);
+  /* background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/15e99e49066d48a3aa1f28b20d54bc09_mergeImage.png); */
   align-self: center;
   margin-top: 6px;
   width: 345px;

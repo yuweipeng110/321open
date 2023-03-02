@@ -159,7 +159,7 @@
         <div class="box_8 flex-row justify-between wfc" v-for="(item, index) in list" :key="index">
           <div class="block_3 flex-col">
             <!-- <div class="box_1 flex-col" /> -->
-            <img :src="item.avatar"  class="box_1 flex-col">
+            <img :src="item.avatar" class="box_1 flex-col">
             <div class="text-group_11 flex-col justify-between">
               <span class="text_14">{{ item.nick }}</span>
               <span class="text_15">场景&nbsp;{{ item.chang_num }} ｜评分 {{ item.eva }}</span>
@@ -170,19 +170,20 @@
           </div>
           <div class="section_15 flex-col justify-between">
             <div class="block_13 flex-row justify-between w1100">
-              <div class="text-wrapper_6 flex-col card_cls w540" @click="handleClick">
-                <span class="text_17">影棚A</span>
+              <div class="text-wrapper_6 flex-col card_cls w540" v-for="(item1, index1) in item.chang.slice(0, 2)"
+                :key="index1" @click="handleClick" :style="{ backgroundImage: 'url(' + item1.img + ')' }">
+                <span class="text_17">影棚</span>
               </div>
-              <div class="text-wrapper_7 flex-col card_cls" @click="handleClick">
-                <span class="text_18">影棚B</span>
-              </div>
+              <!-- <div class="text-wrapper_7 flex-col card_cls" @click="handleClick">
+                <span class="text_18">影棚B</span> -->
+              <!-- </div> -->
             </div>
-            <div class="text-wrapper_8 flex-col card_cls w1100" @click="handleClick">
+            <div class="text-wrapper_8 flex-col card_cls w1100" @click="handleClick" :style="{ backgroundImage: `url(${item.chang[2].img})` }">
               <span class="text_19">影棚C</span>
             </div>
           </div>
         </div>
-
+<!--
         <div class="box_12 flex-row justify-between wfc">
           <div class="section_6 flex-col">
             <div class="block_6 flex-col" />
@@ -239,11 +240,11 @@
             <div class="text-group_16 flex-col justify-between">
               <span class="text_44">工厂影像空间</span>
               <span class="text_45">场景&nbsp;6｜评分3.0</span>
-            </div>
+            </div> -->
             <!-- <div class="text-wrapper_25 flex-col gzBtn" :class="{ 'activeBtn': actBtn === 6 }" @click="handClickBtn(6)">
               <span class="text_46">关注</span>
             </div> -->
-            <div class="text-wrapper_25 flex-col gzBtn" :class="{ 'activeBtn': actBtn5 }" @click="handClickBtn5()">
+            <!-- <div class="text-wrapper_25 flex-col gzBtn" :class="{ 'activeBtn': actBtn5 }" @click="handClickBtn5()">
               <span class="text_46">{{ actBtn5 ? '已关注' : '关注' }}</span>
             </div>
           </div>
@@ -260,7 +261,7 @@
               <span class="text_49">影棚C</span>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -839,7 +840,7 @@ export default {
 }
 
 .text-wrapper_6 {
-  background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/e8906c062f684b5ca649b5529a59a5c4_mergeImage.png);
+  /* background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/e8906c062f684b5ca649b5529a59a5c4_mergeImage.png); */
   height: 270px;
   width: 550px;
 }
