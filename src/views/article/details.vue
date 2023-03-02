@@ -431,7 +431,7 @@ export default {
     // 获取详细信息
     async getdetail(id) {
       let res = await art_detail({ id: String(id) });
-      console.log("用户详情信息", res);
+      // console.log("用户详情信息", res);
       this.deatilS = res.data.data[0];
     },
   },

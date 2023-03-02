@@ -390,7 +390,7 @@ export default {
         return item.name == v
       })
       // console.log("切换了地址",res);
-      console.log('res当前切换至', res[0].name)
+      // console.log('res当前切换至', res[0].name)
       if (res[0].name) {
         this.value = res[0].name
         localStorage.setItem('address', JSON.stringify(res))

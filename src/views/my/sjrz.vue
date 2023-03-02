@@ -115,24 +115,24 @@ export default {
   mounted() {},
   methods: {
     handleelchange(file, fileList) {
-      console.log("file", file);
-      console.log("fililist", fileList);
+      // console.log("file", file);
+      // console.log("fililist", fileList);
 
       let formdata = new FormData();
-      console.log("formdata", formdata);
+      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
 
       formdata.forEach((item) => {
-        console.log(item);
+        // console.log(item);
       });
 
       // console.log(e);
       //   let {file}=e
       axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.imageUrl = res.data.url;
       });
       // imageUpload(formdata).then(res=>{
@@ -140,24 +140,24 @@ export default {
       // })
     },
     handleelchange2(file, fileList) {
-      console.log("file", file);
-      console.log("fililist", fileList);
+      // console.log("file", file);
+      // console.log("fililist", fileList);
 
       let formdata = new FormData();
-      console.log("formdata", formdata);
+      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
 
       formdata.forEach((item) => {
-        console.log(item);
+        // console.log(item);
       });
 
       // console.log(e);
       //   let {file}=e
       axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.imageUrl2 = res.data.url;
       });
       // imageUpload(formdata).then(res=>{
@@ -165,24 +165,24 @@ export default {
       // })
     },
     handleelchange3(file, fileList) {
-      console.log("file", file);
-      console.log("fililist", fileList);
+      // console.log("file", file);
+      // console.log("fililist", fileList);
 
       let formdata = new FormData();
-      console.log("formdata", formdata);
+      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
 
       formdata.forEach((item) => {
-        console.log(item);
+        // console.log(item);
       });
 
       // console.log(e);
       //   let {file}=e
       axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.imageUrl3 = res.data.url;
       });
       // imageUpload(formdata).then(res=>{
@@ -201,7 +201,7 @@ export default {
         yingye: this.imageUrl3,
         company: this.comapny,
       });
-      console.log(res);
+      // console.log(res);
       if (res.data.code == 1) {
         this.$message({
           message: "入驻申请提交成功",

@@ -36,7 +36,7 @@
             <el-radio label="仙侠" />
             <el-radio label="二战" />
             <el-radio label="古装" />
-            <el-radio label="岛屿" /> 
+            <el-radio label="岛屿" />
           </el-radio-group>
         </el-form-item> -->
         <!-- <el-form-item label="资源图片"> -->
@@ -179,7 +179,7 @@ export default {
         zujin: "",
         chao: "",
         content:"",
-        
+
       },
     };
   },
@@ -207,24 +207,24 @@ export default {
   // 图片上传
 
   handleelchange(file, fileList) {
-      console.log("file", file);
-      console.log("fililist", fileList);
+      // console.log("file", file);
+      // console.log("fililist", fileList);
 
       let formdata = new FormData();
-      console.log("formdata", formdata);
+      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
 
       formdata.forEach((item) => {
-        console.log(item);
+        // console.log(item);
       });
 
       // console.log(e);
       //   let {file}=e
       axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.img = res.data.url;
       });
       // imageUpload(formdata).then(res=>{
@@ -242,8 +242,8 @@ export default {
 
     changeFun(e) {
       this.defaultData = this.ziyuanfenleiList[e];
-      console.log("当前切换lable参数", e);
-      console.log("当前参数值", this.defaultData);
+      // console.log("当前切换lable参数", e);
+      // console.log("当前参数值", this.defaultData);
     },
 
     handleClickcheck(item, index) {
@@ -253,10 +253,10 @@ export default {
           ytem.status = !ytem.status;
         }
       });
-      console.log(item, index);
+      // console.log(item, index);
     },
     addInput(item, index) {
-      console.log(item, index);
+      // console.log(item, index);
       if (!item.value) {
         this.$message({
           message: "请输入配套设施",
@@ -281,7 +281,7 @@ export default {
   async  handle() {
       this.load = true;
 
-      console.log(this.form);
+      // console.log(this.form);
       // setInterval(() => {
       //   this.load = false;
       // }, 1000);
@@ -289,15 +289,15 @@ export default {
     let res=await catePull(this.form)
     if(res){
        this.load = false;
-      console.log("拍摄资源",res);
+      // console.log("拍摄资源",res);
     }
 
-    console.log("拍摄资源详情",res);
+    // console.log("拍摄资源详情",res);
     },
 
     // 上传图片函数
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      // console.log(file, fileList);
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -311,7 +311,7 @@ export default {
 
         this.defaultData = res.data.data[0];
       }
-      console.log("res资源分类水水水水水水水水水水", res.data.data);
+      // console.log("res资源分类水水水水水水水水水水", res.data.data);
     },
   },
   mounted() {

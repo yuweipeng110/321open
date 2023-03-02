@@ -654,7 +654,7 @@ export default {
       let res = await homezydetail({ id: String(id) });
 
       this.objDetail = res.data.data;
-      console.log("资源详情页面信息", res);
+      // console.log("资源详情页面信息", res);
     },
 
     handleClick(id) {

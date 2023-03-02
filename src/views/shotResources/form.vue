@@ -206,7 +206,7 @@ export default {
     }
     window.addEventListener("setItem", () => {
       const clientWidth = sessionStorage.getItem("seen");
-      console.log(clientWidth, "this.seen");
+      // console.log(clientWidth, "this.seen");
       if (clientWidth > 700) {
         this.seen = true;
       } else {
@@ -218,14 +218,14 @@ export default {
     next(i) {
       if (this.active == 0) {
         let statetime = moment(this.form.use_end).format("YYYY-MM-DD HH:mm:ss");
-        console.log(this.form.time);
+        // console.log(this.form.time);
       }
       // 上一步
       if (i === 0) {
         if (this.active > 0) {
-          console.log(this.active);
+          // console.log(this.active);
           this.active--;
-          console.log(this.active);
+          // console.log(this.active);
         }
       } else {
         if (this.active++ > 2) this.active = 0;

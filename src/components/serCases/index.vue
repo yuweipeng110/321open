@@ -173,7 +173,7 @@ export default {
           el: '.swiper-pagination'
         }
       })
-      console.log(swiper)
+      // console.log(swiper)
     }
   }
 }

@@ -87,11 +87,11 @@ export default {
     for (var i = 0; i < this.imgsArr.length; i += 4) {
       newList.push(this.imgsArr.slice(i, i + 4));
     }
-    console.log(newList);
+    // console.log(newList);
     this.imgsArr_c = newList;
     if (this.maxlen === 4) {
       this.imgsArr_c = newList.slice(0, 1);
-      console.log(this.imgsArr_c, "this.imgsArr_c ");
+      // console.log(this.imgsArr_c, "this.imgsArr_c ");
     }
 
     // window.addEventListener('scroll', this.scroll, false)

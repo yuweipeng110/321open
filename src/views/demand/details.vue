@@ -319,7 +319,7 @@ export default {
 
     this.Detial(id)
 
-    console.log(id)
+    // console.log(id)
 
     if (document.body.clientWidth > 700) {
       this.seen = true
@@ -328,7 +328,7 @@ export default {
     }
     window.addEventListener('setItem', () => {
       const clientWidth = sessionStorage.getItem('seen')
-      console.log(clientWidth, 'this.seen')
+      // console.log(clientWidth, 'this.seen')
       if (clientWidth > 700) {
         this.seen = true
       } else {
@@ -351,7 +351,7 @@ export default {
         ...this.form
       }
       const res = await toubiaoApi(obj)
-      console.log('投标参数', obj)
+      // console.log('投标参数', obj)
       if (res.status == 200 && res.data.msg == '投标成功') {
         this.form = {
           mobile: '',
@@ -371,30 +371,30 @@ export default {
         this.$message.erroe('投标失败，请稍后重试')
       }
 
-      console.log('this.', res)
+      // console.log('this.', res)
     },
 
     //  图片shangc
 
     handleelchange(file, fileList) {
-      console.log('file', file)
-      console.log('fililist', fileList)
+      // console.log('file', file)
+      // console.log('fililist', fileList)
 
       const formdata = new FormData()
-      console.log('formdata', formdata)
+      // console.log('formdata', formdata)
       fileList.map((item) => {
         // fileList本来就是数组，就不用转为真数组了
         formdata.append('file', item.raw) // 将每一个文件图片都加进formdata
       })
 
       formdata.forEach((item) => {
-        console.log(item)
+        // console.log(item)
       })
 
       // console.log(e);
       //   let {file}=e
       axios.post('http://kelerk.178tqw.com/api/index/upload', formdata).then((res) => {
-        console.log(res)
+        // console.log(res)
         this.imageUrl = res.data.url
       })
       // imageUpload(formdata).then(res=>{
@@ -405,9 +405,9 @@ export default {
     async Detial(id) {
       const res = await demandDitial({ id: id })
       if (res.state == 200 && res.data.data) {
-        console.log('需求详情信息详情', res)
+        // console.log('需求详情信息详情', res)
       }
-      console.log('需求详情信息详情', res)
+      // console.log('需求详情信息详情', res)
       this.detial = res.data.data
     },
     handleClick() {

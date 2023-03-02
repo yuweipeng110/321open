@@ -99,7 +99,7 @@ export default {
       this.zhengc("1");
     }
 
-    console.log(this.imgsArr);
+    // console.log(this.imgsArr);
   },
   methods: {
     async zhengc(id) {
@@ -107,7 +107,7 @@ export default {
       this.imgsArr = res.data.data;
     },
     handleGo(id) {
-      console.log(id);
+      // console.log(id);
       this.$router.push({
         path: "/article/details",
         query: { id: id },

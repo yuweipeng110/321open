@@ -221,30 +221,30 @@ export default {
     }
   },
   mounted() {
-    console.log('==================', this.$store.state.user.userInfo)
-    console.log('this.$store.state.user.id', this.userinfo)
+    // console.log('==================', this.$store.state.user.userInfo)
+    // console.log('this.$store.state.user.id', this.userinfo)
   },
   methods: {
     //  修改资料图片上传
     handleelchange(file, fileList) {
-      console.log('file', file)
-      console.log('fililist', fileList)
+      // console.log('file', file)
+      // console.log('fililist', fileList)
 
       const formdata = new FormData()
-      console.log('formdata', formdata)
+      // console.log('formdata', formdata)
       fileList.map((item) => {
         // fileList本来就是数组，就不用转为真数组了
         formdata.append('file', item.raw) // 将每一个文件图片都加进formdata
       })
 
       formdata.forEach((item) => {
-        console.log(item)
+        // console.log(item)
       })
 
       // console.log(e);
       //   let {file}=e
       axios.post('http://kelerk.178tqw.com/api/index/upload', formdata).then((res) => {
-        console.log(res)
+        // console.log(res)
         this.formData.avatar = res.data.url
       })
       // imageUpload(formdata).then(res=>{
@@ -264,7 +264,7 @@ export default {
             mobile: this.formData.mobile
           })
 
-          console.log('用户信息修改i', res)
+          // console.log('用户信息修改i', res)
 
           if (res.status == 200 && res.data.msg == '修改成功') {
             this.$store.dispatch('user/getUserInfo', { id: String(this.id) })
@@ -279,22 +279,22 @@ export default {
           } else {
             this.$message.error('登录失败，请稍后重试')
           }
-          console.log('验证码登录返回数据', res.data.data)
+          // console.log('验证码登录返回数据', res.data.data)
 
           this.$message({
             message: '用户手机号验证码匹配成功',
             type: 'success'
           })
         } else {
-          console.log('验证码错误')
+          // console.log('验证码错误')
 
-          console.log(this.formData.Code, Cookies.get('codeEdit'))
+          // console.log(this.formData.Code, Cookies.get('codeEdit'))
 
           this.$message.error('验证码错误')
         }
       } else {
         this.$message.error('请发送验证码')
-        console.log('请发送验证码')
+        // console.log('请发送验证码')
       }
       }else{
           const res = await updataUser({
@@ -309,7 +309,7 @@ export default {
             this.formData.nick =''
             this.formData.mobile =''
             this.formData.Code = ''
-          console.log('用户信息修改i', res)
+          // console.log('用户信息修改i', res)
       }
     },
 
@@ -323,7 +323,7 @@ export default {
       this.dialogFormVisibleData = true
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList)
+      // console.log(file, fileList)
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
@@ -331,8 +331,8 @@ export default {
     },
     /** 获取验证码 */
     async sendCode() {
-      console.log(this.formData.mobile.length)
-      console.log(this.formData)
+      // console.log(this.formData.mobile.length)
+      // console.log(this.formData)
 
       if (this.formData.mobile.length == 11) {
         if (this.canClick) return
@@ -362,13 +362,13 @@ export default {
     // 申请提现提交
     async withdrawDepositFun() {
       this.dialogFormVisible = false
-      console.log(this.userinfo.money > this.form.money)
+      // console.log(this.userinfo.money > this.form.money)
       if (Number(this.userinfo.money) < Number(this.form.money)) {
-        console.log('当前金额' + this.userinfo.money, '提现金额' + this.form.money)
+        // console.log('当前金额' + this.userinfo.money, '提现金额' + this.form.money)
         return this.$message.error('当前可用余额不足')
       } else {
         const msg = { ...this.form, uid: this.userinfo.id }
-        console.log(msg)
+        // console.log(msg)
         const res = await withdrawDeposit(msg);
         (this.form = {
           card: '',

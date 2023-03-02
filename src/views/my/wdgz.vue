@@ -14,11 +14,11 @@
           </div>
         </div>
       </el-col>
-      
-      
-      
+
+
+
     </el-row>
-    
+
   </div>
 </template>
 
@@ -31,16 +31,16 @@ export default {
   },
   data() {
     return {
-    
+
     }
   },
   methods: {
     onSubmit() {
-      console.log('submit!')
+      // console.log('submit!')
     }
   },
   mounted(){
-    console.log("000999009",this.guanzhu);
+    // console.log("000999009",this.guanzhu);
   }
 }
 </script>

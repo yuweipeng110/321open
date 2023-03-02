@@ -100,7 +100,7 @@
               {{ btnText }}
             </el-button>
                     </label>
-                   
+
   </div>
                   <!-- <div class="phoneGroup"> -->
                     <!-- <button class="phone-btn msgBtn" type="button"  @click="CodeFun6666666()">
@@ -148,7 +148,7 @@
 
             <button
               v-if="active"
-             
+
               class="button fromSubmit"
               data-type="smsSubmit"
               @click.prevent="UserLogin"
@@ -289,9 +289,9 @@ export default {
       // this.canClick = true;
       this.btnText = this.totalTime + "s后重新发送";
       const clock = window.setInterval(() => {
-      
+
         this.totalTime--;
-       
+
         this.btnText = this.totalTime + "s后重新发送";
         if (this.totalTime < 0) {
           window.clearInterval(clock);
@@ -308,19 +308,19 @@ export default {
       this.userCode = res.data.data;
       Cookies.set("code", res.data.data, { expires: expires });
 
-      console.log(res);
+      // console.log(res);
     },
 
     // 用户验证码登录接口
     async UserLogin() {
-      console.log("cokie信息",Cookies.get("code"));
-      console.log("用户输入的验证码",this.CodeUser);
-      console.log("验证码对比",this.CodeUser == this.userCode);
+      // console.log("cokie信息",Cookies.get("code"));
+      // console.log("用户输入的验证码",this.CodeUser);
+      // console.log("验证码对比",this.CodeUser == this.userCode);
       if (Cookies.get("code")) {
         if (this.CodeUser == this.userCode) {
           let res = await CodeLogin({ mobile: this.phome });
 
-          console.log("ressss用户基本信息", res);
+          // console.log("ressss用户基本信息", res);
 
           if (res.status == 200 && res.data.data) {
             this.$store.dispatch("user/get_ID", res.data.data);
@@ -332,7 +332,7 @@ export default {
           } else {
             this.$message.error("登录失败，请稍后重试");
           }
-          console.log("验证码登录返回数据", res.data.data);
+          // console.log("验证码登录返回数据", res.data.data);
           this.$message({
             message: "用户手机号验证码匹配成功",
             type: "success",
@@ -349,7 +349,7 @@ export default {
         }
       } else {
         this.$message.error("请发送验证码");
-        console.log("请发送验证码");
+        // console.log("请发送验证码");
       }
     },
   },

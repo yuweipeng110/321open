@@ -42,7 +42,7 @@ export function withdrawDeposit(data){
 // 需求发布
 
 export function enndPull(data){
-  
+
   return request({
     url:"/api/index/request_add",
     method:"post",
@@ -52,7 +52,7 @@ export function enndPull(data){
 }
 // 需求记录
 export function enndRecord(data){
-  console.log("需求记录",data);
+  // console.log("需求记录",data);
   return request({
     url:"/api/index/request",
     method:"post",
@@ -63,7 +63,7 @@ export function enndRecord(data){
 // 用户修改资料
 
 export function updataUser(data){
-  console.log("用户修改资料",data);
+  // console.log("用户修改资料",data);
   return request({
     url:"/api/index/update_user",
     method:"post",
@@ -73,7 +73,7 @@ export function updataUser(data){
 // 提现列表
 
 export function withdrawDepositList(data){
-  console.log("提现列表",data);
+  // console.log("提现列表",data);
   return request({
     url:"/api/index/my_tx",
     method:"post",
@@ -83,7 +83,7 @@ export function withdrawDepositList(data){
 
 // 收益记录
 export function YieldLog(data){
-  console.log("收益记录",data);
+  // console.log("收益记录",data);
   return request({
     url:"/api/index/my_hav",
     method:"post",
@@ -93,7 +93,7 @@ export function YieldLog(data){
 // 消费记录
 
 export function consumeLog(data){
-  console.log("消费记录",data);
+  // console.log("消费记录",data);
   return request({
     url:"/api/index/my_order",
     method:"post",
@@ -124,7 +124,7 @@ export function collect(data){
 
 export function UserEmail(data){
 
-  console.log(data);
+  // console.log(data);
   return request({
     url:"/api/index/send_code",
     method:"post",

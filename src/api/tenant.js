@@ -29,7 +29,7 @@ export function cateClassify(data){
 
 
 // 投标下单
- export function toubiaoApi(data) {  
+ export function toubiaoApi(data) {
 
     return request({
         method:"post",
@@ -38,7 +38,7 @@ export function cateClassify(data){
     })
  }
 // 企业服务
-export function ServeRZApi(data) {  
+export function ServeRZApi(data) {
 
     return request({
         method:"post",
@@ -49,8 +49,8 @@ export function ServeRZApi(data) {
 
 //  资质办理
 
-export function ServeZZApi(data) {  
-  console.log("纸质版里",data);
+export function ServeZZApi(data) {
+  // console.log("纸质版里",data);
     return request({
         method:"post",
         url:"/api/index/user_zz",
@@ -58,7 +58,7 @@ export function ServeZZApi(data) {
     })
  }
 // 活动策划
- export function ServeCHApi(data) {  
+ export function ServeCHApi(data) {
 
     return request({
         method:"post",
@@ -67,7 +67,7 @@ export function ServeZZApi(data) {
     })
  }
 //  政策咨询
- export function ServeZXApi(data) {  
+ export function ServeZXApi(data) {
 
     return request({
         method:"post",
@@ -76,7 +76,7 @@ export function ServeZZApi(data) {
     })
  }
 // 服务进度
-export function ServerListLog(data){  
+export function ServerListLog(data){
 
     return request({
         method:"post",
@@ -85,7 +85,7 @@ export function ServerListLog(data){
     })
  }
 //商家入驻查询
-export function shangjiaruzhuLog(data){  
+export function shangjiaruzhuLog(data){
 
     return request({
         method:"post",

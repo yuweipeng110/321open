@@ -145,7 +145,7 @@ export default {
       document.documentElement.clientHeight === 0
         ? document.body.clientHeight
         : document.documentElement.clientHeight
-    console.log(this.viewHeight)
+    // console.log(this.viewHeight)
     this.preLoad()
     this.scroll()
   },
@@ -227,7 +227,7 @@ export default {
         // 设置 img-box 位置
         this.imgBoxEls[i].style.top = top + 'px'
         this.imgBoxEls[i].style.left = (left) + 'px'
-        console.log(this.imgBoxEls[i].style.left)
+        // console.log(this.imgBoxEls[i].style.left)
         // 当前图片在窗口内，则加载
         if (top < this.viewHeight) {
           const imgEl = this.imgBoxEls[i].children[0]
@@ -330,7 +330,7 @@ export default {
         }
       ]
       this.imgsArr = this.imgsArr.concat(imgArr)
-      console.log('--this.imgsArr--', this.imgsArr)
+      // console.log('--this.imgsArr--', this.imgsArr)
     },
     // 节流函数
     throttle(fn, time) {

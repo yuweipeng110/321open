@@ -112,7 +112,7 @@ export default {
       handler: function(val, oldVal) {
         if (window.sessionStorage.getItem('title')) {
           this.title = window.sessionStorage.getItem('title')
-          console.log(this.title, 'this.title')
+          // console.log(this.title, 'this.title')
         }
       },
       // 深度观察监听
@@ -122,7 +122,7 @@ export default {
   mounted() {
     if (window.sessionStorage.getItem('title')) {
       this.title = window.sessionStorage.getItem('title')
-      console.log(this.title, 'this.title')
+      // console.log(this.title, 'this.title')
     }
   },
   methods: {
@@ -135,7 +135,7 @@ export default {
       this.dialogVisible = true
     },
     handleCommand(command) {
-      console.log(command)
+      // console.log(command)
       this.$router.push({
         path: command
       })

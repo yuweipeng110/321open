@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      // console.log("submit!");
     },
     getList() {
       this.$store.dispatch("user/getEnndAct", { uid: String(this.id) });

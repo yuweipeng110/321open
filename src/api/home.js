@@ -43,7 +43,7 @@ export function homeQuantity(data){
 
 export function demandDitial(data){
 
-   console.log("需求详情参数",data);
+  //  console.log("需求详情参数",data);
 
 
     return request({

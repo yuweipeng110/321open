@@ -89,7 +89,7 @@ export default {
           type: "success",
         });
 
-        console.log(res.data.time);
+        // console.log(res.data.time);
         let obj = {
           tname: "企业入驻",
           time: res.data.time,
@@ -100,7 +100,7 @@ export default {
       }
     },
     onSubmit() {
-      console.log("submit!");
+      // console.log("submit!");
     },
   },
 };

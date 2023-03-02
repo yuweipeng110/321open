@@ -283,7 +283,7 @@ export default {
       }
     });
 
-    console.log(this.$route.query);
+    // console.log(this.$route.query);
     if (this.$route.query.openTab === "1") {
       this.tabVal = 2;
       this.activeName = "qyfw";
@@ -297,34 +297,34 @@ export default {
         page: this.page,
         limit: this.limit,
       });
-      console.log("商户的");
+      // console.log("商户的");
     },
 
     handleClick(tab, event) {
-      console.log(tab.index, event);
+      // console.log(tab.index, event);
       switch (Number(tab.index)) {
         case 1:
-          console.log("个人信息");
+          // console.log("个人信息");
           break;
         case 2:
-          console.log("剧组需求记录");
+          // console.log("剧组需求记录");
           this.$store.dispatch("user/getEnndAct", { uid: String(this.id) });
 
           break;
         case 3:
-          console.log("个人信息3");
+          // console.log("个人信息3");
           break;
         case 4:
-          console.log("个人信息4");
+          // console.log("个人信息4");
 
           this.$store.dispatch("user/getUserLog", { uid: String(this.id) });
 
           break;
         case 5:
-          console.log("个人信息5");
+          // console.log("个人信息5");
 
           shangjiaruzhuLog({ uid: this.id }).then((res) => {
-            console.log(res);
+            // console.log(res);
             this.$store.commit("user/SET_SERVEJINDUS", res.data.data[0].status);
           });
 
@@ -337,14 +337,14 @@ export default {
           // });
           break;
         case 6:
-          console.log("个人信息6");
+          // console.log("个人信息6");
           break;
         default:
-          console.log("个人信息");
+          // console.log("个人信息");
       }
 
       if (tab.index == 3) {
-        console.log("我是投标记录");
+        // console.log("我是投标记录");
         this.$store.dispatch("user/getTenderAct", { uid: this.id });
       }
 
@@ -374,7 +374,7 @@ export default {
       if (resLike.status == 200 && resLike.data.data) {
         this.myLikeList = resLike.data.data;
       }
-      console.log("我的关注resLike", resLike);
+      // console.log("我的关注resLike", resLike);
     },
     // 我的收藏
 
@@ -384,7 +384,7 @@ export default {
 
     /** 订单管理 消费记录 consumeLog，收益记录YieldLog，提现记录withdrawDepositList*/
     orderManagement() {
-      console.log("订单管理开始加载数据");
+      // console.log("订单管理开始加载数据");
 
       this.$store.dispatch("user/getUserLog", { uid: this.id, page: "1", limit: "10" });
     },
@@ -393,7 +393,7 @@ export default {
     Login() {
       let id = this.$store.state.user.id;
       if (id == undefined && id.length && id) {
-        console.log("id不存在");
+        // console.log("id不存在");
         this.$message.error("用户暂未登录");
         this.$router.push({ name: "Dashboard" });
       } else {

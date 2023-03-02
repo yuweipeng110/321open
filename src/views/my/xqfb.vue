@@ -184,24 +184,24 @@ export default {
   methods: {
     // t
     handleelchange(file, fileList) {
-      console.log("file", file);
-      console.log("fililist", fileList);
+      // console.log("file", file);
+      // console.log("fililist", fileList);
 
       let formdata = new FormData();
-      console.log("formdata", formdata);
+      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
 
       formdata.forEach((item) => {
-        console.log(item);
+        // console.log(item);
       });
 
       // console.log(e);
       //   let {file}=e
       axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.imageUrl = res.data.url;
       });
       // imageUpload(formdata).then(res=>{
@@ -224,10 +224,10 @@ export default {
         description: this.form.description,
       };
 
-      console.log("格式化时间之后的请求参数", this.form);
-      console.log(this.form);
+      // console.log("格式化时间之后的请求参数", this.form);
+      // console.log(this.form);
       enndPull(this.form).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status == 200) {
           this.$message({
             type: "success",
@@ -258,10 +258,10 @@ export default {
       //  console.log(resault);
     },
     handleAvatarSuccess(res, file) {
-      console.log("file", file);
+      // console.log("file", file);
 
       this.imageUrl = URL.createObjectURL(file.raw);
-      console.log("上传成功的路径", this.imageUrl);
+      // console.log("上传成功的路径", this.imageUrl);
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";

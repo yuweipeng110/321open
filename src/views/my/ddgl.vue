@@ -409,7 +409,7 @@ export default {
       if (val == 2) {
         this.$store.dispatch("user/getTixianLog", { uid: String(this.id) });
 
-        console.log("体现数据", this.tixian);
+        // console.log("体现数据", this.tixian);
       }
 
       this.tabb = val;

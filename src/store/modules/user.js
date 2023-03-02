@@ -48,7 +48,7 @@ const mutations = {
     state.token = token
   },
   SET_JINDU: (state, data) => {
-    console.log("状态管理用户基本信息", data);
+    // console.log("状态管理用户基本信息", data);
     state.ruzhujindu = data
 
     localStorage.setItem("ruzhujindu", data)
@@ -60,7 +60,7 @@ const mutations = {
     state.avatar = avatar
   },
   SET_USERINFO: (state, data) => {
-    console.log("状态管理用户基本信息", data);
+    // console.log("状态管理用户基本信息", data);
     state.userInfo = data
 
     localStorage.setItem("userinfo", JSON.stringify(data))
@@ -76,7 +76,7 @@ const mutations = {
   // 商家入驻进度
 
   SET_SERVEJINDUS: (state, data) => {
-    console.log("progressServe", data);
+    // console.log("progressServe", data);
     // state.progressServe=data
     state.ruzhuxiangqing = data
 
@@ -86,7 +86,7 @@ const mutations = {
 
   // 企业服务进度
   SET_SERVEPRO: (state, data) => {
-    console.log("progressServe", data);
+    // console.log("progressServe", data);
     // state.progressServe=data
     state.progressServe.push(data);
     const jsonData = JSON.stringify(state.progressServe);
@@ -97,7 +97,7 @@ const mutations = {
   // 首页需求中心
 
   SET_ENNDCONTENT: (state, data) => {
-    console.log("状态管理用户基本信息", data);
+    // console.log("状态管理用户基本信息", data);
     if (data.length > 0) {
       state.homeNeedCenter = data
       localStorage.setItem("homeNeedCenter", JSON.stringify(data))
@@ -111,7 +111,7 @@ const mutations = {
 
   // 消费收益体现记录
   SET_USERLOG: (state, data) => {
-    console.log("状态管理用户基本信息", data);
+    // console.log("状态管理用户基本信息", data);
     if (data.length > 0) {
       state.xiaofeiLog = data
       localStorage.setItem("xiaofeiLog", JSON.stringify(data))
@@ -123,7 +123,7 @@ const mutations = {
   },
   // 用户体现记录
   SET_TIXIAN: (state, data) => {
-    console.log("用户提现信息", data);
+    // console.log("用户提现信息", data);
     if (data.length > 0) {
       state.tixianLog = data
       localStorage.setItem("tixianLog", JSON.stringify(data))
@@ -136,7 +136,7 @@ const mutations = {
 
   // 用户收益记录
   SET_SHOUYI: (state, data) => {
-    console.log("用户收益信息", data);
+    // console.log("用户收益信息", data);
     if (data.length > 0) {
       state.shouyiLog = data
       localStorage.setItem("shouyiLog", JSON.stringify(data))
@@ -198,8 +198,8 @@ const actions = {
     })
   },
   get_ID({ commit }, data) {
-    console.log("commit", commit);
-    console.log("state===========id", data);
+    // console.log("commit", commit);
+    // console.log("state===========id", data);
     commit("SET_ID", data)
   },
 
@@ -214,7 +214,7 @@ const actions = {
           return reject('首页需求中心请求出错.')
         }
         // console.log("投标历史记录");
-        console.log("===============", res);
+        // console.log("===============", res);
         commit("SET_ENNDCONTENT", res.data.data)
       })
     })
@@ -232,18 +232,18 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
         // console.log("投标历史记录");
-        console.log("===============", res);
+        // console.log("===============", res);
         commit("SET_SHOUCHANG", res.data.data)
       })
     })
   },
 
- 
+
 
   // 商户资源jilu
   getZy({ commit }, data) {
 
-    console.log("商户资源jilu", data);
+    // console.log("商户资源jilu", data);
 
     return new Promise((resolve, reject) => {
       cateLog(data).then((res) => {
@@ -251,7 +251,7 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
 
-        console.log("===============", res);
+        // console.log("===============", res);
         commit("SET_SHZY", res.data.data)
       })
     })
@@ -263,7 +263,7 @@ const actions = {
 
   getUserLog({ commit }, data) {
 
-    console.log("data", data);
+    // console.log("data", data);
 
     return new Promise((resolve, reject) => {
       consumeLog(data).then((res) => {
@@ -271,7 +271,7 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
         // console.log("投标历史记录");
-        console.log("===============", res);
+        // console.log("===============", res);
         commit("SET_USERLOG", res.data.data)
       })
     })
@@ -281,7 +281,7 @@ const actions = {
 
   getTixianLog({ commit }, data) {
 
-    console.log("体现data", data);
+    // console.log("体现data", data);
 
     return new Promise((resolve, reject) => {
       withdrawDepositList(data).then((res) => {
@@ -289,7 +289,7 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
 
-        console.log("===============", res);
+        // console.log("===============", res);
         commit("SET_TIXIAN", res.data.data)
       })
     })
@@ -298,7 +298,7 @@ const actions = {
 
   getShouyiLog({ commit }, data) {
 
-    console.log("收益data", data);
+    // console.log("收益data", data);
 
     return new Promise((resolve, reject) => {
       YieldLog(data).then((res) => {
@@ -306,7 +306,7 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
         // console.log("投标历史记录");
-        console.log("===============", res);
+        // console.log("===============", res);
         commit("SET_SHOUYI", res.data.data)
       })
     })
@@ -338,7 +338,7 @@ const actions = {
         if (!res.data) {
           return reject('Verification failed, please Login again.')
         }
-        console.log("投标历史记录");
+        // console.log("投标历史记录");
         commit("SET_TENDER", res.data.data)
       })
     })
@@ -350,7 +350,7 @@ const actions = {
 
     //  console.log("commit",commit);
     //  console.log("state",state);
-     console.log("获取用户基本信息",data);
+    //  console.log("获取用户基本信息",data);
     return new Promise((resolve, reject) => {
       getLogin(data).then(res => {
         if (!res.data) {
