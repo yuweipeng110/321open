@@ -4,7 +4,7 @@
       <div class="group_2 flex-col">
         <span class="text_11">首页&gt;交易中心&gt;
           {{ detial.title }}
-          ></span>
+        </span>
         <div class="box_9 flex-row justify-between">
           <div class="block_2 flex-row">
             <div class="text-wrapper_2 flex-col flexcontents" style="text-align:center;">
