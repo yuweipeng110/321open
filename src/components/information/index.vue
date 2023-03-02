@@ -4,7 +4,23 @@
       <el-col :span="12">
         <div id="lvjing">
           <ul>
-            <li class="active" style="opacity: 1; filter: alpha(opacity=100)">
+            <li style="opacity: 1; filter: alpha(opacity=100)" v-for="(item, index) in list" :key="index"
+              :class="{ 'active': index == 0 }">
+              <img src="../../assets/z3.png">
+              <div class="actiii" :class="{ 'mt130': index1 == 1, 'mt260': index1 == 2 }" v-for="(item1, index1) in item.list"
+                :key="index1">
+                <h3>
+                  {{ item1.title }}
+                </h3>
+                <p>
+                {{ item1.description }}
+                </p>
+              </div>
+
+
+            </li>
+
+            <!-- <li class="active" style="opacity: 1; filter: alpha(opacity=100)"  >
               <img src="../../assets/z3.png">
               <div class="actiii">
                 <h3>
@@ -202,7 +218,7 @@
                   主演，影片将于10月29日全国上映
                 </p>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
       </el-col>
@@ -231,25 +247,10 @@
           </div>
           <div class="right">
             <ul>
-              <li class="active">
+              <li v-for="(item, index) in list" :key="index" :class="{ 'active': index == 0 }">
+                <i v-if="index > 0" :class="{ 'i2': index == 1, 'i3': index == 2, 'i4': index > 2 }" />
                 <!-- <el-button class="h80" type="warning" circle plain>政策资讯</el-button> -->
-                <button class="h80 hBtn">政策资讯</button>
-              </li>
-              <li>
-                <i class="i2" />
-                <button class="h80 hBtn">行业新闻</button>
-              </li>
-              <li>
-                <i class="i3" />
-                <button class="h80 hBtn">服务项目</button>
-              </li>
-              <li>
-                <i class="i4" />
-                <button class="h80 hBtn">服务案例</button>
-              </li>
-              <li>
-                <i class="i4" />
-                <button class="h80 hBtn">需求中心</button>
+                <button class="h80 hBtn">{{ item.cate_name }}</button>
               </li>
             </ul>
           </div>
@@ -261,174 +262,180 @@
 <script>
 import $ from 'jquery'
 import { homeMessage } from "@/api/home";
+import { init } from 'events';
 export default {
   name: 'Layout',
   data() {
     return {
       atuokey: true,
       input2: '',
-      list: []
+      list: [],
+
     }
   },
-  mounted() {
+  async mounted() {
 
-    this.getMessage();
-    $(function () {
-      var oFocus = $('#focus')
-
-      var oRight = oFocus.find('.right')
-
-      var oLeft = oFocus.find('.left')
-      var lvJing = $('#lvjing')
-
-      var aRLi = oRight.find('li')
-      var aBtn = aRLi.find('button')
-
-      var aLLi = oLeft.find('li')
-      var aLvjing = lvJing.find('li')
-
-      var index = 0
-      var timeIndex = 0
-
-      var timer = null
-
-      aRLi.click(function () {
-        index = $(this).index()
-
-        $(this).addClass('active').siblings().removeClass()
-
-        aLLi.eq(index).addClass('active').siblings().removeClass()
-        aLvjing.eq(index).addClass('active').siblings().removeClass()
-
-        aLLi
-          .eq(index)
-          .stop()
-          .animate({ opacity: 1 }, 300)
-          .siblings()
-          .stop()
-          .animate({ opacity: 0 }, 300)
-        aLvjing
-          .eq(index)
-          .stop()
-          .animate({ opacity: 1 }, 300)
-          .siblings()
-          .stop()
-          .animate({ opacity: 0 }, 300)
-
-        stopFoucs()
-      })
-
-      aRLi.mouseenter(function () {
-        index = $(this).index()
-
-        $(this).addClass('active').siblings().removeClass()
-
-        aLLi.eq(index).addClass('active').siblings().removeClass()
-        aLvjing.eq(index).addClass('active').siblings().removeClass()
-
-        aLLi
-          .eq(index)
-          .stop()
-          .animate({ opacity: 1 }, 300)
-          .siblings()
-          .stop()
-          .animate({ opacity: 0 }, 300)
-        aLvjing
-          .eq(index)
-          .stop()
-          .animate({ opacity: 1 }, 300)
-          .siblings()
-          .stop()
-          .animate({ opacity: 0 }, 300)
-
-        stopFoucs()
-      })
-
-      // .mouseleave(function () {
-      //   startFocus()
-      // })
-      setInterval(function () {
-        if (timeIndex === 5) {
-          timeIndex = 0
-        }
-        $(this).addClass('active').siblings().removeClass()
-
-        aLLi.eq(timeIndex).addClass('active').siblings().removeClass()
-        aRLi.find('button').removeClass('btnAct')
-        aRLi
-          .find('button')
-          .eq(timeIndex)
-          .addClass('btnAct')
-          .siblings()
-          .removeClass()
-        aLvjing.eq(timeIndex).addClass('active').siblings().removeClass()
-
-        aLLi
-          .eq(timeIndex)
-          .stop()
-          .animate({ opacity: 1 }, 300)
-          .siblings()
-          .stop()
-          .animate({ opacity: 0 }, 300)
-        aLvjing
-          .eq(timeIndex)
-          .stop()
-          .animate({ opacity: 1 }, 300)
-          .siblings()
-          .stop()
-          .animate({ opacity: 0 }, 300)
-        // console.log(timeIndex)
-        timeIndex++
-
-        stopFoucs()
-      }, 4500)
-
-      // timer = setInterval(function () {
-
-      // }, 3000)
-
-      function startFocus() {
-        index++
-
-        index = index > aRLi.length - 1 ? 0 : index
-
-        aLLi.eq(index).addClass('active').siblings().removeClass()
-        aLvjing.eq(index).addClass('active').siblings().removeClass()
-
-        aLLi
-          .eq(index)
-          .stop()
-          .animate({ opacity: 1 }, 300)
-          .siblings()
-          .stop()
-          .animate({ opacity: 0 }, 300)
-        aLvjing
-          .eq(index)
-          .stop()
-          .animate({ opacity: 1 }, 300)
-          .siblings()
-          .stop()
-          .animate({ opacity: 0 }, 300)
-
-        aRLi.eq(index).addClass('active').siblings().removeClass()
-      }
-
-      function stopFoucs() {
-        clearInterval(timer)
-      }
-    })
+    await this.getMessage();
+    this.init();
   },
   methods: {
     async getMessage() {
       let res = await homeMessage()
-      if(res.status==200){
-        this.list=res.data.data
-        console.log(  this.list, 'res');
+      if (res.status == 200) {
+        this.list = res.data.data
+        console.log(this.list, 'res');
       }
 
+    },
+    init() {
+      $(function () {
+        var oFocus = $('#focus')
+
+        var oRight = oFocus.find('.right')
+
+        var oLeft = oFocus.find('.left')
+        var lvJing = $('#lvjing')
+
+        var aRLi = oRight.find('li')
+        var aBtn = aRLi.find('button')
+
+        var aLLi = oLeft.find('li')
+        var aLvjing = lvJing.find('li')
+
+        var index = 0
+        var timeIndex = 0
+
+        var timer = null
+
+        aRLi.click(function () {
+          index = $(this).index()
+
+          $(this).addClass('active').siblings().removeClass()
+
+          aLLi.eq(index).addClass('active').siblings().removeClass()
+          aLvjing.eq(index).addClass('active').siblings().removeClass()
+
+          aLLi
+            .eq(index)
+            .stop()
+            .animate({ opacity: 1 }, 300)
+            .siblings()
+            .stop()
+            .animate({ opacity: 0 }, 300)
+          aLvjing
+            .eq(index)
+            .stop()
+            .animate({ opacity: 1 }, 300)
+            .siblings()
+            .stop()
+            .animate({ opacity: 0 }, 300)
+
+          stopFoucs()
+        })
+
+        aRLi.mouseenter(function () {
+          index = $(this).index()
+
+          $(this).addClass('active').siblings().removeClass()
+
+          aLLi.eq(index).addClass('active').siblings().removeClass()
+          aLvjing.eq(index).addClass('active').siblings().removeClass()
+
+          aLLi
+            .eq(index)
+            .stop()
+            .animate({ opacity: 1 }, 300)
+            .siblings()
+            .stop()
+            .animate({ opacity: 0 }, 300)
+          aLvjing
+            .eq(index)
+            .stop()
+            .animate({ opacity: 1 }, 300)
+            .siblings()
+            .stop()
+            .animate({ opacity: 0 }, 300)
+
+          stopFoucs()
+        })
+
+        // .mouseleave(function () {
+        //   startFocus()
+        // })
+        setInterval(function () {
+          if (timeIndex === 5) {
+            timeIndex = 0
+          }
+          $(this).addClass('active').siblings().removeClass()
+
+          aLLi.eq(timeIndex).addClass('active').siblings().removeClass()
+          aRLi.find('button').removeClass('btnAct')
+          aRLi
+            .find('button')
+            .eq(timeIndex)
+            .addClass('btnAct')
+            .siblings()
+            .removeClass()
+          aLvjing.eq(timeIndex).addClass('active').siblings().removeClass()
+
+          aLLi
+            .eq(timeIndex)
+            .stop()
+            .animate({ opacity: 1 }, 300)
+            .siblings()
+            .stop()
+            .animate({ opacity: 0 }, 300)
+          aLvjing
+            .eq(timeIndex)
+            .stop()
+            .animate({ opacity: 1 }, 300)
+            .siblings()
+            .stop()
+            .animate({ opacity: 0 }, 300)
+          // console.log(timeIndex)
+          timeIndex++
+
+          stopFoucs()
+        }, 4500)
+
+        // timer = setInterval(function () {
+
+        // }, 3000)
+
+        function startFocus() {
+          index++
+
+          index = index > aRLi.length - 1 ? 0 : index
+
+          aLLi.eq(index).addClass('active').siblings().removeClass()
+          aLvjing.eq(index).addClass('active').siblings().removeClass()
+
+          aLLi
+            .eq(index)
+            .stop()
+            .animate({ opacity: 1 }, 300)
+            .siblings()
+            .stop()
+            .animate({ opacity: 0 }, 300)
+          aLvjing
+            .eq(index)
+            .stop()
+            .animate({ opacity: 1 }, 300)
+            .siblings()
+            .stop()
+            .animate({ opacity: 0 }, 300)
+
+          aRLi.eq(index).addClass('active').siblings().removeClass()
+        }
+
+        function stopFoucs() {
+          clearInterval(timer)
+        }
+      })
     }
   }
 }
+
 </script>
 <style scoped>
 .focus {
