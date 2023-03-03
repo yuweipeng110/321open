@@ -27,6 +27,7 @@
     "swiper": "^8.4.5",
     "vue": "2.6.10",
     "vue-count-to": "^1.0.13",
+    "vue-qr": "^4.0.9",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "3.0.6",
     "vue-video-player": "^5.0.1",

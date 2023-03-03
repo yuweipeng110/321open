@@ -27,13 +27,13 @@
           <span class="text_43">发布时间：2022/10/18</span>
         </div>
       </div> -->
-      <div class="card_act" v-for="(item, index) in list.slice(0, 2)" :key="index">
+      <div class="card_act" v-for="(item, index) in list.slice(0, 2)" :key="index" @click="go(item)">
         <div class="imgcls">
           <!-- <div class="section_15 flex-col cart_img" /> -->
           <img :src="item.img" alt="" class="section_15 flex-col cart_img">
         </div>
         <div class="block_5 flex-col ">
-          <span class="text_41 newA">{{ item.content }}</span>
+          <span class="text_41 newA" v-html="item.content"></span>
           <div class="section_29 flex-row justify-between">
             <div class="box_17 flex-col" />
             <span class="text_42">{{ item.nick }}</span>
@@ -43,10 +43,10 @@
       </div>
     </div>
     <div class="box_38 flex-row box-middon">
-      <div class="card_act" v-for="(item, index) in list.slice(2, 4)" :key="index">
+      <div class="card_act" v-for="(item, index) in list.slice(2, 4)" :key="index" @click="go(item)">
 
         <div class="block_5 flex-col">
-          <span class="text_41 newA">{{ item.content }}</span>
+          <span class="text_41 newA" v-html="item.content"></span>
           <div class="section_29 flex-row justify-between">
             <div class="box_17 flex-col" />
             <span class="text_42">{{ item.nick }}</span>
@@ -92,8 +92,12 @@ export default {
       let res = await homexqzx()
       if (res.status == 200) {
         this.list = res.data.data
-        console.log(' this.list', this.list);
+        // console.log(' this.list', this.list);
       }
+    },
+    go(item) {
+      console.log('item', item);
+      this.$router.push(`/demand/details?id=${item.id}`);
     }
   }
 }

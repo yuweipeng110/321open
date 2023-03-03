@@ -15,9 +15,8 @@
                 <p>
                 {{ item1.description }}
                 </p>
+                <p>发布时间: {{ item1.addtime }}</p>
               </div>
-
-
             </li>
 
             <!-- <li class="active" style="opacity: 1; filter: alpha(opacity=100)"  >

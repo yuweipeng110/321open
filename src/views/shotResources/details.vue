@@ -4,8 +4,8 @@
       <span class="text_11">{{ objDetail.title }}</span>
       <div class="block_9 flex-row">
         <div class="text-wrapper_2">
-          <span class="text_12">首页</span> <span class="text_13">&gt;</span>
-          <span class="text_14">{{ objDetail.area_id }}</span>
+          <span class="text_12" style="color: rgba(177, 177, 177, 1);">首页</span> <span class="text_13">&gt;</span>
+          <span class="text_14" style="color: rgba(177, 177, 177, 1);">{{ objDetail.area_id }}</span>
           <span class="text_15">&gt;{{ objDetail.title }}</span>
         </div>
         <img class="thumbnail_3" referrerpolicy="no-referrer"
@@ -32,27 +32,27 @@
         <div class="section_12 flex-col">
           <div class="text-wrapper_3">
             <span class="text_20">¥</span>
-            <span class="text_21">{{ objDetail.zujin }}</span>
+            <span class="text_21">{{ parseInt(objDetail.zujin) }}</span>
             <span class="text_22">/全天</span>
           </div>
           <div class="box_23 flex-row justify-between">
             <div class="text-wrapper_4 flex-row justify-between des_tag">
               <span class="text_23">今天</span>
-              <span class="text_24">¥{{ objDetail.zujin }}</span>
+              <span class="text_24">¥{{ parseInt(objDetail.zujin) }}</span>
             </div>
             <div class="text-wrapper_5 flex-row justify-between des_tag">
               <span class="text_25">27日</span>
-              <span class="text_26">¥{{ objDetail.zujin }}</span>
+              <span class="text_26">¥{{ parseInt(objDetail.zujin) }}</span>
             </div>
           </div>
           <div class="box_24 flex-row justify-between">
             <div class="text-wrapper_6 flex-row justify-between des_tag">
               <span class="text_27">29日</span>
-              <span class="text_28">¥{{ objDetail.zujin }}</span>
+              <span class="text_28">¥{{ parseInt(objDetail.zujin) }}</span>
             </div>
             <div class="text-wrapper_7 flex-row justify-between des_tag">
               <span class="text_29">30日</span>
-              <span class="text_30">¥{{ objDetail.zujin }}</span>
+              <span class="text_30">¥{{ parseInt(objDetail.zujin) }}</span>
             </div>
           </div>
           <div class="text-wrapper_8" style="opacity: 0">
@@ -83,7 +83,7 @@
               src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng47a0e5ad956628aa58572ae15b014cb8bffb393e7e8685e030d84cfc259588fc" />
             <img class="label_4" referrerpolicy="no-referrer"
               src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng21748b8a8fd68bd0e7ed4a780724305edbf407bf5d892265834486b7e5e8d8e5" />
-            <img class="label_5" referrerpolicy="no-referrer"
+            <img @click="jubao" class="label_5" referrerpolicy="no-referrer"
               src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng0a6dfc18afd55bb96d77f36e2e437cca7af8747db3e2b1b4885294456e34825a" />
           </div>
         </div>
@@ -532,6 +532,28 @@ export default {
 
       this.objDetail = res.data.data;
       console.log("资源详情页面信息", this.objDetail);
+    },
+
+    jubao() {
+      this.$msgbox({
+        title: '电话拨打',
+        message: '<span class="tc"><i class="el-icon-phone"></i> +86 1388888888888</span>',
+        dangerouslyUseHTMLString: true,
+        showCancelButton: true,
+        cancelButtonText: '取消',
+        showConfirmButton: true,
+        confirmButtonText: '呼叫',
+        // callback(action, instance, done) {
+        //     console.log('callback', action, instance, done);
+        // },
+        // beforeClose(action, instance, done) {
+        //     console.log('beforeClose', action, instance, done);
+        // }
+      }).then(() => {
+        console.log('确定');
+      }, () => {
+        console.log('取消');
+      })
     },
 
     handleClick(id) {

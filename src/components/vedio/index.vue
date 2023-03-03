@@ -1,30 +1,26 @@
 <template>
-  <div class="vedio-con" :class="{ 'seenCls': !seen }">
+  <div v-if="list" class="vedio-con" :class="{ 'seenCls': !seen }">
     <el-row :gutter="20" style="margin: 0 auto;width:1400px">
-      <el-col :span="seen ? 12 : 24">
+      <el-col :span="seen ? 12 : 24" v-for="item in list" :key="item.id">
         <div class="imgcls">
           <video
-            :poster="require('@/assets/v1.png')"
             style="width: 100%;height: 448.11px;"
-            :src="videoUrl"
+            :src="item.video"
             preload="auto"
             controls="controls"
           />
         </div>
-
       </el-col>
-      <el-col :span="seen ? 12 : 24">
+      <!-- <el-col :span="seen ? 12 : 24">
         <div class="imgcls">
-          <!-- <el-image class="cart_img" :src="require('@/assets/v2.png')" @click.native="handleClick(2)" /> -->
           <video
-            :poster="require('@/assets/v2.png')"
             style="width: 100%;height: 448.11px;"
             src="https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_CinematicTrailer.mp4"
             preload="auto"
             controls="controls"
           />
         </div>
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-dialog title="视频精选" :visible.sync="dialogVisible" width="30%" :destroy-on-close="true" @close="closeDialog">
       <span />
@@ -45,9 +41,11 @@
   </div>
 </template>
 <script>
+import {homeVideo} from '@/api/home.js';
 export default {
   data() {
     return {
+      list: null,
       seen: true,
       dialogVisible: false,
       videoUrl: 'https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_CinematicTrailer.mp4'
@@ -81,8 +79,18 @@ export default {
         this.seen = false
       }
     })
+
+    this.fetchData();
   },
   methods: {
+    async fetchData() {
+      let res = await homeVideo();
+      let list = res.data.data;
+      if (list.length > 2) {
+        list.length = 2;
+      }
+      this.list = list;
+    },
     handleClick() {
       this.dialogVisible = true
       this.videoUrl = 'https://blz-videos.nosdn.127.net/1/OverWatch/AnimatedShots/Overwatch_AnimatedShot_CinematicTrailer.mp4'
