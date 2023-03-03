@@ -1,33 +1,24 @@
 <template>
   <div>
-    <div v-if="seen" class="page flex-col">
+    <div v-if="seen && detail" class="page flex-col">
       <div class="group_5 flex-col">
         <div class="box_1 flex-row">
           <div class="box_2 flex-col" />
           <div class="section_4 flex-col justify-between">
             <div class="section_5 flex-row">
-              <span class="text_11">工厂影像空间</span>
-              <img
-                class="label_3"
-                referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnga0ed5a19746374fe5af5430d0cf3ac6d10b4608aef02422a466db4d5f68d930d"
-              >
-              <img
-                class="image_2"
-                referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng59a5b9c82a4bd30748c82d3694de71969bf45a102764a8cc4c0f1c17f0dd9ebc"
-              >
+              <span class="text_11">{{ detail.nick }}</span>
+              <img class="label_3" referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnga0ed5a19746374fe5af5430d0cf3ac6d10b4608aef02422a466db4d5f68d930d">
+              <img class="image_2" referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng59a5b9c82a4bd30748c82d3694de71969bf45a102764a8cc4c0f1c17f0dd9ebc">
               <span class="text_12">实名认证</span>
-              <img
-                class="thumbnail_3"
-                referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng864db6eba90f65d7aedf199058cab4ae316477c6f87761bfbb286bf7ad61b4ea"
-              >
+              <img class="thumbnail_3" referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng864db6eba90f65d7aedf199058cab4ae316477c6f87761bfbb286bf7ad61b4ea">
               <span class="text_13">企业认证</span>
             </div>
-            <span
-              class="text_14"
-            >6场景&nbsp;｜&nbsp;2粉丝&nbsp;｜&nbsp;0关注&nbsp;｜&nbsp;60%好评&nbsp;｜&nbsp;3.0分&nbsp;｜&nbsp;0评论</span>
+            <span class="text_14">{{ detail.chang_num
+            }}场景&nbsp;｜&nbsp;2粉丝&nbsp;｜&nbsp;0关注&nbsp;｜&nbsp;60%好评&nbsp;｜&nbsp;{{ detail.eva }}分&nbsp;｜&nbsp;{{
+  detail.eva_num }}评论</span>
           </div>
           <div class="text-wrapper_2 flex-col gzBtn" @click="isFollow = true">
             <span class="text_15"> {{ isFollow ? '已关注' : '关注' }}</span>
@@ -36,229 +27,36 @@
             <span class="text_16">拨打电话</span>
           </div>
         </div>
-        <!-- <div class="box_13 flex-row">
-        <div class="image-text_2 flex-row justify-between">
-          <img
-            class="label_4"
-            referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng143a67f55fec4ab0f0a4dc51af4f180e18538bce431bd5e12cd5dded16d49a26"
-          >
-          <span class="text-group_1">分类</span>
-        </div>
-        <div class="text-wrapper_4 flex-col top_btn_r">
-          <span class="text_17">全部(6)</span>
-        </div>
-        <div class="text-wrapper_5 flex-col top_btn_r">
-          <span class="text_18">棚(6)</span>
-        </div>
-      </div> -->
-        <div class="tab_content mt20">
-          <label data-v-59cbb88f="" role="radio" tabindex="0" class="el-radio is-bordered"><span
-            class="el-radio__input"
-          ><span class="el-radio__inner" /><input
-            type="radio"
-            aria-hidden="true"
-            tabindex="-1"
-            autocomplete="off"
-            class="el-radio__original"
-            value="分类 "
-          ></span><span
-            class="el-radio__label"
-          >分类</span></label>
-          <el-radio-group v-model="tabRadio" @change="handleChange">
-            <el-radio label="全部(6)" border />
-            <el-radio label="棚(6)" border />
-          </el-radio-group>
-          <el-divider />
-        </div>
 
-        <div v-if="hasFiest" class="box_6 flex-col card_cls box_centent_pro card_hover">
+        <div v-if="detail.chang && detail.chang[0] && hasFiest"
+          :style="{ backgroundImage: 'url(' + detail.chang[0].img + ')', backgroundColor: '#f1f1f1' }"
+          class="box_6 flex-col card_cls box_centent_pro card_hover">
           <div class="text-group_17 flex-col justify-between ">
-            <span class="text_37">C2&nbsp;studio</span>
-            <span class="text_38">工厂影像空间</span>
+            <span class="text_37">{{ detail.chang[0].title }}</span>
+            <span class="text_38">{{ detail.nick }}</span>
             <span class="text_39">5分｜0条评论</span>
           </div>
           <div class="text-wrapper_9">
-            <span class="text_40">¥</span> <span class="text_41">3000</span>
+            <span class="text_40">¥</span> <span class="text_41">{{ parseInt(detail.chang[0].zujin) }}</span>
             <span class="text_42">/天</span>
           </div>
         </div>
-        <div v-if="hasFiest" class="box_15 flex-row justify-between box_centent card_hover">
-          <div class="box_8 flex-row card_cls">
+        <div v-if="hasFiest && detail.chang && detail.chang.length > 1" class="box_15 flex-row box_centent card_hover"
+          style="flex-flow:wrap;width:100%;height:auto;">
+          <div v-for="v in detail.chang.slice(1)" :key="v.id"
+            :style="{ backgroundImage: 'url(' + v.img + ')', backgroundColor: '#f1f1f1', marginRight: '20px' }"
+            class="box_8 flex-row card_cls">
             <div class="text-group_18 flex-col justify-between">
-              <span class="text_43">C2&nbsp;studio</span>
-              <span class="text_44">工厂影像空间</span>
+              <span class="text_43">{{ v.title }}</span>
+              <span class="text_44">{{ detail.nick }}</span>
               <span class="text_45">5分｜0条评论</span>
             </div>
             <div class="text-wrapper_10">
-              <span class="text_46">¥</span> <span class="text_47">3000</span>
+              <span class="text_46">¥</span> <span class="text_47">{{ parseInt(v.zujin) }}</span>
               <span class="text_48">/天</span>
             </div>
           </div>
-          <div class="box_9 flex-row card_cls">
-            <div class="text-group_19 flex-col justify-between">
-              <span class="text_49">C2&nbsp;studio</span>
-              <span class="text_50">工厂影像空间</span>
-              <span class="text_51">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_11">
-              <span class="text_52">¥</span> <span class="text_53">3000</span>
-              <span class="text_54">/天</span>
-            </div>
-          </div>
-          <div class="box_10 flex-row card_cls">
-            <div class="text-group_20 flex-col justify-between">
-              <span class="text_55">C2&nbsp;studio</span>
-              <span class="text_56">工厂影像空间</span>
-              <span class="text_57">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_12">
-              <span class="text_58">¥</span> <span class="text_59">3000</span>
-              <span class="text_60">/天</span>
-            </div>
-          </div>
         </div>
-        <div v-if="hasFiest" class="box_15 flex-row justify-between box_centent card_hover">
-          <div class="box_8 flex-row card_cls">
-            <div class="text-group_18 flex-col justify-between">
-              <span class="text_43">C2&nbsp;studio</span>
-              <span class="text_44">工厂影像空间</span>
-              <span class="text_45">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_10">
-              <span class="text_46">¥</span> <span class="text_47">3000</span>
-              <span class="text_48">/天</span>
-            </div>
-          </div>
-          <div class="box_9 flex-row card_cls">
-            <div class="text-group_19 flex-col justify-between">
-              <span class="text_49">C2&nbsp;studio</span>
-              <span class="text_50">工厂影像空间</span>
-              <span class="text_51">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_11">
-              <span class="text_52">¥</span> <span class="text_53">3000</span>
-              <span class="text_54">/天</span>
-            </div>
-          </div>
-          <div class="box_10 flex-row card_cls">
-            <div class="text-group_20 flex-col justify-between">
-              <span class="text_55">C2&nbsp;studio</span>
-              <span class="text_56">工厂影像空间</span>
-              <span class="text_57">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_12">
-              <span class="text_58">¥</span> <span class="text_59">3000</span>
-              <span class="text_60">/天</span>
-            </div>
-          </div>
-        </div>
-        <div v-if="hasFiest" class="box_15 flex-row justify-between box_centent  card_hover">
-          <div class="box_8 flex-row card_cls">
-            <div class="text-group_18 flex-col justify-between">
-              <span class="text_43">C2&nbsp;studio</span>
-              <span class="text_44">工厂影像空间</span>
-              <span class="text_45">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_10">
-              <span class="text_46">¥</span> <span class="text_47">3000</span>
-              <span class="text_48">/天</span>
-            </div>
-          </div>
-          <div class="box_9 flex-row card_cls">
-            <div class="text-group_19 flex-col justify-between">
-              <span class="text_49">C2&nbsp;studio</span>
-              <span class="text_50">工厂影像空间</span>
-              <span class="text_51">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_11">
-              <span class="text_52">¥</span> <span class="text_53">3000</span>
-              <span class="text_54">/天</span>
-            </div>
-          </div>
-          <div class="box_10 flex-row card_cls">
-            <div class="text-group_20 flex-col justify-between">
-              <span class="text_55">C2&nbsp;studio</span>
-              <span class="text_56">工厂影像空间</span>
-              <span class="text_57">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_12">
-              <span class="text_58">¥</span> <span class="text_59">3000</span>
-              <span class="text_60">/天</span>
-            </div>
-          </div>
-        </div>
-        <div v-if="!hasFiest" class="box_15 flex-row justify-between box_centent box_hover">
-          <div class="box_8 flex-row card_cls">
-            <div class="text-group_18 flex-col justify-between">
-              <span class="text_43">C2&nbsp;studio</span>
-              <span class="text_44">工厂影像空间</span>
-              <span class="text_45">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_10">
-              <span class="text_46">¥</span> <span class="text_47">3000</span>
-              <span class="text_48">/天</span>
-            </div>
-          </div>
-          <div class="box_9 flex-row card_cls">
-            <div class="text-group_19 flex-col justify-between">
-              <span class="text_49">C2&nbsp;studio</span>
-              <span class="text_50">工厂影像空间</span>
-              <span class="text_51">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_11">
-              <span class="text_52">¥</span> <span class="text_53">3000</span>
-              <span class="text_54">/天</span>
-            </div>
-          </div>
-          <div class="box_10 flex-row card_cls">
-            <div class="text-group_20 flex-col justify-between">
-              <span class="text_55">C2&nbsp;studio</span>
-              <span class="text_56">工厂影像空间</span>
-              <span class="text_57">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_12">
-              <span class="text_58">¥</span> <span class="text_59">3000</span>
-              <span class="text_60">/天</span>
-            </div>
-          </div>
-        </div>
-        <div v-if="!hasFiest" class="box_15 flex-row justify-between box_centent  box_hover">
-          <div class="box_8 flex-row card_cls">
-            <div class="text-group_18 flex-col justify-between">
-              <span class="text_43">C2&nbsp;studio</span>
-              <span class="text_44">工厂影像空间</span>
-              <span class="text_45">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_10">
-              <span class="text_46">¥</span> <span class="text_47">3000</span>
-              <span class="text_48">/天</span>
-            </div>
-          </div>
-          <div class="box_9 flex-row card_cls">
-            <div class="text-group_19 flex-col justify-between">
-              <span class="text_49">C2&nbsp;studio</span>
-              <span class="text_50">工厂影像空间</span>
-              <span class="text_51">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_11">
-              <span class="text_52">¥</span> <span class="text_53">3000</span>
-              <span class="text_54">/天</span>
-            </div>
-          </div>
-          <div class="box_10 flex-row card_cls">
-            <div class="text-group_20 flex-col justify-between">
-              <span class="text_55">C2&nbsp;studio</span>
-              <span class="text_56">工厂影像空间</span>
-              <span class="text_57">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_12">
-              <span class="text_58">¥</span> <span class="text_59">3000</span>
-              <span class="text_60">/天</span>
-            </div>
-          </div>
-        </div>
-
       </div>
       <el-dialog title="电话拨打" :visible.sync="centerDialogVisible" width="30%" center class="desDio">
         <span class="tc"> <i class="el-icon-phone" /> +86 1388888888888</span>
@@ -268,12 +66,11 @@
         </span>
       </el-dialog>
       <div class="mb50 tc mt50">
-        <el-pagination background layout="prev, pager, next" :total="1000" />
+        <!-- <el-pagination background layout="prev, pager, next" :total="1000" /> -->
       </div>
     </div>
     <des v-else />
   </div>
-
 </template>
 <script>
 import des from './desdes.vue'
@@ -288,12 +85,13 @@ export default {
       tabRadio: '分类',
       isFollow: false,
       hasFiest: true,
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      detail: this.$route.params.item
     }
   },
   watch: {
     seen: {
-      handler: function(val, oldVal) {
+      handler: function (val, oldVal) {
         if (document.body.clientWidth > 700) {
           this.seen = true
         } else {
@@ -306,7 +104,9 @@ export default {
   },
 
   mounted() {
-    this.imgObj = this.$route.query.imgObj
+    // console.log(this.detail);
+    // // this.imgObj = this.$route.query.imgObj
+    // this.imgObj = this.$route.query.imgObj
     if (document.body.clientWidth > 700) {
       this.seen = true
     } else {
@@ -2027,8 +1827,8 @@ div/deep/.tab_content .el-radio.is-bordered:hover {
   .box_1 {
     transform: translateX(-14px) scaleX(0.96);
   }
-  .tab_content{
+
+  .tab_content {
     transform: translateX(-14px) scaleX(0.96);
   }
-}
-</style>
+}</style>

@@ -18,7 +18,7 @@
           class="have-img"
           @click.prevent="handleGo(item.id)"
         >
-          <a class="wrap-img" href="#" target="_blank">
+          <a v-if="item.img" class="wrap-img" href="#" target="_blank">
             <img class="img-blur-done" :src="item.img" :alt="item.info" />
           </a>
           <div class="content">
@@ -40,11 +40,11 @@
       </ul>
       <!-- 文章列表模块 -->
     </div>
-    <el-row class="m50">
+    <!-- <el-row class="m50">
       <el-col :span="24">
         <el-pagination background layout="prev, pager, next" :total="100" />
       </el-col>
-    </el-row>
+    </el-row> -->
   </div>
 </template>
 
@@ -143,6 +143,7 @@ export default {
   list-style: none;
 }
 
+
 ul {
   padding-left: 0;
 }
@@ -176,13 +177,20 @@ li {
   width: 150px;
 }
 
+
+.note-list .have-img::after {
+  content:'';
+  display:block;
+  clear:both;
+}
 .note-list .have-img .wrap-img {
-  position: absolute;
+  /* position: absolute;
   top: 46%;
   margin-top: -60px;
-  left: 15px;
+  left: 15px; */
   width: 206px;
   height: 135px;
+  float:left;
 }
 
 a {
