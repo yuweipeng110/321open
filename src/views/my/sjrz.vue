@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-loading="load" class="tab_content" v-if="isSuccess">
+    <div v-loading="load" class="tab_content" v-if="status==2">
       <div class="list-container foraa">
         <el-form ref="form" :model="form" label-width="120px" size="mini">
           <el-form-item label="姓 名">
@@ -16,40 +16,22 @@
             <el-input v-model="address" placeholder="请输入通讯地址" />
           </el-form-item>
           <el-form-item label="身份证(正)">
-            <el-upload
-              class="avatar-uploader"
-              action=""
-              :on-change="handleelchange"
-              :auto-upload="false"
-              list-type="picture"
-              :show-file-list="false"
-            >
+            <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
+              list-type="picture" :show-file-list="false">
               <img v-if="imageUrl" :src="imageUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
           <el-form-item label="身份证(反)">
-            <el-upload
-              class="avatar-uploader"
-              action=""
-              :on-change="handleelchange2"
-              :auto-upload="false"
-              list-type="picture"
-              :show-file-list="false"
-            >
+            <el-upload class="avatar-uploader" action="" :on-change="handleelchange2" :auto-upload="false"
+              list-type="picture" :show-file-list="false">
               <img v-if="imageUrl2" :src="imageUrl2" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
           <el-form-item label="营业执照">
-            <el-upload
-              class="avatar-uploader"
-              action=""
-              :on-change="handleelchange3"
-              :auto-upload="false"
-              list-type="picture"
-              :show-file-list="false"
-            >
+            <el-upload class="avatar-uploader" action="" :on-change="handleelchange3" :auto-upload="false"
+              list-type="picture" :show-file-list="false">
               <img v-if="imageUrl3" :src="imageUrl3" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -61,12 +43,7 @@
       </div>
     </div>
     <div v-else>
-      <el-result
-        icon="success"
-        title="申请通过"
-        v-if="msgsuccess == 1"
-        subTitle="恭喜你审核通过"
-      >
+      <el-result icon="success" title="申请通过" v-if="status == 1" subTitle="恭喜你审核通过">
       </el-result>
 
       <el-result icon="info" title="审核中" v-else subTitle="后台人员审核中，请稍后">
@@ -77,6 +54,7 @@
 <script>
 import axios from "axios";
 import { ruzhu } from "@/api/table";
+import { shangjiaruzhuLog } from '@/api/tenant'
 export default {
   data() {
     return {
@@ -98,6 +76,7 @@ export default {
       phome: "",
       address: "",
       comapny: "",
+      status: 2
     };
   },
   computed: {
@@ -112,8 +91,19 @@ export default {
       return this.$store.state.user.ruzhuxiangqing;
     },
   },
-  mounted() {},
+  mounted() {
+    this.getShangjiaruzhuLog()
+    console.log('zxx',this.$store.state.user.ruzhuxiangqing)
+  },
   methods: {
+    async getShangjiaruzhuLog() {
+      let res = await shangjiaruzhuLog({ uid: this.$store.state.user.id })
+      let { status } = res.data.data[0]
+      if (res.status == 200) {
+        this.status=status
+
+      }
+    },
     handleelchange(file, fileList) {
       // console.log("file", file);
       // console.log("fililist", fileList);
@@ -229,21 +219,27 @@ export default {
   padding: 20px 20px 20px 0;
   border: 1px solid #e4e7ed;
 }
+
 .foraa .el-upload-dragger {
   width: 200px;
 }
+
 .foraa div/deep/.el-form-item__label {
   font-size: 16px;
 }
+
 div/deep/ .el-input__inner::placeholder {
   font-size: 16px;
 }
+
 div/deep/ .el-textarea__inner::placeholder {
   font-size: 16px;
 }
+
 div/deep/ .el-range-input::placeholder {
   font-size: 16px;
 }
+
 div/deep/.el-button {
   width: 160px;
   font-size: 16px;

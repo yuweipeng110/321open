@@ -28,7 +28,9 @@
           </div>
         </div>
 
-        <div v-if="detail.chang && detail.chang[0] && hasFiest" :style="{ backgroundImage: 'url(' + detail.chang[0].img + ')', backgroundColor: '#f1f1f1' }" class="box_6 flex-col card_cls box_centent_pro card_hover">
+        <div v-if="detail.chang && detail.chang[0] && hasFiest"
+          :style="{ backgroundImage: 'url(' + detail.chang[0].img + ')', backgroundColor: '#f1f1f1' }"
+          class="box_6 flex-col card_cls box_centent_pro card_hover">
           <div class="text-group_17 flex-col justify-between ">
             <span class="text_37">{{ detail.chang[0].title }}</span>
             <span class="text_38">{{ detail.nick }}</span>
@@ -39,8 +41,11 @@
             <span class="text_42">/天</span>
           </div>
         </div>
-        <div v-if="hasFiest && detail.chang && detail.chang.length > 1" class="box_15 flex-row box_centent card_hover" style="flex-flow:wrap;width:100%;height:auto;">
-          <div v-for="v in detail.chang.slice(1)" :key="v.id" :style="{ backgroundImage: 'url(' + v.img + ')', backgroundColor: '#f1f1f1', marginRight: '20px' }" class="box_8 flex-row card_cls">
+        <div v-if="hasFiest && detail.chang && detail.chang.length > 1" class="box_15 flex-row box_centent card_hover"
+          style="flex-flow:wrap;width:100%;height:auto;">
+          <div v-for="v in detail.chang.slice(1)" :key="v.id"
+            :style="{ backgroundImage: 'url(' + v.img + ')', backgroundColor: '#f1f1f1', marginRight: '20px' }"
+            class="box_8 flex-row card_cls">
             <div class="text-group_18 flex-col justify-between">
               <span class="text_43">{{ v.title }}</span>
               <span class="text_44">{{ detail.nick }}</span>
@@ -99,7 +104,8 @@ export default {
   },
 
   mounted() {
-    console.log(this.detail);
+    // console.log(this.detail);
+    // // this.imgObj = this.$route.query.imgObj
     // this.imgObj = this.$route.query.imgObj
     if (document.body.clientWidth > 700) {
       this.seen = true
@@ -1825,5 +1831,4 @@ div/deep/.tab_content .el-radio.is-bordered:hover {
   .tab_content {
     transform: translateX(-14px) scaleX(0.96);
   }
-}
-</style>
+}</style>

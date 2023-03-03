@@ -75,7 +75,7 @@ export default {
         });
 
         this.list.sort((a, b) => {
-          return  Date.parse(a.addtime) - Date.parse(b.addtime);
+          return    Date.parse(b.addtime) - Date.parse(a.addtime);
         })
 
         // console.log(list);
