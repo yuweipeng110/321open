@@ -144,8 +144,9 @@ const toolbarOptions = [
   ['image', 'video']
 ];
 import { enndPull, imageUpload } from "@/api/user";
-import { updateDitial, deleteDitial } from "@/api/home";
+import { updateDitial, deleteDitial, demandDitial } from "@/api/home";
 import moment from "moment";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -193,8 +194,14 @@ export default {
     },
     update(id) {
       this.dialogVisible = true
-      console.log('222', id);
+
       this.xuqiu_id = id
+      demandDitial({ id: id }).then((res) => {
+        if (res.status == 200) {
+          this.form = res.data.data
+        }
+      })
+
     },
     det(v) {
       if (!v) {
@@ -246,6 +253,7 @@ export default {
           });
           this.imageUrl = "";
           this.html = "";
+          this.getList()
         } else {
           this.$message.error("需求修改失败，请刷新重试");
         }

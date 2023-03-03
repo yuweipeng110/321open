@@ -1,7 +1,7 @@
 import {
   login, logout, getInfo, getLogin, CodeLogin, tenderList, enndRecord, consumeLog,
   YieldLog,
-  withdrawDepositList, collect
+  withdrawDepositList, collect,attention
 } from '@/api/user'
 import { cateLog } from "@/api/tenant"
 import { homeQuantity } from "@/api/home"
@@ -22,7 +22,7 @@ const getDefaultState = () => {
     xiaofeiLog: localStorage.getItem("xiaofeiLog") && localStorage.getItem("xiaofeiLog") != "undefined" ? JSON.parse(localStorage.getItem("xiaofeiLog")) : [],
     shouyiLog: localStorage.getItem("shouyiLog") && localStorage.getItem("shouyiLog") != "undefined" ? JSON.parse(localStorage.getItem("shouyiLog")) : [],
     tixianLog: localStorage.getItem("tixianLog") && localStorage.getItem("tixianLog") != "undefined" ? JSON.parse(localStorage.getItem("tixianLog")) : [],
-
+    guanzhu: localStorage.getItem("guanzhu") && localStorage.getItem("guanzhu") != "undefined" ? JSON.parse(localStorage.getItem("guanzhu")) : [],
     shouchang: localStorage.getItem("shouchang") && localStorage.getItem("shouchang") != "undefined" ? JSON.parse(localStorage.getItem("shouchang")) : []
     , ziyuan: localStorage.getItem("ziyuan") && localStorage.getItem("ziyuan") != "undefined" ? JSON.parse(localStorage.getItem("ziyuan")) : [],
     //  首页需求中心
@@ -172,6 +172,12 @@ const mutations = {
 
     localStorage.setItem("shouchang", JSON.stringify(data))
   },
+  //用户关注
+  SET_GUANZHU: (state, data) => {
+    state.guanzhu = data
+
+    localStorage.setItem("guanzhu", JSON.stringify(data))
+  },
   // SET_SHZY 商户资源
   SET_SHZY: (state, data) => {
     state.ziyuan = data
@@ -238,6 +244,23 @@ const actions = {
     })
   },
 
+ // 关注
+
+ getLike({ commit }, data) {
+
+  // console.log("data",data);
+
+  return new Promise((resolve, reject) => {
+    attention(data).then((res) => {
+      if (!res.data) {
+        return reject('Verification failed, please Login again.')
+      }
+      // console.log("投标历史记录");
+      // console.log("===============", res);
+      commit("SET_GUANZHU", res.data.data)
+    })
+  })
+},
 
 
   // 商户资源jilu

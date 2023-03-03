@@ -187,6 +187,9 @@
             </div>
           </div>
         </div>
+<<<<<<< HEAD
+
+=======
         <!--
         <div class="box_12 flex-row justify-between wfc">
           <div class="section_6 flex-col">
@@ -266,6 +269,7 @@
             </div>
           </div>
         </div> -->
+>>>>>>> bcf38147adce3c2a4d432fa50e3a601f615d60ea
 
       </div>
     </div>

@@ -100,6 +100,15 @@ export function consumeLog(data) {
     params: data
   })
 }
+//关注
+export function addGuanzhu(data) {
+  return request({
+    url: "/api/index/guanzhu",
+    method: "post",
+    params: data
+  })
+
+}
 // 我的关注
 
 export function attention(data) {
