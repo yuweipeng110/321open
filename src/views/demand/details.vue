@@ -18,10 +18,9 @@
               <span class="text_15">{{ detial.description }}</span>
               <span class="text_16">如果您也在寻求类似帮助，我们可以为您轻松搞定！</span>
               <div class="text-wrapper_3">
-                <span class="text_17">距离截止：</span>
-                <span class="text_18">{{ detial.zhao_end }}
-                  <!-- <countTo :start-val="21" :end-val="0" :duration="2800000" />分
-                  <countTo :start-val="60" :end-val="0" :duration="350000" />秒 -->
+                <span class="text_17">还有：</span>
+                <span class="text_18">
+                  <count-down :endTime="new Date(detial.zhao_end).getTime() / 1000 +  ' '" endText="--" />
                 </span>
               </div>
               <div class="text-wrapper_4">
@@ -108,7 +107,7 @@
                 </div>
               </div>
             </div>
-            <div class="block_3q flex-col ml20 prr">
+            <div class="block_3q flex-col ml20 prr" style="min-height:340px;height:auto;">
               <div v-if="isbm(item)" class="el-mask" style="background:transparent">
                 <img style="width:100%;height:100%;" :src="require('./bm.png')">
                 <div class="bm">保密信息</div>
@@ -117,7 +116,7 @@
                 <div class="text-wrapper_12 flex-row " :class="{ 'maskInfo3': item.isMask }">
                   <span class="text_33 ">{{ item.message }}</span>
                 </div>
-                <div class=" flex-row mt10 block_5 " :class="{ 'maskInfo20': item.isMask }">
+                <div class=" flex-row mt10 block_5 " style="padding:20px 0;height:auto;overflow-x:auto;" :class="{ 'maskInfo20': item.isMask }">
                   <!-- :preview-src-list="srcList1" 点击的话 -->
                   <el-image class="section_4 flex-col" :src="item.pic" />
                   <video class="section_4 flex-col" :src="item.video" preload="auto" controls="controls" />
@@ -186,13 +185,15 @@
 </template>
 <script>
 import pho from './phoneDes.vue'
+import countDown from '@/components/countDown'
 import { demandDitial } from '@/api/home'
 
 import { toubiaoApi } from '@/api/tenant'
 import axios from 'axios'
 export default {
   components: {
-    pho
+    pho,
+    countDown
   },
   data() {
     return {

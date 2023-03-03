@@ -207,21 +207,20 @@ export default {
         this.ddnum = res.data.data;
       }
       else if (this.active == 1) {
-        let params = {
-          uid: this.$store.state.user.id,
-          id: this.ddnum
-        };
-        try {
-          let res = await completeOrder(params);
-          if (res.data.code === 0) {
-            this.$message(res.data.msg);
-            return;
-          }
-        } catch (e) {
-          this.$message(e);
-          return;
-        }
-
+        // let params = {
+        //   uid: this.$store.state.user.id,
+        //   id: this.ddnum
+        // };
+        // try {
+        //   let res = await completeOrder(params);
+        //   if (res.data.code === 0) {
+        //     this.$message(res.data.msg);
+        //     return;
+        //   }
+        // } catch (e) {
+        //   this.$message(e);
+        //   return;
+        // }
       }
       // 上一步
       if (i === 0) {

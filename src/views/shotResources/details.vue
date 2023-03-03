@@ -314,9 +314,7 @@
       </div>
       <img class="image_20" referrerpolicy="no-referrer"
         src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a" />
-      <el-input type="textarea" :autosize="{ minRows: 8, maxRows: 8 }" disabled v-model="textarea2"
-        style="margin-top: 110px">
-      </el-input>
+
 
       <div class="text-wrapper_22 flex-col">
         <span class="text_69">用户评价(0条)</span>
@@ -361,91 +359,19 @@
       </div>
 
       <div class="block_17 flex-row">
-        <div class="group_16 flex-col cart_img">
-          <span class="text_78">水木智娱演播基地300平演播室</span>
+        <div class="group_16 flex-col cart_img" v-for="item in list" style="margin-right:20px;margin-bottom:20px;">
+          <span class="text_78">{{ item.title }}</span>
           <div class="box_26 flex-row justify-between">
-            <div class="section_8 flex-col" />
-            <span class="text_79">水木智竞馆演播室…</span>
+            <div class="section_8 flex-col" :style="{ backgroundImage: 'url(' + item.avatar + ')' }" />
+            <span class="text_79">{{ item.nick }}</span>
           </div>
           <div class="box_27 flex-row justify-between">
-            <span class="text_80">5分/0条点评</span>
+            <span class="text_80">
+              <!-- 5分/0条点评 -->
+            </span>
             <div class="text-wrapper_29">
-              <span class="text_81">¥</span> <span class="text_82">9000</span>
+              <span class="text_81">¥</span> <span class="text_82">{{ parseInt(item.zujin) }}</span>
               <span class="text_83">/天</span>
-            </div>
-          </div>
-        </div>
-        <div class="group_17 flex-col cart_img">
-          <span class="text_84">水木智娱演播基地300平演播室</span>
-          <div class="block_18 flex-row justify-between">
-            <div class="box_14 flex-col" />
-            <span class="text_85">水木智竞馆演播室…</span>
-          </div>
-          <div class="block_19 flex-row justify-between">
-            <span class="text_86">5分/0条点评</span>
-            <div class="text-wrapper_30">
-              <span class="text_87">¥</span> <span class="text_88">9000</span>
-              <span class="text_89">/天</span>
-            </div>
-          </div>
-        </div>
-        <div class="group_18 flex-col cart_img">
-          <span class="text_90">水木智娱演播基地300平演播室</span>
-          <div class="box_28 flex-row justify-between">
-            <div class="group_20 flex-col" />
-            <span class="text_91">水木智竞馆演播室…</span>
-          </div>
-          <div class="box_29 flex-row justify-between">
-            <span class="text_92">5分/0条点评</span>
-            <div class="text-wrapper_31">
-              <span class="text_93">¥</span> <span class="text_94">9000</span>
-              <span class="text_95">/天</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="block_20 flex-row mb100">
-        <div class="box_16 flex-col cart_img">
-          <span class="text_96">水木智娱演播基地300平演播室</span>
-          <div class="box_30 flex-row justify-between">
-            <div class="box_18 flex-col" />
-            <span class="text_97">水木智竞馆演播室…</span>
-          </div>
-          <div class="box_31 flex-row justify-between">
-            <span class="text_98">5分/0条点评</span>
-            <div class="text-wrapper_32">
-              <span class="text_99">¥</span> <span class="text_100">9000</span>
-              <span class="text_101">/天</span>
-            </div>
-          </div>
-        </div>
-        <div class="box_20 flex-col cart_img">
-          <span class="text_102">水木智娱演播基地300平演播室</span>
-          <div class="block_21 flex-row justify-between">
-            <div class="box_21 flex-col" />
-            <span class="text_103">水木智竞馆演播室…</span>
-          </div>
-          <div class="block_22 flex-row justify-between">
-            <span class="text_104">5分/0条点评</span>
-            <div class="text-wrapper_33">
-              <span class="text_105">¥</span>
-              <span class="text_106">9000</span>
-              <span class="text_107">/天</span>
-            </div>
-          </div>
-        </div>
-        <div class="box_22 flex-col cart_img">
-          <span class="text_108">水木智娱演播基地300平演播室</span>
-          <div class="group_35 flex-row justify-between">
-            <div class="group_24 flex-col" />
-            <span class="text_109">水木智竞馆演播室…</span>
-          </div>
-          <div class="group_36 flex-row justify-between">
-            <span class="text_110">5分/0条点评</span>
-            <div class="text-wrapper_34">
-              <span class="text_111">¥</span>
-              <span class="text_112">9000</span>
-              <span class="text_113">/天</span>
             </div>
           </div>
         </div>
@@ -457,7 +383,7 @@
 </template>
 <script>
 import des from "./des.vue";
-import { homezydetail } from "@/api/home";
+import { homezyList, homezydetail } from "@/api/home";
 export default {
   components: {
     des,
@@ -468,6 +394,7 @@ export default {
       constants: {},
       id: "",
       imgObj: {},
+      list: null,
       textarea2: "",
       objDetail: null,
       imgArr: [
@@ -512,6 +439,7 @@ export default {
     this.imgObj = this.$route.query.imgObj || {};
     this.id = this.$route.query.id;
     this.zyDetail(this.id);
+    this.fetchData();
     if (document.body.clientWidth > 700) {
       this.seen = true;
     } else {
@@ -527,6 +455,16 @@ export default {
     });
   },
   methods: {
+    async fetchData() {
+      let res = await homezyList();
+      let list = res.data.data;
+      if (list.length > 6) {
+        list.length = 6;
+      }
+      console.log('fetchData', list);
+      this.list = list;
+    },
+
     async zyDetail(id) {
       let res = await homezydetail({ id: String(id) });
 
