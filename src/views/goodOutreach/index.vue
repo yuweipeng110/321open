@@ -170,20 +170,24 @@
           </div>
           <div class="section_15 flex-col justify-between">
             <div class="block_13 flex-row justify-between w1100">
-              <div class="text-wrapper_6 flex-col card_cls w540" v-for="(item1, index1) in item.chang.slice(0, 2)"
-                :key="index1" @click="handleClick" :style="{ backgroundImage: 'url(' + item1.img + ')' }">
-                <span class="text_17">影棚</span>
+              <div class="text-wrapper_6 flex-col card_cls w540" :class="{ textBlack: !item.chang[0].img }"
+                v-if="item.chang[0]" @click="handleClick(item)"
+                :style="{ backgroundImage: 'url(' + item.chang[0].img + ')' }">
+                <span class="text_17">{{ item.chang[0].title }}</span>
               </div>
-              <!-- <div class="text-wrapper_7 flex-col card_cls" @click="handleClick">
-                <span class="text_18">影棚B</span> -->
-              <!-- </div> -->
+              <div class="text-wrapper_7 flex-col card_cls" :class="{ textBlack: !item.chang[0].img }"
+                v-if="item.chang[1]" @click="handleClick(item)"
+                :style="{ backgroundImage: 'url(' + item.chang[1].img + ')' }">
+                <span class="text_18">{{ item.chang[1].title }}</span>
+              </div>
             </div>
-            <div class="text-wrapper_8 flex-col card_cls w1100" @click="handleClick" :style="{ backgroundImage: `url(${item.chang[2].img})` }">
-              <span class="text_19">影棚C</span>
+            <div class="text-wrapper_8 flex-col card_cls w1100" :class="{ textBlack: !item.chang[0].img }"
+              v-if="item.chang[2]" @click="handleClick(item)" :style="{ backgroundImage: `url(${item.chang[2].img})` }">
+              <span class="text_19">{{ item.chang[2].title }}</span>
             </div>
           </div>
         </div>
-<!--
+        <!--
         <div class="box_12 flex-row justify-between wfc">
           <div class="section_6 flex-col">
             <div class="block_6 flex-col" />
@@ -241,10 +245,10 @@
               <span class="text_44">工厂影像空间</span>
               <span class="text_45">场景&nbsp;6｜评分3.0</span>
             </div> -->
-            <!-- <div class="text-wrapper_25 flex-col gzBtn" :class="{ 'activeBtn': actBtn === 6 }" @click="handClickBtn(6)">
+        <!-- <div class="text-wrapper_25 flex-col gzBtn" :class="{ 'activeBtn': actBtn === 6 }" @click="handClickBtn(6)">
               <span class="text_46">关注</span>
             </div> -->
-            <!-- <div class="text-wrapper_25 flex-col gzBtn" :class="{ 'activeBtn': actBtn5 }" @click="handClickBtn5()">
+        <!-- <div class="text-wrapper_25 flex-col gzBtn" :class="{ 'activeBtn': actBtn5 }" @click="handClickBtn5()">
               <span class="text_46">{{ actBtn5 ? '已关注' : '关注' }}</span>
             </div>
           </div>
@@ -414,13 +418,12 @@ export default {
       let res = await homeOuterLink();
       if (res.status == 200) {
         this.list = res.data.data;
-        console.log('xxxxx', res.data.data)
       }
-      this.list.forEach(res => {
-          res.chang.forEach(res1 => {
-            res1.img = 'https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/e8906c062f684b5ca649b5529a59a5c4_mergeImage.png'
-          })
-        })
+      // this.list.forEach(res => {
+      //     res.chang.forEach(res1 => {
+      //       res1.img = 'https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/e8906c062f684b5ca649b5529a59a5c4_mergeImage.png'
+      //     })
+      //   })
     },
     handClickBtn() {
       this.actBtn = true
@@ -446,10 +449,16 @@ export default {
     handle1(val) {
       this.tabtn1 = val
     },
-    handleClick() {
+    handleClick(item) {
+      // this.$router.push({
+      //   path: '/goodOutreach/details',
+      //   params: item
+      //   // query: { id: item.id }
+      // });
+
       this.$router.push({
-        path: '/goodOutreach/details',
-        query: { imgObj: '' }
+        name: 'goodOutreachdetails',
+        params: {item}
       })
     }
   }
@@ -2226,6 +2235,16 @@ div/deep/.el-checkbox.is-bordered.is-checked span {
 .activeBtn span {
   color: #c37b21;
   margin: 13px 0 0 52px;
+}
+
+.textBlack {
+  background-color: #f1f1f1;
+}
+
+.textBlack .text_17,
+.textBlack .text_18,
+.textBlack .text_19 {
+  color: #333;
 }
 
 @media only screen and (min-width: 390px) and (max-width: 400px) {

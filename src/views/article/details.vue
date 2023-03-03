@@ -16,9 +16,8 @@
             <div class="_2mYfmT">
               <div style="margin-left: 8px">
                 <div class="s-dsoj">
-                  <time datetime="2022-05-14T08:57:09.000Z"
-                    ><i class="el-icon-time" /> {{ deatilS.addtime }}</time
-                  ><span> <i class="el-icon-view" /> 阅读 {{ deatilS.reader }}</span>
+                  <time datetime="2022-05-14T08:57:09.000Z"><i class="el-icon-time" /> {{ deatilS.addtime }}</time><span>
+                    <i class="el-icon-view" /> 阅读 {{ deatilS.reader }}</span>
                 </div>
               </div>
             </div>
@@ -31,23 +30,13 @@
 
             <p v-html="deatilS.content"></p>
             <div class="image-package">
-              <div
-                class="image-container"
-                style="max-width: 700px; max-height: 350px; background-color: transparent"
-              >
+              <div class="image-container" style="max-width: 700px; max-height: 350px; background-color: transparent">
                 <div class="image-container-fill" style="padding-bottom: 49.93%" />
                 <div class="image-view" data-width="1426" data-height="712">
-                  <img
-                    data-original-src="//upload-images.jianshu.io/upload_images/27963539-88e4b8f898115b64.png"
-                    data-original-width="1426"
-                    data-original-height="712"
-                    data-original-format="image/png"
-                    data-original-filesize="868321"
-                    data-image-index="0"
-                    style="cursor: zoom-in"
-                    class=""
-                    :src="deatilS.img"
-                  />
+                  <img data-original-src="//upload-images.jianshu.io/upload_images/27963539-88e4b8f898115b64.png"
+                    data-original-width="1426" data-original-height="712" data-original-format="image/png"
+                    data-original-filesize="868321" data-image-index="0" style="cursor: zoom-in" class=""
+                    :src="deatilS.img" />
                 </div>
               </div>
               <div class="image-caption">dig命令</div>
@@ -145,23 +134,13 @@
             </p>
             <h3>DNS 解析过程</h3>
             <div class="image-package">
-              <div
-                class="image-container"
-                style="max-width: 700px; max-height: 350px; background-color: transparent"
-              >
+              <div class="image-container" style="max-width: 700px; max-height: 350px; background-color: transparent">
                 <div class="image-container-fill" style="padding-bottom: 49.93%" />
                 <div class="image-view" data-width="1426" data-height="712">
-                  <img
-                    data-original-src="//upload-images.jianshu.io/upload_images/27963539-88e4b8f898115b64.png"
-                    data-original-width="1426"
-                    data-original-height="712"
-                    data-original-format="image/png"
-                    data-original-filesize="868321"
-                    data-image-index="0"
-                    style="cursor: zoom-in"
-                    class=""
-                    :src="require('@/assets/img/spzy/p2.png')"
-                  />
+                  <img data-original-src="//upload-images.jianshu.io/upload_images/27963539-88e4b8f898115b64.png"
+                    data-original-width="1426" data-original-height="712" data-original-format="image/png"
+                    data-original-filesize="868321" data-image-index="0" style="cursor: zoom-in" class=""
+                    :src="require('@/assets/img/spzy/p2.png')" />
                 </div>
               </div>
               <div class="image-caption">dig命令</div>
@@ -175,23 +154,13 @@
               ditu.amap.com 的数据返回地址。
             </p>
             <div class="image-package">
-              <div
-                class="image-container"
-                style="max-width: 700px; max-height: 350px; background-color: transparent"
-              >
+              <div class="image-container" style="max-width: 700px; max-height: 350px; background-color: transparent">
                 <div class="image-container-fill" style="padding-bottom: 49.93%" />
                 <div class="image-view" data-width="1426" data-height="712">
-                  <img
-                    data-original-src="//upload-images.jianshu.io/upload_images/27963539-88e4b8f898115b64.png"
-                    data-original-width="1426"
-                    data-original-height="712"
-                    data-original-format="image/png"
-                    data-original-filesize="868321"
-                    data-image-index="0"
-                    style="cursor: zoom-in"
-                    class=""
-                    :src="require('@/assets/img/spzy/p3.png')"
-                  />
+                  <img data-original-src="//upload-images.jianshu.io/upload_images/27963539-88e4b8f898115b64.png"
+                    data-original-width="1426" data-original-height="712" data-original-format="image/png"
+                    data-original-filesize="868321" data-image-index="0" style="cursor: zoom-in" class=""
+                    :src="require('@/assets/img/spzy/p3.png')" />
                 </div>
               </div>
               <div class="image-caption">dig命令</div>
@@ -201,28 +170,13 @@
             <p>
               这对于需要在同一个IP地址上运行多个服务的情况来说非常方便。若要同时运行文件传输服务和
               Web 服务，则可以把
-              <a
-                href="https://links.jianshu.com/go?to=http%3A%2F%2Fftp.example.com"
-                target="_blank"
-                >ftp.example.com</a
-              >
+              <a href="https://links.jianshu.com/go?to=http%3A%2F%2Fftp.example.com" target="_blank">ftp.example.com</a>
               和
-              <a
-                href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.example.com"
-                target="_blank"
-                >www.example.com</a
-              >
+              <a href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.example.com" target="_blank">www.example.com</a>
               都指向 DNS 记录
-              <a
-                href="https://links.jianshu.com/go?to=http%3A%2F%2Fexample.com"
-                target="_blank"
-                >example.com</a
-              >，而后者则指向 IP 地址的 A 记录。如此一来，若服务器 IP 地址改变，则只需修改
-              <a
-                href="https://links.jianshu.com/go?to=http%3A%2F%2Fexample.com"
-                target="_blank"
-                >example.com</a
-              >
+              <a href="https://links.jianshu.com/go?to=http%3A%2F%2Fexample.com" target="_blank">example.com</a>，而后者则指向 IP
+              地址的 A 记录。如此一来，若服务器 IP 地址改变，则只需修改
+              <a href="https://links.jianshu.com/go?to=http%3A%2F%2Fexample.com" target="_blank">example.com</a>
               的 A 记录即可。
             </p>
             <h4>DNS 解析中的 DS,RRSIG 是什么</h4>
@@ -239,56 +193,31 @@
             </p>
             <blockquote>
               <p>
-                <a
-                  href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog%2F2016%2F06%2Fdns.html"
-                  target="_blank"
-                  >DNS 原理入门</a
-                ><br />
-                <a
-                  href="https://links.jianshu.com/go?to=https%3A%2F%2Fzh.m.wikipedia.org%2Fwiki%2F%25E5%259F%259F%25E5%2590%258D%25E7%25B3%25BB%25E7%25BB%259F%25E5%25AE%2589%25E5%2585%25A8%25E6%2589%25A9%25E5%25B1%2595%23DS_%28Delegation_Signer%29"
-                  target="_blank"
-                  >维基百科</a
-                ><br />
-                <a
-                  href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.cc.ntu.edu.tw%2Fchinese%2Fepaper%2F0022%2F20120920_2206.html"
-                  target="_blank"
-                  >台湾大学</a
-                >
+                <a href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog%2F2016%2F06%2Fdns.html"
+                  target="_blank">DNS 原理入门</a><br />
+                <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fzh.m.wikipedia.org%2Fwiki%2F%25E5%259F%259F%25E5%2590%258D%25E7%25B3%25BB%25E7%25BB%259F%25E5%25AE%2589%25E5%2585%25A8%25E6%2589%25A9%25E5%25B1%2595%23DS_%28Delegation_Signer%29"
+                  target="_blank">维基百科</a><br />
+                <a href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.cc.ntu.edu.tw%2Fchinese%2Fepaper%2F0022%2F20120920_2206.html"
+                  target="_blank">台湾大学</a>
               </p>
             </blockquote>
           </article>
         </section>
-        <div class="tc mb50">
-          <el-button class="sxBtn" type="primary" icon="el-icon-d-arrow-left "
-            >上一篇</el-button
-          >
-          <el-button class="sxBtn" type="primary"
-            >下一篇<i class="el-icon-d-arrow-right el-icon--right"
-          /></el-button>
-        </div>
+        <!-- <div class="tc mb50">
+          <el-button class="sxBtn" type="primary" icon="el-icon-d-arrow-left ">上一篇</el-button>
+          <el-button class="sxBtn" type="primary">下一篇<i class="el-icon-d-arrow-right el-icon--right" /></el-button>
+        </div> -->
       </div>
       <div />
       <aside class="_2OwGUo">
         <section class="_3Z3nHf">
           <h3 class="_1Prj5h QxT4hD">热门推荐</h3>
           <div v-for="(item, index) in hotList" :key="index" class="_1jW5zV">
-            <div class="_3QmNxJ" :title="item">
-              <p
-                v-if="index < 3"
-                class="_3SxgBd _1OhGeD one_row"
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="jsd-meta">{{ index + 1 }}</span> {{ item }}
+            <div class="_3QmNxJ" :title="item" @click="go(item)">
+              <p v-if="index < 3" class="_3SxgBd _1OhGeD one_row" href="#" target="_blank" rel="noopener noreferrer">
+                <span class="jsd-meta">{{ index + 1 }}</span> {{ item.title }}
               </p>
-              <p
-                v-else
-                class="_3SxgBd _1OhGeD one_row"
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <p v-else class="_3SxgBd _1OhGeD one_row" href="#" target="_blank" rel="noopener noreferrer">
                 <span class="jsdt-meta">{{ index + 1 }}</span> {{ item }}
               </p>
             </div>
@@ -296,9 +225,9 @@
         </section>
         <section class="_3Z3nHf">
           <h3 class="QHRnq8 QxT4hD"><span>相关推荐</span></h3>
-          <div v-for="(item, index) in orderList" :key="index" class="cont_der">
-            <a class="wrap-img" href="#" target="_blank">
-              <img class="img-blur-done" :src="item.src" />
+          <div v-for="(item, index) in orderList" :key="index" class="cont_der" @click="go(item)">
+            <a v-if="item.img" class="wrap-img" href="#" target="_blank">
+              <img class="img-blur-done" :src="item.img" />
             </a>
             <div class="cuOxAY">
               <div class="_3L5YSq" :title="item.title">
@@ -307,8 +236,8 @@
                 </p>
               </div>
               <div class="_19haGh">
-                <i class="el-icon-time" /> 2022.05.14 <i class="el-icon-view" /> 阅读
-                1,391
+                <i class="el-icon-time" /> {{ item.addtime }} <i class="el-icon-view" /> 阅读
+                {{ item.reader }}
               </div>
             </div>
           </div>
@@ -319,75 +248,15 @@
 </template>
 
 <script>
-import { art_detail } from "@/api/home";
+import { wenList, art_detail } from "@/api/home";
 export default {
   data() {
     return {
       seen: true,
       id: "",
       deatilS: "",
-      hotList: [
-        "三方接口签名验签简易设计与实现",
-        "这几种常见的 JVM 调优场景，你知道吗？",
-        "美团动态线程池实践思路，开源了",
-        "【tcp】从一次线上问题说起，详解 TCP 半连接队列、全连接队列",
-        "Java19 正式 GA！看虚拟线程如何大幅提高系统吞吐量",
-        "Android 架构之 MVI 完全体 | 重新审视 MVVM 之殇，PartialChange & Reducer 来拯救",
-        "前端VUE3,JQ,uniapp,综合(Ctrl+F搜索)",
-        "Flutter Tab 切换时保留tab的状态",
-        "浅析iOS离屏渲染原理实现",
-      ],
-      orderList: [
-        {
-          src: require("@/assets/img/spzy/p1.png"),
-          time: "2022-11-08",
-          num: "115",
-          title: "三方接口签名验签简易设计与实现",
-        },
-        {
-          src: require("@/assets/img/spzy/p2.png"),
-          time: "2022-11-08",
-          num: "115",
-          title: "这几种常见的 JVM 调优场景，你知道吗？",
-        },
-        {
-          src: require("@/assets/img/spzy/p3.png"),
-          time: "2022-11-08",
-          num: "115",
-          title: "美团动态线程池实践思路，开源了",
-        },
-        {
-          src: require("@/assets/img/spzy/p4.png"),
-          time: "2022-11-08",
-          num: "115",
-          title: "【tcp】从一次线上问题说起，详解 TCP 半连接队列、全连接队列",
-        },
-        {
-          src: require("@/assets/img/spzy/p1.png"),
-          time: "2022-11-08",
-          num: "115",
-          title:
-            "Android 架构之 MVI 完全体 | 重新审视 MVVM 之殇，PartialChange & Reducer 来拯救",
-        },
-        {
-          src: require("@/assets/img/spzy/p2.png"),
-          time: "2022-11-08",
-          num: "115",
-          title: "前端VUE3,JQ,uniapp,综合(Ctrl+F搜索)",
-        },
-        {
-          src: require("@/assets/img/spzy/p3.png"),
-          time: "2022-11-08",
-          num: "115",
-          title: "Flutter Tab 切换时保留tab的状态",
-        },
-        {
-          src: require("@/assets/img/spzy/p4.png"),
-          time: "2022-11-08",
-          num: "115",
-          title: "浅析iOS离屏渲染原理实现",
-        },
-      ],
+      hotList: null,
+      orderList: null,
     };
   },
   watch: {
@@ -402,6 +271,11 @@ export default {
       // 深度观察监听
       deep: true,
     },
+    $route() {
+      this.id = this.$route.query.id;
+      this.getdetail(this.id);
+      this.fetchData();
+    }
   },
 
   mounted() {
@@ -423,8 +297,39 @@ export default {
         this.seen = false;
       }
     });
+
+    this.fetchData();
   },
   methods: {
+
+    go(item) {
+      this.$router.push({
+        path: '/article/details',
+        query: {
+          id: item.id
+        }
+      });
+    },
+
+    fetchData() {
+      wenList({ cate_id: 5 }).then(res => {
+        console.log(res.data.data);
+        this.hotList = res.data.data;
+      });
+      wenList({ cate_id: 6 }).then(res => {
+        console.log(res.data.data);
+        this.orderList = res.data.data;
+      });
+
+      // art_detail({ id: 5 }).then(res => {
+      //   console.log(res.data.data);
+      //   // this.hotList = res.data.data
+      // });
+      // art_detail({ id: 6 }).then(res => {
+      //   console.log(res.data.data);
+      //   // this.orderList = res.data.data
+      // });
+    },
     handleBack() {
       this.$router.go(-1);
     },
@@ -516,11 +421,11 @@ h6 {
   color: #969696;
 }
 
-.s-dsoj > :not(:last-child) {
+.s-dsoj> :not(:last-child) {
   margin-right: 10px;
 }
 
-.s-dsoj > :not(:last-child) {
+.s-dsoj> :not(:last-child) {
   margin-right: 10px;
 }
 
@@ -839,6 +744,7 @@ section {
   border-bottom: 1px solid #e5e5e5;
   cursor: pointer;
 }
+
 @media (max-width: 1400px) {
   .act_des_content {
     transform: translateX(0px) scaleX(0.98);
