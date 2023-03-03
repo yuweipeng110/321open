@@ -66,7 +66,7 @@ export default {
 
         art_detail: { id: '6' },
 
-        updateDitial:  { id	: 29, area_id: 1, title: '22222222222', zhao_start: '2023-03-07 00:00:00', zhao_end: '2023-04-07 00:00:00', use_start: '2023-03-07 00:00:00', use_end: '2023-04-07 00:00:00',money: 233, uid: 18, content: 'cccccccc', img: '', description: ''} ,
+        updateDitial:  { id	: 27, area_id: 1, title: '22222222222', zhao_start: '2023-03-07 00:00:00', zhao_end: '2023-04-07 00:00:00', use_start: '2023-03-07 00:00:00', use_end: '2023-04-07 00:00:00',money: 233, uid: 18, content: 'cccccccc', img: '', description: ''} ,
 
         // tenant
         // catePull: { cate: '', content: '123', title: '', area_id: '', img: '', yajin: '', zujin: '', chao: '', uid: 1 }
@@ -227,10 +227,10 @@ export default {
   },
   created() {
     this.list = [].concat(
-      this.getModule(home),
+      // this.getModule(home),
       // this.getModule(table),
       // this.getModule(tenant),
-      // this.getModule(user),
+      this.getModule(user),
     );
   },
   methods: {

@@ -23,11 +23,17 @@
 </template>
 
 <script>
+
 export default {
-  props:{
-    guanzhu:{
-      default:()=>{}
-    }
+  // props:{
+  //   guanzhu:{
+  //     default:()=>{}
+  //   }
+  // },
+  computed: {
+    guanzhu: function () {
+      return this.$store.state.user.guanzhu;
+    },
   },
   data() {
     return {
@@ -37,10 +43,14 @@ export default {
   methods: {
     onSubmit() {
       // console.log('submit!')
+    },
+    getList(){
+      this.$store.dispatch("user/getLike", { uid: this.$store.state.user.id });
     }
   },
   mounted(){
     // console.log("000999009",this.guanzhu);
+    this.getList()
   }
 }
 </script>
