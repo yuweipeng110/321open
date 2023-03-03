@@ -1,13 +1,15 @@
 <template>
   <div class="tab_content">
     <el-row class="mb0">
-      <el-button type="text" class="ml122 my_btn ty2" icon="el-icon-postcard btn_i" size="mini">实名认证</el-button>
+      <el-button type="text" class="ml122 my_btn ty2 " icon="el-icon-postcard btn_i" :class="{ 'g-color': !ruzhu }"
+        size="mini">实名认证</el-button>
       <el-col :span="6">
         <el-avatar :size="150" :src="(userinfo && userinfo.avatar) || defaultNick" class="tx_cls" fit="fill " />
       </el-col>
       <el-col :span="18">
         <el-descriptions :column="1" class="mt72 des_my">
-          <el-descriptions-item label="昵称 " label-class-name="lh39">{{ (userinfo && userinfo.nick) || defaultName + userinfo.id }}
+          <el-descriptions-item label="昵称 " label-class-name="lh39">{{ (userinfo && userinfo.nick) || defaultName +
+            userinfo.id }}
             <el-button type="warning" class="ml160 ty2 ty4 priIn" size="mini" @click="handleEditPassWord">修改密码</el-button>
           </el-descriptions-item>
           <el-descriptions-item label="手机 " label-class-name="lh30">{{ (userinfo && userinfo.mobile) }}
@@ -90,7 +92,7 @@
     <el-dialog title="修改资料" :visible.sync="dialogFormVisibleData" width="30%">
       <el-form :model="formData" class="my_form">
         <el-form-item label="修改图像" :label-width="formLabelWidtha">
-          <el-upload class="avatar-uploader" action=""  :on-change="handleelchange" :auto-upload="false"
+          <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
             list-type="picture" :show-file-list="false">
             <img v-if="formData.avatar" :src="formData.avatar" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon" />
@@ -134,7 +136,7 @@
 import { withdrawDeposit, updataUser, UserEmail } from '@/api/user'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-
+import { shangjiaruzhuLog } from '@/api/tenant'
 // import {mapState} from "vuex"
 export default {
   data() {
@@ -174,6 +176,7 @@ export default {
       }
     }
     return {
+      ruzhu: false,
       dialogFormVisible: false,
       dialogFormVisiblePassWord: false,
       dialogFormVisibleData: false,
@@ -221,10 +224,21 @@ export default {
     }
   },
   mounted() {
+    this.getShangjiaruzhuLog()
     // console.log('==================', this.$store.state.user.userInfo)
     // console.log('this.$store.state.user.id', this.userinfo)
   },
   methods: {
+    async getShangjiaruzhuLog() {
+      let res = await shangjiaruzhuLog({ uid: this.$store.state.user.id })
+      let {status} = res.data.data[0]
+      if (res.status == 200) {
+        if (status ==1) {
+          this.ruzhu = true;
+        }
+
+      }
+    },
     //  修改资料图片上传
     handleelchange(file, fileList) {
       // console.log('file', file)
@@ -254,62 +268,62 @@ export default {
 
     //  修改个人信息
     async pullUpdate() {
-      if(this.formData.mobile.length){
+      if (this.formData.mobile.length) {
         if (Cookies.get('codeEdit')) {
-        if (this.formData.Code == Cookies.get('codeEdit')) {
-          const res = await updataUser({
-            id: String(this.id),
-            avatar: this.formData.avatar,
-            nick: this.formData.nick,
-            mobile: this.formData.mobile
-          })
+          if (this.formData.Code == Cookies.get('codeEdit')) {
+            const res = await updataUser({
+              id: String(this.id),
+              avatar: this.formData.avatar,
+              nick: this.formData.nick,
+              mobile: this.formData.mobile
+            })
 
-          // console.log('用户信息修改i', res)
+            // console.log('用户信息修改i', res)
 
-          if (res.status == 200 && res.data.msg == '修改成功') {
-            this.$store.dispatch('user/getUserInfo', { id: String(this.id) })
-            // this.ShowForma = false;
-            this.dialogFormVisibleData = false
+            if (res.status == 200 && res.data.msg == '修改成功') {
+              this.$store.dispatch('user/getUserInfo', { id: String(this.id) })
+              // this.ShowForma = false;
+              this.dialogFormVisibleData = false
 
-            this.formData.avatar = ''
-            this.formData.nick = ''
-            this.formData.mobile = ''
-            this.formData.Code = ''
-            // this.$emit("showFrom", this.ShowForma);
+              this.formData.avatar = ''
+              this.formData.nick = ''
+              this.formData.mobile = ''
+              this.formData.Code = ''
+              // this.$emit("showFrom", this.ShowForma);
+            } else {
+              this.$message.error('登录失败，请稍后重试')
+            }
+            // console.log('验证码登录返回数据', res.data.data)
+
+            this.$message({
+              message: '用户手机号验证码匹配成功',
+              type: 'success'
+            })
           } else {
-            this.$message.error('登录失败，请稍后重试')
+            // console.log('验证码错误')
+
+            // console.log(this.formData.Code, Cookies.get('codeEdit'))
+
+            this.$message.error('验证码错误')
           }
-          // console.log('验证码登录返回数据', res.data.data)
-
-          this.$message({
-            message: '用户手机号验证码匹配成功',
-            type: 'success'
-          })
         } else {
-          // console.log('验证码错误')
-
-          // console.log(this.formData.Code, Cookies.get('codeEdit'))
-
-          this.$message.error('验证码错误')
+          this.$message.error('请发送验证码')
+          // console.log('请发送验证码')
         }
       } else {
-        this.$message.error('请发送验证码')
-        // console.log('请发送验证码')
-      }
-      }else{
-          const res = await updataUser({
-            id: String(this.id),
-            avatar: this.formData.avatar,
-            nick: this.formData.nick,
-          })
+        const res = await updataUser({
+          id: String(this.id),
+          avatar: this.formData.avatar,
+          nick: this.formData.nick,
+        })
 
-            this.$store.dispatch('user/getUserInfo', { id: String(this.id) })
-            this.dialogFormVisibleData = false
-            this.formData.avatar = ''
-            this.formData.nick =''
-            this.formData.mobile =''
-            this.formData.Code = ''
-          // console.log('用户信息修改i', res)
+        this.$store.dispatch('user/getUserInfo', { id: String(this.id) })
+        this.dialogFormVisibleData = false
+        this.formData.avatar = ''
+        this.formData.nick = ''
+        this.formData.mobile = ''
+        this.formData.Code = ''
+        // console.log('用户信息修改i', res)
       }
     },
 

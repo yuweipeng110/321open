@@ -26,26 +26,28 @@
               <!-- <el-button type="warning" class="wa_btn" size="mini">修 改</el-button> -->
               <!-- </el-col> -->
               <el-col :span="24">
-                <el-button type="danger" class="wa_btn" size="mini">删 除</el-button>
+                <el-button type="danger" class="wa_btn" size="mini" @click="det(item.id)">删 除</el-button>
               </el-col>
               <el-col :span="24" class="tc">
-                <el-tag v-if="item.status == 1" class="wa_btn" type="danger" size="mini"
-                  >未投标</el-tag
-                >
+                <el-tag v-if="item.status == 1" class="wa_btn" type="danger" size="mini">未投标</el-tag>
                 <el-tag v-else class="wa_btn" type="success" size="mini">投标中</el-tag>
               </el-col>
             </el-row>
+            <el-dialog title="需求删除" :visible.sync="dialogVisible" width="30%">
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="det('')">确 定</el-button>
+            </span>
+          </el-dialog>
           </div>
+
         </li>
       </ul>
+
       <!-- 文章列表模块 -->
       <el-row class="m50">
         <el-col :span="24">
-          <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="tenderList.total"
-          />
+          <el-pagination background layout="prev, pager, next" :total="tenderList.total" />
         </el-col>
       </el-row>
     </div>
@@ -57,9 +59,13 @@
 </template>
 
 <script>
+import { deleteTender } from "@/api/user"
 export default {
   data() {
     return {
+      dialogVisible: false,
+      dialogVisible1: false,
+      id:''
       // imgsArr: [
       //   {
       //     src: require('@/assets/img/spzy/p1.png'),
@@ -81,9 +87,41 @@ export default {
     onSubmit() {
       // console.log("submit!");
     },
+    getList() {
+      this.$store.dispatch("user/getTenderAct", { uid: this.$store.state.user.id });
+    },
+    det(id) {
+
+      if (!id) {
+
+        deleteTender({ id: this.id, uid: this.$store.state.user.id }).then((res) => {
+          // console.log(res);
+          if (res.status == 200) {
+            this.$message({
+              type: "success",
+              message: "删除成功",
+            });
+            this.getList()
+          }
+          this.dialogVisible = false
+        },
+
+        )
+      } else {
+        this.id=id
+
+        this.dialogVisible = true
+      }
+
+
+    },
+
   },
-  mounted() {},
-};
+  mounted() {
+      console.log('tenderList', this.tenderList)
+      this.getList()
+    },
+}
 </script>
 
 <style scoped>
@@ -250,7 +288,7 @@ img {
   padding-right: 165px;
 }
 
-.note-list .have-img > div {
+.note-list .have-img>div {
   padding-left: 180px;
   cursor: pointer;
   padding-right: 73px;
@@ -348,6 +386,7 @@ body.reader-black-font .preview .title {
 .have-img:hover {
   box-shadow: 0 2px 12px 0 rgb(0 0 0);
 }
+
 .wa_btn {
   margin-top: 12px;
 }

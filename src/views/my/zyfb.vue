@@ -1,6 +1,6 @@
 <template>
   <div v-loading="load" class="tab_content vue-quill-editor">
-    <div class="list-container foraa">
+    <div class="list-container foraa" v-if="ruzhu">
       <el-form ref="form" :model="form" label-width="95px" size="mini">
         <el-form-item label="标 题">
           <el-input v-model="form.title" placeholder="请输入标题" />
@@ -8,25 +8,13 @@
 
         <el-form-item label="资源类型">
           <el-radio-group v-model="form.cate">
-            <el-radio
-              :label="item.name"
-              :value="item.name"
-              v-for="(item, index) in ziyuanfenleiList"
-              @change="changeFun(index)"
-            />
+            <el-radio :label="item.name" :value="item.name" v-for="(item, index) in ziyuanfenleiList"
+              @change="changeFun(index)" />
           </el-radio-group>
         </el-form-item>
         <template v-if="defaultData">
-          <el-form-item
-            :label="item.name"
-            v-for="item in defaultData.child"
-            :key="item.id"
-          >
-            <el-checkbox
-              :label="item2.name"
-              v-for="item2 in item.child"
-              :key="item2.id"
-            ></el-checkbox>
+          <el-form-item :label="item.name" v-for="item in defaultData.child" :key="item.id">
+            <el-checkbox :label="item2.name" v-for="item2 in item.child" :key="item2.id"></el-checkbox>
           </el-form-item>
         </template>
         <!-- <el-form-item label="二级分类">
@@ -40,11 +28,11 @@
           </el-radio-group>
         </el-form-item> -->
         <!-- <el-form-item label="资源图片"> -->
-          <!-- <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple>
+        <!-- <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple>
             <i class="el-icon-upload" />
             <div class="el-upload__text">上传照片</div>
           </el-upload> -->
-          <!-- <el-upload
+        <!-- <el-upload
             action="https://jsonplaceholder.typicode.com/posts/"
             list-type="picture-card"
             :limit="7"
@@ -58,18 +46,12 @@
           </el-dialog>
         </el-form-item> -->
         <el-form-item label="资源图片">
-            <el-upload
-              class="avatar-uploader"
-              action=""
-              :on-change="handleelchange"
-              :auto-upload="false"
-              list-type="picture"
-              :show-file-list="false"
-            >
-              <img v-if="form.img" :src="form.img" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-form-item>
+          <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
+            list-type="picture" :show-file-list="false">
+            <img v-if="form.img" :src="form.img" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
 
 
 
@@ -83,22 +65,19 @@
           <el-input v-model="form.chao" placeholder="请输入超时费用" />
         </el-form-item>
       </el-form>
-      <quill-editor
-        ref="mwQuillEditor"
-        v-model="form.content"
-        class="ml10"
-        :options="editorOption"
-      />
+      <quill-editor ref="mwQuillEditor" v-model="form.content" class="ml10" :options="editorOption" />
       <div class="tc mb20" style="margin-left: 80px">
         <el-button type="warning" @click="handle">提交</el-button>
       </div>
     </div>
+    <el-result icon="info" title="请先完成商家入驻" v-else >
+    </el-result>
   </div>
 </template>
 
 <script>
 import { quillEditor, Quill } from "vue-quill-editor";
-import { cateClassify,catePull } from "@/api/tenant";
+import { cateClassify, catePull, shangjiaruzhuLog } from "@/api/tenant";
 // import elinput from "./el_input";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -149,7 +128,7 @@ export default {
       defaultData: null,
       isCheck: false,
       html: this.value,
-      imageUrl:"",
+      imageUrl: "",
       dialogImageUrl: "",
       dialogVisible: false,
       ziyuanfenleiList: [],
@@ -171,16 +150,17 @@ export default {
       load: false,
       inputVal: "",
       form: {
-        cate:[],
+        cate: [],
         title: "",
-        area_id:"1",
-        img:"",
+        area_id: "1",
+        img: "",
         yajin: "",
         zujin: "",
         chao: "",
-        content:"",
+        content: "",
 
       },
+      ruzhu:false
     };
   },
   watch: {
@@ -197,16 +177,25 @@ export default {
       deep: true,
     },
   },
-  computed:{
-      id:function(){
-        return this.$store.state.user.id
-      }
+  computed: {
+    id: function () {
+      return this.$store.state.user.id
+    }
   },
   methods: {
+    async getShangjiaruzhuLog() {
+      let res = await shangjiaruzhuLog({ uid: this.$store.state.user.id })
+      let {status} = res.data.data[0]
+      if (res.status == 200) {
+        if (status ==1) {
+          this.ruzhu = true;
+        }
 
-  // 图片上传
+      }
+    },
+    // 图片上传
 
-  handleelchange(file, fileList) {
+    handleelchange(file, fileList) {
       // console.log("file", file);
       // console.log("fililist", fileList);
 
@@ -278,21 +267,21 @@ export default {
       };
       this.checkArr.push(obj);
     },
-  async  handle() {
+    async handle() {
       this.load = true;
 
       // console.log(this.form);
       // setInterval(() => {
       //   this.load = false;
       // }, 1000);
-      this.form={...this.form,uid:this.id}
-    let res=await catePull(this.form)
-    if(res){
-       this.load = false;
-      // console.log("拍摄资源",res);
-    }
+      this.form = { ...this.form, uid: this.id }
+      let res = await catePull(this.form)
+      if (res) {
+        this.load = false;
+        // console.log("拍摄资源",res);
+      }
 
-    // console.log("拍摄资源详情",res);
+      // console.log("拍摄资源详情",res);
     },
 
     // 上传图片函数
@@ -316,7 +305,7 @@ export default {
   },
   mounted() {
     this.cartFenlei();
-
+    this.getShangjiaruzhuLog()
     // console.log("资源发布啦啦啦啦啦啦啦啦");
   },
 };
@@ -394,6 +383,7 @@ div/deep/.el-button {
 .ml31 {
   margin-left: 31px;
 }
+
 .pl0 {
   padding-left: 0;
 }

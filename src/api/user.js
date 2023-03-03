@@ -167,6 +167,16 @@ export function tenderList(data) {
   })
 }
 
+//投标删除
+
+export function deleteTender(data) {
+  return request({
+    url: "/api/index/toubiao_delete",
+    method: "post",
+    params: data
+  })
+}
+
 // 资源下单
 
 export function xiadan(data) {

@@ -53,6 +53,26 @@ export function demandDitial(data){
     })
 }
 
+//需求修改
+export function updateDitial(data){
+
+    return request({
+        url:"/api/index/request_update",
+        method:"post",
+        params:data
+    })
+}
+
+//需求删除
+
+export function deleteDitial(data){
+
+  return request({
+      url:"/api/index/request_delete",
+      method:"post",
+      params:data
+  })
+}
 
 // 首页优质外链
 export function homeOuterLink(){
