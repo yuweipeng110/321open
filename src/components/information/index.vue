@@ -284,7 +284,6 @@ export default {
         this.list = res.data.data
         console.log(this.list, 'res');
       }
-
     },
     init() {
       $(function () {

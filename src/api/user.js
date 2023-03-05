@@ -25,7 +25,7 @@ export function logout() {
 // 用户登录基本信息
 export function getLogin(data) {
   return request({
-    url: "/api/index/user",
+    url: '/api/index/user',
     method: 'post',
     params: data
   })
@@ -34,8 +34,8 @@ export function getLogin(data) {
 
 export function withdrawDeposit(data) {
   return request({
-    url: "/api/index/tx",
-    method: "post",
+    url: '/api/index/tx',
+    method: 'post',
     params: data
   })
 }
@@ -44,18 +44,18 @@ export function withdrawDeposit(data) {
 export function enndPull(data) {
 
   return request({
-    url: "/api/index/request_add",
-    method: "post",
-    headers: { "Content-Type": "multipart/form-data" },
+    url: '/api/index/request_add',
+    method: 'post',
+    headers: { 'Content-Type': 'multipart/form-data' },
     params: data
   })
 }
 // 需求记录
 export function enndRecord(data) {
-  // console.log("需求记录",data);
+  // console.log('需求记录',data);
   return request({
-    url: "/api/index/request",
-    method: "post",
+    url: '/api/index/request',
+    method: 'post',
     params: data
   })
 }
@@ -63,48 +63,48 @@ export function enndRecord(data) {
 // 用户修改资料
 
 export function updataUser(data) {
-  // console.log("用户修改资料",data);
+  // console.log('用户修改资料',data);
   return request({
-    url: "/api/index/update_user",
-    method: "post",
+    url: '/api/index/update_user',
+    method: 'post',
     params: data
   })
 }
 // 提现列表
 
 export function withdrawDepositList(data) {
-  // console.log("提现列表",data);
+  // console.log('提现列表',data);
   return request({
-    url: "/api/index/my_tx",
-    method: "post",
+    url: '/api/index/my_tx',
+    method: 'post',
     params: data
   })
 }
 
 // 收益记录
 export function YieldLog(data) {
-  // console.log("收益记录",data);
+  // console.log('收益记录',data);
   return request({
-    url: "/api/index/my_hav",
-    method: "post",
+    url: '/api/index/my_hav',
+    method: 'post',
     params: data
   })
 }
 // 消费记录
 
 export function consumeLog(data) {
-  // console.log("消费记录",data);
+  // console.log('消费记录',data);
   return request({
-    url: "/api/index/my_order",
-    method: "post",
+    url: '/api/index/my_order',
+    method: 'post',
     params: data
   })
 }
 //关注
 export function addGuanzhu(data) {
   return request({
-    url: "/api/index/guanzhu",
-    method: "post",
+    url: '/api/index/guanzhu',
+    method: 'post',
     params: data
   })
 
@@ -113,8 +113,8 @@ export function addGuanzhu(data) {
 
 export function attention(data) {
   return request({
-    url: "/api/index/my_like",
-    method: "post",
+    url: '/api/index/my_like',
+    method: 'post',
     params: data
   })
 
@@ -123,8 +123,8 @@ export function attention(data) {
 
 export function collect(data) {
   return request({
-    url: "/api/index/my_collect",
-    method: "post",
+    url: '/api/index/my_collect',
+    method: 'post',
     params: data
   })
 }
@@ -135,23 +135,20 @@ export function UserEmail(data) {
 
   // console.log(data);
   return request({
-    url: "/api/index/send_code",
-    method: "post",
+    url: '/api/index/send_code',
+    method: 'post',
     params: data
   })
 }
-
-
 
 // let {res:data}=resad
 
 // 用户验证码登录接口
 
-
 export function CodeLogin(data) {
   return request({
-    url: "/api/index/mobile_login",
-    method: "post",
+    url: '/api/index/mobile_login',
+    method: 'post',
     params: data
   })
 }
@@ -160,28 +157,27 @@ export function CodeLogin(data) {
 
 export function imageUpload(data) {
   return request({
-    url: "/api/index/upload",
-    method: "post",
+    url: '/api/index/upload',
+    method: 'post',
     params: data,
-    headers: { "Content-Type": "multipart/form-data" },
+    headers: { 'Content-Type': 'multipart/form-data' },
   })
 }
 
 
 export function tenderList(data) {
   return request({
-    url: "/api/index/my_toubiao",
-    method: "post",
+    url: '/api/index/my_toubiao',
+    method: 'post',
     params: data
   })
 }
 
-//投标删除
-
+// 投标删除
 export function deleteTender(data) {
   return request({
-    url: "/api/index/toubiao_delete",
-    method: "post",
+    url: '/api/index/toubiao_delete',
+    method: 'post',
     params: data
   })
 }
@@ -190,8 +186,8 @@ export function deleteTender(data) {
 
 export function xiadan(data) {
   return request({
-    url: "/api/index/goumai",
-    method: "post",
+    url: '/api/index/goumai',
+    method: 'post',
     params: data
   })
 }
@@ -200,7 +196,7 @@ export function xiadan(data) {
 export function completeOrder(data) {
   return request({
     url: '/api/index/complete_order',
-    method: "post",
+    method: 'post',
     params: data
   })
 }

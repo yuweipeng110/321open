@@ -27,7 +27,7 @@
         </el-form-item>
         <el-form-item label="选择时长">
           <el-date-picker v-model="form.time" :append-to-body="false" type="daterange" range-separator="至"
-            start-placeholder="开始日期" end-placeholder="结束日期" />
+            start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="datepickerOptions" />
         </el-form-item>
       </el-form>
       <div v-else-if="active === 1" class="des_content">
@@ -127,6 +127,13 @@ export default {
         fp: "",
         desc: "",
         time: "",
+      },
+
+      datepickerOptions: {
+        disabledDate(time) {
+          // 设置选择今天以及今天之后的日期
+          return time.getTime() < Date.now() - 8.64e7;
+        }
       },
 
       ddnum: '',

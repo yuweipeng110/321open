@@ -229,8 +229,7 @@ export default {
       let res = await UserEmail({ mobile: this.phome });
       this.userCode = res.data.data;
       Cookies.set("code", res.data.data, { expires: expires });
-
-      // console.log(res);
+      // console.log( Cookies.get("code") );
     },
 
     // 用户验证码登录接口
@@ -243,7 +242,6 @@ export default {
           let res = await CodeLogin({ mobile: this.phome });
 
           // console.log("ressss用户基本信息", res);
-
           if (res.status == 200 && res.data.data) {
             this.$store.dispatch("user/get_ID", res.data.data);
 
@@ -260,7 +258,6 @@ export default {
             type: "success",
           });
 
-
           if (this.redirect) {
             this.redirect();
           }
@@ -269,8 +266,6 @@ export default {
               name: "PersonalCenter"
             })
           }
-
-
           // localStorage.removeItem("progressServe");
         } else {
           // console.log("验证码已经过期，请重新发送");

@@ -180,11 +180,11 @@ router.beforeEach((to, from, next) => {
    if(token){
     next();
    }else{
-    // next();
     Message({
       message: '请先登录！',
       type: 'warning'
     });
+    next('/');
    }
 
   } else {
