@@ -33,7 +33,7 @@
           <img :src="item.img" alt="" class="section_15 flex-col cart_img">
         </div>
         <div class="block_5 flex-col ">
-          <span class="text_41 newA" v-html="item.content"></span>
+          <span class="text_41 newA"></span>
           <div class="section_29 flex-row justify-between">
             <div class="box_17 flex-col" />
             <span class="text_42">{{ item.nick }}</span>
@@ -46,7 +46,7 @@
       <div class="card_act" v-for="(item, index) in list.slice(2, 4)" :key="index" @click="go(item)">
 
         <div class="block_5 flex-col">
-          <span class="text_41 newA" v-html="item.content"></span>
+          <span class="text_41 newA" ></span>
           <div class="section_29 flex-row justify-between">
             <div class="box_17 flex-col" />
             <span class="text_42">{{ item.nick }}</span>

@@ -282,7 +282,6 @@ export default {
       let res = await homeMessage()
       if (res.status == 200) {
         this.list = res.data.data
-        console.log(this.list, 'res');
       }
     },
     init() {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-loading="load" class="tab_content" v-if="status==2">
+    <div v-loading="load" class="tab_content" v-if="status == 2">
       <div class="list-container foraa">
         <el-form ref="form" :model="form" label-width="120px" size="mini">
           <el-form-item label="姓 名">
@@ -16,22 +16,40 @@
             <el-input v-model="address" placeholder="请输入通讯地址" />
           </el-form-item>
           <el-form-item label="身份证(正)">
-            <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
-              list-type="picture" :show-file-list="false">
+            <el-upload
+              class="avatar-uploader"
+              action=""
+              :on-change="handleelchange"
+              :auto-upload="false"
+              list-type="picture"
+              :show-file-list="false"
+            >
               <img v-if="imageUrl" :src="imageUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
           <el-form-item label="身份证(反)">
-            <el-upload class="avatar-uploader" action="" :on-change="handleelchange2" :auto-upload="false"
-              list-type="picture" :show-file-list="false">
+            <el-upload
+              class="avatar-uploader"
+              action=""
+              :on-change="handleelchange2"
+              :auto-upload="false"
+              list-type="picture"
+              :show-file-list="false"
+            >
               <img v-if="imageUrl2" :src="imageUrl2" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
           <el-form-item label="营业执照">
-            <el-upload class="avatar-uploader" action="" :on-change="handleelchange3" :auto-upload="false"
-              list-type="picture" :show-file-list="false">
+            <el-upload
+              class="avatar-uploader"
+              action=""
+              :on-change="handleelchange3"
+              :auto-upload="false"
+              list-type="picture"
+              :show-file-list="false"
+            >
               <img v-if="imageUrl3" :src="imageUrl3" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -43,18 +61,28 @@
       </div>
     </div>
     <div v-else>
-      <el-result icon="success" title="申请通过" v-if="status == 1" subTitle="恭喜你审核通过">
+      <el-result
+        icon="success"
+        title="申请通过"
+        v-if="status == 1"
+        subTitle="恭喜你审核通过"
+      >
       </el-result>
 
-      <el-result icon="info" title="审核中" v-else subTitle="后台人员审核中，请稍后">
+      <el-result
+        icon="info"
+        title="审核中"
+        v-else
+        subTitle="后台人员审核中，请稍后"
+      >
       </el-result>
     </div>
   </div>
 </template>
 <script>
-import axios from "axios";
 import { ruzhu } from "@/api/table";
-import { shangjiaruzhuLog } from '@/api/tenant'
+import { shangjiaruzhuLog } from "@/api/tenant";
+import { imageUpload } from "@/api/user";
 export default {
   data() {
     return {
@@ -76,7 +104,7 @@ export default {
       phome: "",
       address: "",
       comapny: "",
-      status: 2
+      status: 2,
     };
   },
   computed: {
@@ -92,92 +120,50 @@ export default {
     },
   },
   mounted() {
-    this.getShangjiaruzhuLog()
-    console.log('zxx',this.$store.state.user.ruzhuxiangqing)
+    this.getShangjiaruzhuLog();
+    console.log("zxx", this.$store.state.user.ruzhuxiangqing);
   },
   methods: {
     async getShangjiaruzhuLog() {
-      let res = await shangjiaruzhuLog({ uid: this.$store.state.user.id })
-      let { status } = res.data.data[0]
+      let res = await shangjiaruzhuLog({ uid: this.$store.state.user.id });
+      let { status } = res.data.data[0];
       if (res.status == 200) {
-        this.status=status
-
+        this.status = status;
       }
     },
-    handleelchange(file, fileList) {
-      // console.log("file", file);
-      // console.log("fililist", fileList);
-
+    async handleelchange(file, fileList) {
       let formdata = new FormData();
-      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
 
-      formdata.forEach((item) => {
-        // console.log(item);
-      });
-
-      // console.log(e);
-      //   let {file}=e
-      axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        // console.log(res);
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
         this.imageUrl = res.data.url;
-      });
-      // imageUpload(formdata).then(res=>{
-      //   console.log(res);
-      // })
+      }
     },
-    handleelchange2(file, fileList) {
-      // console.log("file", file);
-      // console.log("fililist", fileList);
-
+    async handleelchange2(file, fileList) {
       let formdata = new FormData();
-      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
-
-      formdata.forEach((item) => {
-        // console.log(item);
-      });
-
-      // console.log(e);
-      //   let {file}=e
-      axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        // console.log(res);
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
         this.imageUrl2 = res.data.url;
-      });
-      // imageUpload(formdata).then(res=>{
-      //   console.log(res);
-      // })
+      }
     },
-    handleelchange3(file, fileList) {
-      // console.log("file", file);
-      // console.log("fililist", fileList);
-
+    async handleelchange3(file, fileList) {
       let formdata = new FormData();
-      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
-
-      formdata.forEach((item) => {
-        // console.log(item);
-      });
-
-      // console.log(e);
-      //   let {file}=e
-      axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        // console.log(res);
-        this.imageUrl3 = res.data.url;
-      });
-      // imageUpload(formdata).then(res=>{
-      //   console.log(res);
-      // })
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
+          this.imageUrl3 = res.data.url;
+      }
     },
     async handle() {
       this.load = true;

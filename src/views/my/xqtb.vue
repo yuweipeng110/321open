@@ -5,11 +5,11 @@
       <!-- 文章列表模块 -->
       <ul class="note-list" infinite-scroll-url="/">
         <li v-for="(item, index) in tenderList" :key="index" class="have-img">
-          <a class="wrap-img" href="#" target="_blank">
+          <a class="wrap-img" :href="`#/demand/details?id=${item.r_id}`" target="_blank">
             <img class="img-blur-done" :src="item.img" :alt="item.title" />
           </a>
           <div class="content">
-            <a href="#" class="title" target="_blank">{{ item.title }}</a>
+            <a :href="`#/demand/details?id=${item.r_id}`" class="title" target="_blank">{{ item.title }}</a>
             <p> {{ item.description }}</p>
             <div class="meta">
               <span class="jsd-meta"> <i class="el-icon-time" /> 投标时间 </span>

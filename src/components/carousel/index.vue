@@ -1,33 +1,30 @@
 <template>
   <div class="m">
     <ul class="pgwSlider">
-      <li>
-        <img src="../../assets/index0.png" />
-      </li>
-      <li>
-        <img src="../../assets/index0.png" />
-      </li>
-      <li>
-        <img src="../../assets/index0.png" />
-      </li>
-      <li>
-        <img src="../../assets/index0.png" />
+      <li v-for="(item, index) in imageArr" :key="index">
+        <img :src="item.pic" />
       </li>
     </ul>
     <div class="swp-dom">
       <div class="swp-top">
-        <el-radio-group v-model="radio" size="medium ">
-          <el-radio :label="1">场景</el-radio>
+        <el-radio-group v-model="searchCate" size="medium ">
+          <el-radio
+            :label="item.id"
+            v-for="(item, index) in cateClassifyList"
+            :key="index"
+            >{{ item.name }}</el-radio
+          >
+          <!-- <el-radio :label="1">场景</el-radio>
           <el-radio :label="2">演员</el-radio>
           <el-radio :label="3">住宿</el-radio>
           <el-radio :label="4">车辆</el-radio>
           <el-radio :label="5">道具</el-radio>
-          <el-radio :label="6">服装</el-radio>
+          <el-radio :label="6">服装</el-radio> -->
         </el-radio-group>
       </div>
       <div class="swp-do">
-        <el-input v-model="input2" placeholder="搜索 场景关键词、编号">
-          <template slot="append">搜索</template>
+        <el-input v-model="searchKeywords" placeholder="搜索 场景关键词、编号">
+          <span slot="append" @click="search">搜索</span>
         </el-input>
       </div>
     </div>
@@ -36,17 +33,22 @@
 <script>
 import $ from "jquery";
 import { homeSwiper } from "@/api/home";
+import { cateClassify } from "@/api/tenant";
 export default {
   name: "Layout",
   data() {
     return {
-      radio: 1,
-      input2: "",
+      // radio: 1,
+      // input2: "",
+      cateClassifyList: [],
+      searchCate: "",
+      searchKeywords: "",
       imageArr: [],
     };
   },
-  mounted() {
-    this.getSwiper();
+  async mounted() {
+    await this.getCateClassify();
+    await this.getSwiper();
     // console.log("生命周期啦啦啦啦啦啦21121212121");
     (function (a) {
       a.fn.pgwSlider = function (i) {
@@ -221,7 +223,11 @@ export default {
                 .css("border", "2px solid #BE791A");
               if (m.image) {
                 l.html(
-                  '<img src="' + m.image + '" alt="' + (m.title ? m.title : "") + '">'
+                  '<img src="' +
+                    m.image +
+                    '" alt="' +
+                    (m.title ? m.title : "") +
+                    '">'
                 );
               } else {
                 if (m.thumbnail) {
@@ -254,7 +260,9 @@ export default {
                 if (m.linkTarget) {
                   p = ' target="' + m.linkTarget + '"';
                 }
-                l.html('<a href="' + m.link + '"' + p + ">" + l.html() + "</a>");
+                l.html(
+                  '<a href="' + m.link + '"' + p + ">" + l.html() + "</a>"
+                );
               }
               l.find("img").on("load", function () {
                 if (
@@ -400,6 +408,18 @@ export default {
         this.imageArr = res.data.data;
       }
       // console.log(res.data.data);
+    },
+
+    async getCateClassify() {
+      let res = await cateClassify();
+      this.cateClassifyList = res.data.data;
+    },
+    search() {
+      const params = {
+        cate: this.searchCate,
+        keywords: this.searchKeywords,
+      };
+      this.$router.push({ name: "shotResourcesindex", query: params });
     },
   },
 };

@@ -2,7 +2,7 @@
 
 English | [简体中文](./README-zh.md)
 
-> A minimal 321开拍网 with Element UI & axios & iconfont & permission control & lint
+> A minimal 321开机网 with Element UI & axios & iconfont & permission control & lint
 
 **Live demo:** http://panjiachen.github.io/vue-admin-template
 

@@ -7,6 +7,9 @@ export function catePull(data) {
     url: '/api/index/zy_add',
     method: 'post',
     params: data
+    // headers: {
+    //   "Content-Type": "multipart/form-data",
+    // }
   })
 }
 // 资源记录接口

@@ -4,16 +4,41 @@
       <!-- 文章列表模块 -->
       <ul class="note-list" infinite-scroll-url="/">
         <li v-for="(item, index) in imgsArr" :key="index" class="have-img">
-          <a class="wrap-img" href="#" target="_blank">
-            <img class="img-blur-done" :src="item.img || defaultImage" :alt="item.info" />
+          <a
+            class="wrap-img"
+            :href="
+              item.type === 1
+                ? `#/demand/details?id=${item.id}`
+                : 'javaScript:void(0);'
+            "
+            :target="item.type == 1 ? '_blank' : '_self'"
+          >
+            <img
+              class="img-blur-done"
+              :src="item.img || defaultImage"
+              :alt="item.info"
+            />
           </a>
           <div class="content">
-            <a href="#" class="title" target="_blank">{{ item.title }}</a>
-
+            <a
+              :href="
+                item.type === 1
+                  ? `#/demand/details?id=${item.id}`
+                  : 'javaScript:void(0);'
+              "
+              :target="item.type == 1 ? '_blank' : '_self'"
+              class="title"
+              >{{ item.title }}</a
+            >
+            <!-- :href="item.type == 1 ? `#/demand/details?id=${item.id}` : 'javaScript:void(0);'" -->
             <div class="title2">{{ item.description }}</div>
             <div class="meta">
-              <span class="jsd-meta"> <i class="el-icon-time" /> 发布时间 </span>
-              <a class="nickname" target="_blank" href="#">{{ item.zhao_start }}</a>
+              <span class="jsd-meta">
+                <i class="el-icon-time" /> 发布时间
+              </span>
+              <span class="nickname" target="_blank" href="#">{{
+                item.addtime
+              }}</span>
               <a target="_blank" href="#">
                 浏览量
                 <i class="el-icon-view" /> {{ item.view }}
@@ -27,15 +52,37 @@
           <div class="wrap-btn">
             <el-row>
               <el-col :span="24">
-                <el-button type="warning" class="wa_btn" size="mini" @click="update(item.id)">修 改</el-button>
+                <el-button
+                  type="warning"
+                  class="wa_btn"
+                  size="mini"
+                  @click="
+                    item.type !== 0 ? update(item.id) : 'javascript:void(0)'
+                  "
+                  >修 改</el-button
+                >
               </el-col>
               <el-col :span="24">
-                <el-button type="danger" class="wa_btn" size="mini" @click="det(item.id)">删 除</el-button>
+                <el-button
+                  type="danger"
+                  class="wa_btn"
+                  size="mini"
+                  @click="det(item.id)"
+                  >删 除</el-button
+                >
               </el-col>
-              <!-- <el-col :span="24" class="tc">
-                <el-tag v-if="item.statuss" class="wa_btn" type="danger" size="mini">审核中</el-tag>
-                <el-tag v-else class="wa_btn" type="success" size="mini">审核通过</el-tag>
-              </el-col> -->
+              <el-col :span="24" class="tc">
+                <el-tag
+                  v-if="item.type == 0"
+                  class="wa_btn"
+                  type="danger"
+                  size="mini"
+                  >审核中</el-tag
+                >
+                <el-tag v-else class="wa_btn" type="success" size="mini"
+                  >审核通过</el-tag
+                >
+              </el-col>
             </el-row>
           </div>
         </li>
@@ -47,7 +94,6 @@
         </el-col>
       </el-row>
       <el-dialog title="" :visible.sync="dialogVisible" width="800px">
-
         <el-row :gutter="20" class="mb50 mt20">
           <el-col :span="24" class="pl0">
             <el-form ref="form" :model="form" label-width="80px" class="wf80">
@@ -56,21 +102,41 @@
               </el-form-item>
               <el-form-item label="招标时间">
                 <el-col :span="11">
-                  <el-date-picker v-model="form.zhao_start" type="date" placeholder="选择日期" class="aaa" />
+                  <el-date-picker
+                    v-model="form.zhao_start"
+                    type="date"
+                    placeholder="选择日期"
+                    class="aaa"
+                  />
                 </el-col>
                 <el-col class="line" :span="2">-</el-col>
                 <el-col :span="11">
-                  <el-date-picker v-model="form.zhao_end" placeholder="选择时间" style="width: 100%" class="t9" />
+                  <el-date-picker
+                    v-model="form.zhao_end"
+                    placeholder="选择时间"
+                    style="width: 100%"
+                    class="t9"
+                  />
                 </el-col>
               </el-form-item>
               <el-form-item label="使用时间">
                 <el-col :span="11">
-                  <el-date-picker v-model="form.use_start" type="date" placeholder="选择日期" style="width: 100%"
-                    class="aaa" />
+                  <el-date-picker
+                    v-model="form.use_start"
+                    type="date"
+                    placeholder="选择日期"
+                    style="width: 100%"
+                    class="aaa"
+                  />
                 </el-col>
                 <el-col class="line" :span="2">-</el-col>
                 <el-col :span="11">
-                  <el-date-picker v-model="form.use_end" placeholder="选择时间" style="width: 100%" class="t9" />
+                  <el-date-picker
+                    v-model="form.use_end"
+                    placeholder="选择时间"
+                    style="width: 100%"
+                    class="t9"
+                  />
                 </el-col>
               </el-form-item>
               <el-form-item label="预计价格">
@@ -78,29 +144,55 @@
               </el-form-item>
 
               <el-form-item label="简介内容">
-                <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入你的简介内容" maxlength="200"
-                  show-word-limit />
+                <el-input
+                  v-model="form.description"
+                  type="textarea"
+                  :rows="3"
+                  placeholder="请输入你的简介内容"
+                  maxlength="200"
+                  show-word-limit
+                />
               </el-form-item>
 
               <el-form-item label="资源图片">
-                <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
-                  list-type="picture" :show-file-list="false">
+                <el-upload
+                  class="avatar-uploader"
+                  action=""
+                  :on-change="handleelchange"
+                  :auto-upload="false"
+                  list-type="picture"
+                  :show-file-list="false"
+                >
                   <img v-if="imageUrl" :src="imageUrl" class="avatar" />
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
 
               <!-- <quill-editor ref="mwQuillEditor" v-model="html" class="ml10" :options="editorOption" /> -->
-              <el-upload style="display:none;" class="avatar-uploader2" action="" :on-change="handleelchange2"
-                :auto-upload="false" list-type="picture" :show-file-list="false"></el-upload>
+              <el-upload
+                style="display: none"
+                class="avatar-uploader2"
+                action=""
+                :on-change="handleelchange2"
+                :auto-upload="false"
+                list-type="picture"
+                :show-file-list="false"
+              ></el-upload>
+              <quill-editor
+                ref="mwQuillEditor"
+                v-model="form.content"
+                class="ml10"
+                :options="editorOption"
+              />
               <div class="tc mt20">
-                <el-button type="warning" @click="onSubmitFun(form.id)">提交</el-button>
+                <el-button type="warning" @click="onSubmitFun(form.id)"
+                  >提交</el-button
+                >
               </div>
             </el-form>
           </el-col>
         </el-row>
       </el-dialog>
-
 
       <el-dialog title="需求删除" :visible.sync="dialogVisible1" width="30%">
         <span slot="footer" class="dialog-footer">
@@ -113,7 +205,10 @@
 </template>
 
 <script>
-// import { enndRecord } from "@/api/user";
+import { quillEditor, Quill } from "vue-quill-editor";
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
 // 设置字体大小
 const fontSizeStyle = Quill.import("attributors/style/size"); // 引入这个后会把样式写在style上
 fontSizeStyle.whitelist = [
@@ -139,15 +234,18 @@ const toolbarOptions = [
   [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色-----[{ color: [] }, { background: [] }]
   [{ align: [] }], // 对齐方式-----[{ align: [] }]
   [{ size: fontSizeStyle.whitelist }], // 字体大小-----[{ size: ['small', false, 'large', 'huge'] }]
-  [{ font: fonts }], // 字体种类-----[{ font: [] }]
-  [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
-  ['image', 'video']
+  // [{ font: fonts }], // 字体种类-----[{ font: [] }]
+  // [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+  ["image", "video"],
 ];
 import { enndPull, imageUpload } from "@/api/user";
 import { updateDitial, deleteDitial, demandDitial } from "@/api/home";
 import moment from "moment";
 import axios from "axios";
 export default {
+  components: {
+    quillEditor,
+  },
   data() {
     return {
       // 需求默认图片
@@ -156,9 +254,7 @@ export default {
       dialogVisible1: false,
       imageUrl: "",
       area_id: "",
-      xuqiu_id: '',
-
-
+      xuqiu_id: "",
 
       objHeader: {
         "Content-Type": "multipart/form-data",
@@ -172,8 +268,16 @@ export default {
         use_end: "",
         money: "",
         img: "",
-        id: '',
+        id: "",
         description: "",
+      },
+      editorOption: {
+        placeholder: "",
+        modules: {
+          toolbar: {
+            container: toolbarOptions,
+          },
+        },
       },
     };
   },
@@ -193,19 +297,21 @@ export default {
       this.$store.dispatch("user/getEnndAct", { uid: String(this.id) });
     },
     update(id) {
-      this.dialogVisible = true
+      this.dialogVisible = true;
 
-      this.xuqiu_id = id
+      this.xuqiu_id = id;
       demandDitial({ id: id }).then((res) => {
         if (res.status == 200) {
-          this.form = res.data.data
+          this.form = res.data.data;
         }
-      })
-
+      });
     },
     det(v) {
       if (!v) {
-        deleteDitial({ id: this.xuqiu_id, uid: this.$store.state.user.id }).then((res) => {
+        deleteDitial({
+          id: this.xuqiu_id,
+          uid: this.$store.state.user.id,
+        }).then((res) => {
           // console.log(res);
           if (res.status == 200) {
             this.$message({
@@ -214,16 +320,15 @@ export default {
             });
             this.imageUrl = "";
             this.html = "";
-            this.getList()
+            this.getList();
           } else {
             this.$message.error("删除失败，请刷新重试");
           }
-          this.dialogVisible1 = false
-        }
-        )
+          this.dialogVisible1 = false;
+        });
       } else {
-        this.xuqiu_id = v
-        this.dialogVisible1 = true
+        this.xuqiu_id = v;
+        this.dialogVisible1 = true;
       }
     },
     onSubmitFun() {
@@ -239,7 +344,7 @@ export default {
         area_id: String(this.area_id),
         img: this.imageUrl,
         description: this.form.description,
-        id: this.xuqiu_id
+        id: this.xuqiu_id,
       };
 
       // console.log("格式化时间之后的请求参数", this.form);
@@ -253,11 +358,11 @@ export default {
           });
           this.imageUrl = "";
           this.html = "";
-          this.getList()
+          this.getList();
         } else {
           this.$message.error("需求修改失败，请刷新重试");
         }
-        this.dialogVisible = false
+        this.dialogVisible = false;
 
         // 格式化表单内容
 
@@ -273,60 +378,47 @@ export default {
           area_id: "",
           img: "",
           description: "",
-          id: ''
+          id: "",
         };
       });
       //  console.log(resault);
     },
-    handleelchange2(file, fileList) {
+    async handleelchange2(file, fileList) {
       let formdata = new FormData();
       fileList.map((item) => {
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
 
-      return axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
         this.onUploadHandler(res.data.url);
-      });
+      }
     },
     async onUploadHandler(imageUrl) {
       // 获取光标所在位置
-      let quill = this.$refs.mwQuillEditor.quill
-      let length = quill.getSelection().index
+      let quill = this.$refs.mwQuillEditor.quill;
+      let length = quill.getSelection().index;
 
       // 插入图片
-      quill.insertEmbed(length, 'image', imageUrl)
+      quill.insertEmbed(length, "image", imageUrl);
       // 调整光标到最后
-      quill.setSelection(length + 1)
+      quill.setSelection(length + 1);
     },
-    handleelchange(file, fileList) {
-      // console.log("file", file);
-      // console.log("fililist", fileList);
-
+    async handleelchange(file, fileList) {
       let formdata = new FormData();
-      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
-
-      formdata.forEach((item) => {
-        // console.log(item);
-      });
-
-      // console.log(e);
-      //   let {file}=e
-      return axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        // console.log(res);
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
         this.imageUrl = res.data.url;
-      });
-      // imageUpload(formdata).then(res=>{
-      //   console.log(res);
-      // })
+      }
     },
   },
   mounted() {
     this.getList();
-    console.log('imgsArr', this.imgsArr)
+    console.log("imgsArr", this.imgsArr);
   },
 };
 </script>
@@ -495,7 +587,7 @@ img {
   padding-right: 165px;
 }
 
-.note-list .have-img>div {
+.note-list .have-img > div {
   padding-left: 180px;
   cursor: pointer;
   padding-right: 73px;
@@ -504,8 +596,8 @@ img {
 body.reader-black-font .container .article .title,
 body.reader-black-font .main .title,
 body.reader-black-font .preview .title {
-  font-family: -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+  font-family: -apple-system, SF UI Display, Arial, PingFang SC,
+    Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
 }
 
 .note-list .title {

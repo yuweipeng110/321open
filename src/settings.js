@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '321开拍网',
+  title: '321开机网',
 
   /**
    * @type {boolean} true | false

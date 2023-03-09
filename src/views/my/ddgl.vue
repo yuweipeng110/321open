@@ -13,7 +13,12 @@
         <el-button type="primary" size="mini" @click.native="handle(2)"
           >提现记录</el-button
         >
-        <el-input v-model="search" class="w_sea" size="mini" placeholder="请输入订单号" />
+        <el-input
+          v-model="search"
+          class="w_sea"
+          size="mini"
+          placeholder="请输入订单号"
+        />
       </div>
 
       <div v-show="tabb === 0" class="mb20 aaa">
@@ -28,43 +33,55 @@
               item.addtime
             }}</el-descriptions-item>
             <el-descriptions-item label="订单号" label-class-name="duiqil">{{
-              22222
+              item.tradeno
             }}</el-descriptions-item>
             <el-descriptions-item label="状态" label-class-name="duiqil">
-              <el-tag v-if="item.status == 1" size="mini" type="success">已支付</el-tag>
+              <el-tag v-if="item.status == 1" size="mini" type="success"
+                >已支付</el-tag
+              >
               <el-tag v-else-if="item.status == 0" size="mini" type="danger"
                 >支付中</el-tag
               >
               <el-tag v-else size="mini" type="success">已完成</el-tag>
             </el-descriptions-item>
-            <el-descriptions-item label="使用时间">{{ item.start }}</el-descriptions-item>
-            <el-descriptions-item label="结束时间">{{ item.end }}</el-descriptions-item>
+            <el-descriptions-item label="使用时间">{{
+              item.start
+            }}</el-descriptions-item>
+            <el-descriptions-item label="结束时间">{{
+              item.end
+            }}</el-descriptions-item>
 
             <el-descriptions-item label="押金" label-class-name="duiqil">{{
               item.yajin
             }}</el-descriptions-item>
-            <el-descriptions-item label="超时天数">{{ item.day }}</el-descriptions-item>
+            <el-descriptions-item label="超时天数">{{
+              item.day
+            }}</el-descriptions-item>
 
             <el-descriptions-item :span="2" label="租用时长">{{
               item.uses
             }}</el-descriptions-item>
-            <el-descriptions-item label="支付金额">{{ item.money }}</el-descriptions-item>
-            <el-descriptions-item label="超时金额">{{ item.money }}</el-descriptions-item>
+            <el-descriptions-item label="支付金额">{{
+              item.money
+            }}</el-descriptions-item>
+            <el-descriptions-item label="超时金额">{{
+              item.money
+            }}</el-descriptions-item>
             <el-descriptions-item label="" content-class-name="desBtn">
               <el-button
-                v-if="item.btn === 0"
+                v-if="item.status === 1"
                 class="ddBtn"
                 type="success"
                 size="mini"
-                @click="item.btn = 1"
+                @click="handleDeal(item.id)"
                 >完成交易</el-button
               >
               <el-button
-                v-if="item.btn === 1"
+                v-if="item.status === 2"
                 class="ddBtn"
                 type="warning"
                 size="mini"
-                @click="dialog = true"
+                @click="handlePingjia(item.id)"
                 >评 价</el-button
               >
             </el-descriptions-item>
@@ -109,14 +126,20 @@
               item.id
             }}</el-descriptions-item>
             <el-descriptions-item label="状态" label-class-name="duiqil">
-              <el-tag v-if="item.status == 1" size="mini" type="success">已支付</el-tag>
+              <el-tag v-if="item.status == 1" size="mini" type="success"
+                >已支付</el-tag
+              >
               <el-tag v-else-if="item.status == 0" size="mini" type="danger"
                 >支付中</el-tag
               >
               <el-tag v-else size="mini" type="success">已完成</el-tag>
             </el-descriptions-item>
-            <el-descriptions-item label="使用时间">{{ item.start }}</el-descriptions-item>
-            <el-descriptions-item label="结束时间">{{ item.end }}</el-descriptions-item>
+            <el-descriptions-item label="使用时间">{{
+              item.start
+            }}</el-descriptions-item>
+            <el-descriptions-item label="结束时间">{{
+              item.end
+            }}</el-descriptions-item>
             <!-- 缺少字段评价 -->
             <el-descriptions-item label="评价" label-class-name="duiqil">{{
               item.pj
@@ -124,16 +147,28 @@
             <el-descriptions-item label="押金" label-class-name="duiqil">{{
               item.yajin
             }}</el-descriptions-item>
-            <el-descriptions-item label="超时天数">{{ item.day }}</el-descriptions-item>
+            <el-descriptions-item label="超时天数">{{
+              item.day
+            }}</el-descriptions-item>
 
-            <el-descriptions-item label="租用时长">{{ item.uses }}</el-descriptions-item>
+            <el-descriptions-item label="租用时长">{{
+              item.uses
+            }}</el-descriptions-item>
 
-            <el-descriptions-item label="支付金额">{{ item.money }}</el-descriptions-item>
+            <el-descriptions-item label="支付金额">{{
+              item.money
+            }}</el-descriptions-item>
             <!-- 缺少 -->
-            <el-descriptions-item label="超时金额">{{ item.money }}</el-descriptions-item>
+            <el-descriptions-item label="超时金额">{{
+              item.money
+            }}</el-descriptions-item>
             <el-descriptions-item label="实际收益"
               >{{ item.act }}
-              <el-tooltip content="平台手续费: -500元" placement="bottom" effect="light">
+              <el-tooltip
+                content="平台手续费: -500元"
+                placement="bottom"
+                effect="light"
+              >
                 <i class="el-icon-question ml10" />
               </el-tooltip>
             </el-descriptions-item>
@@ -155,10 +190,25 @@
         money: '10000元' -->
 
         <el-table v-loading="load" :data="tixian" stripe style="width: 100%">
-          <el-table-column prop="addtime" align="center" label="日期" width="150" />
-          <el-table-column prop="card" align="center" label="卡号/支付宝" width="150" />
+          <el-table-column
+            prop="addtime"
+            align="center"
+            label="日期"
+            width="150"
+          />
+          <el-table-column
+            prop="card"
+            align="center"
+            label="卡号/支付宝"
+            width="150"
+          />
           <el-table-column prop="name" align="center" label="姓名" />
-          <el-table-column prop="bank" align="center" label="支行" width="150" />
+          <el-table-column
+            prop="bank"
+            align="center"
+            label="支行"
+            width="150"
+          />
           <!-- <el-table-column prop="name" align="center" label="项目名称" width="150" /> -->
           <el-table-column align="center" label="金额" prop="money">
             <template slot-scope="scope">
@@ -201,25 +251,36 @@
         <el-col :span="24">
           <el-form :model="form">
             <el-form-item label="商家评价：" :label-width="130">
-              <el-rate v-model="form.value1" class="mt10" />
+              <el-rate v-model="form.star" class="mt10" />
             </el-form-item>
           </el-form>
         </el-col>
       </el-row>
       <el-tag class="mr10 cu" @click="handlePl('评论一')">评论一</el-tag>
-      <el-tag type="success" class="mr10 cu" @click="handlePl('评论二')">评论二</el-tag>
-      <el-tag type="info" class="mr10 cu" @click="handlePl('评论三')">评论三</el-tag>
-      <el-tag type="warning" class="mr10 cu" @click="handlePl('评论四')">评论四</el-tag>
-      <el-tag type="danger" class="mr10 cu" @click="handlePl('评论五')">评论五</el-tag>
+      <el-tag type="success" class="mr10 cu" @click="handlePl('评论二')"
+        >评论二</el-tag
+      >
+      <el-tag type="info" class="mr10 cu" @click="handlePl('评论三')"
+        >评论三</el-tag
+      >
+      <el-tag type="warning" class="mr10 cu" @click="handlePl('评论四')"
+        >评论四</el-tag
+      >
+      <el-tag type="danger" class="mr10 cu" @click="handlePl('评论五')"
+        >评论五</el-tag
+      >
       <span slot="footer" class="dialog-footer">
         <el-button class="w160" @click="dialog = false">取 消</el-button>
-        <el-button type="primary" class="w160" @click="dialog = false">确 定</el-button>
+        <el-button type="primary" class="w160" @click="requestCommenton"
+          >确 定</el-button
+        >
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import { completeOrder, orderCommenton } from "@/api/user";
 export default {
   data() {
     return {
@@ -230,8 +291,9 @@ export default {
       search: "",
       form: {
         textarea: "",
-        value1: "",
+        star: "",
       },
+      pingjiaOrderId: "",
       // tableData: [
       //   {
       //     date: '2016-05-02 11-256',
@@ -406,20 +468,72 @@ export default {
   },
   methods: {
     handle(val) {
+      //消费记录
+      if (val == 0) {
+        this.$store.dispatch("user/getUserLog", { uid: String(this.id) });
+
+        // console.log("体现数据", this.tixian);
+      }
       if (val == 2) {
         this.$store.dispatch("user/getTixianLog", { uid: String(this.id) });
 
         // console.log("体现数据", this.tixian);
       }
-      if(val==1){
+      if (val == 1) {
         this.$store.dispatch("user/getShouyiLog", { uid: String(this.id) });
       }
 
       this.tabb = val;
-
     },
     handlePl(val) {
       this.form.textarea = this.form.textarea + val + " ; ";
+    },
+    handlePingjia(orderId) {
+      this.dialog = true;
+      this.pingjiaOrderId = orderId;
+    },
+    async handleDeal(orderId) {
+      const params = {
+        id: orderId,
+        uid: this.$store.state.user.id,
+      };
+      this.$confirm(
+        "您确定要完成该订单的交易吗？确定后商家将会收到您支付的金额，押金会退回到您账号内。",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      ).then(async () => {
+        let res = await completeOrder(params);
+        if (res.data.code === 1) {
+          this.$message({
+            message: res.data.msg,
+            type: "success",
+          });
+          this.handle(0);
+        } else {
+          this.$message.error(res.data.msg);
+        }
+      });
+    },
+    async requestCommenton() {
+      const params = {
+        order_id: this.pingjiaOrderId,
+        pinglun: this.form.textarea,
+        star: this.form.star,
+      };
+      const res = await orderCommenton(params);
+      if (res.status == 200 && res.data.code === 1) {
+        this.$message({
+          message: "评论成功",
+          type: "success",
+        });
+        this.dialog = false;
+        this.handle(0);
+      } else {
+        this.$message.error(res.data.msg);
+      }
     },
   },
   mounted() {},

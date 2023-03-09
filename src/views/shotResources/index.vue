@@ -1,27 +1,39 @@
 <template>
-  <div class="shot-content" :class="{ 'seenCls': !seen }">
+  <div class="shot-content" :class="{ seenCls: !seen }">
     <div v-if="seen" class="search-top">
       <el-row>
         <el-col :span="12">
-          <el-radio-group v-model="radio" size="medium " class="m4050">
-            <el-radio :label="1">场景</el-radio>
+          <el-radio-group v-model="searchCate" size="medium " class="m4050">
+            <el-radio
+              :label="item.id"
+              v-for="(item, index) in cateClassifyList"
+              :key="index"
+              >{{ item.name }}</el-radio
+            >
+            <!-- <el-radio :label="1">场景</el-radio>
             <el-radio :label="2">演员</el-radio>
             <el-radio :label="3">住宿</el-radio>
             <el-radio :label="4">车辆</el-radio>
             <el-radio :label="5">道具</el-radio>
-            <el-radio :label="6">服装</el-radio>
+            <el-radio :label="6">服装</el-radio> -->
           </el-radio-group>
         </el-col>
         <el-col :span="12">
-          <el-input v-model="input2" placeholder="搜索场景关键词、编号" size="medium " class="right_search">
-            <template slot="append">搜索</template>
+          <!-- <span @click="search()">xxxxx</span> -->
+          <el-input
+            v-model="searchKeywords"
+            placeholder="搜索场景关键词、编号"
+            size="medium "
+            class="right_search"
+          >
+            <span slot="append" @click="search">搜索</span>
           </el-input>
         </el-col>
       </el-row>
     </div>
     <div v-else class="group_3 flex-col">
       <div class="group_9 flex-row justify-between scc">
-        <el-input v-model="input2" placeholder="搜索 场景关键词、编号" class="input-with-select">
+        <el-input placeholder="搜索 场景关键词、编号" class="input-with-select">
           <el-select slot="prepend" v-model="radio" placeholder="请选择">
             <el-option label="场景" value="1" />
             <el-option label="演员" value="2" />
@@ -36,12 +48,52 @@
     </div>
     <div>
       <div class="choice_content">
+        <div
+          class="el-form-item"
+          v-for="(item, index) in cateClassifyChild1List"
+          :key="index"
+        >
+          <el-image class="cho_img" :src="item.icon" />
+          <label class="el-form-item__label w80"> {{ item.name }} </label>
+          <div class="el-form-item__content ml80">
+            <el-checkbox-group
+              v-model="searchCateChild"
+              :class="{ isOpen1: isOpen1 }"
+            >
+              <el-checkbox
+                v-for="(childItem, childI) in item.child"
+                :key="childI"
+                :label="childItem.id"
+                name="type"
+                border
+                >{{ childItem.name }}</el-checkbox
+              >
+            </el-checkbox-group>
+          </div>
+          <div v-if="!seen" class="rightI" @click="handleClick(0)">
+            <i v-if="isOpen1" class="el-icon-arrow-down" />
+            <i v-else class="el-icon-arrow-up" />
+          </div>
+        </div>
+        <!-- 
         <div class="el-form-item">
-          <el-image class="cho_img" :src="require('@/assets/img/spzy/mj.png')" />
+          <el-image
+            class="cho_img"
+            :src="require('@/assets/img/spzy/mj.png')"
+          />
           <label class="el-form-item__label w80"> 面积 </label>
           <div class="el-form-item__content ml80">
-            <el-checkbox-group v-model="checkboxGroup1" :class="{ 'isOpen1': isOpen1 }">
-              <el-checkbox v-for="(item, index) in choList1" :key="index" :label="item" name="type" border />
+            <el-checkbox-group
+              v-model="checkboxGroup1"
+              :class="{ isOpen1: isOpen1 }"
+            >
+              <el-checkbox
+                v-for="(item, index) in choList1"
+                :key="index"
+                :label="item"
+                name="type"
+                border
+              />
             </el-checkbox-group>
           </div>
           <div v-if="!seen" class="rightI" @click="handleClick(0)">
@@ -50,11 +102,23 @@
           </div>
         </div>
         <div class="el-form-item">
-          <el-image class="cho_img" :src="require('@/assets/img/spzy/pt.png')" />
+          <el-image
+            class="cho_img"
+            :src="require('@/assets/img/spzy/pt.png')"
+          />
           <label class="el-form-item__label w80"> 配套 </label>
           <div class="el-form-item__content ml80">
-            <el-checkbox-group v-model="checkboxGroup2" :class="{ 'isOpen2': isOpen2 }">
-              <el-checkbox v-for="(item, index) in choList2" :key="index" :label="item" name="type" border />
+            <el-checkbox-group
+              v-model="checkboxGroup2"
+              :class="{ isOpen2: isOpen2 }"
+            >
+              <el-checkbox
+                v-for="(item, index) in choList2"
+                :key="index"
+                :label="item"
+                name="type"
+                border
+              />
             </el-checkbox-group>
           </div>
           <div v-if="!seen" class="rightI" @click="handleClick(1)">
@@ -63,11 +127,23 @@
           </div>
         </div>
         <div class="el-form-item">
-          <el-image class="cho_img" :src="require('@/assets/img/spzy/ts.png')" />
+          <el-image
+            class="cho_img"
+            :src="require('@/assets/img/spzy/ts.png')"
+          />
           <label class="el-form-item__label w80"> 特色 </label>
           <div class="el-form-item__content ml80">
-            <el-checkbox-group v-model="checkboxGroup3" :class="{ 'isOpen3': isOpen3 }">
-              <el-checkbox v-for="(item, index) in choList3" :key="index" :label="item" name="type" border />
+            <el-checkbox-group
+              v-model="checkboxGroup3"
+              :class="{ isOpen3: isOpen3 }"
+            >
+              <el-checkbox
+                v-for="(item, index) in choList3"
+                :key="index"
+                :label="item"
+                name="type"
+                border
+              />
             </el-checkbox-group>
           </div>
           <div v-if="!seen" class="rightI" @click="handleClick(2)">
@@ -76,18 +152,27 @@
           </div>
         </div>
         <div class="el-form-item">
-          <el-image class="cho_img" :src="require('@/assets/img/spzy/cj.png')" />
+          <el-image
+            class="cho_img"
+            :src="require('@/assets/img/spzy/cj.png')"
+          />
           <label class="el-form-item__label w80"> 场景 </label>
-          <div class="el-form-item__content ml80" :class="{ 'isOpen4': isOpen4 }">
+          <div class="el-form-item__content ml80" :class="{ isOpen4: isOpen4 }">
             <el-checkbox-group v-model="checkboxGroup4">
-              <el-checkbox v-for="(item, index) in choList4" :key="index" :label="item" name="type" border />
+              <el-checkbox
+                v-for="(item, index) in choList4"
+                :key="index"
+                :label="item"
+                name="type"
+                border
+              />
             </el-checkbox-group>
           </div>
           <div v-if="!seen" class="rightI" @click="handleClick(3)">
             <i v-if="isOpen4" class="el-icon-arrow-down" />
             <i v-else class="el-icon-arrow-up" />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="tab_content">
@@ -95,14 +180,34 @@
         <!-- <el-radio label="推荐" border /> -->
         <!-- <el-radio label="评论数" border ></el-radio> -->
         <el-button type="primary" class="tab_btn_t">推荐</el-button>
-        <el-button v-if="tabtn === 1" type="primary" class="tab_btn_t" @click="handle(2)">评论数<i
-            class="el-icon-caret-bottom" /></el-button>
-        <el-button v-if="tabtn === 2" type="primary" class="tab_btn_t" @click="handle(1)">评论数<i
-            class="el-icon-caret-top" /></el-button>
-        <el-button v-if="tabtn1 === 1" type="primary" class="tab_btn_t" @click="handle1(2)">价格<i
-            class="el-icon-caret-bottom" /></el-button>
-        <el-button v-if="tabtn1 === 2" type="primary" class="tab_btn_t" @click="handle1(1)">价格<i
-            class="el-icon-caret-top" /></el-button>
+        <el-button
+          v-if="tabtn === 1"
+          type="primary"
+          class="tab_btn_t"
+          @click="handle(2)"
+          >评论数<i class="el-icon-caret-bottom"
+        /></el-button>
+        <el-button
+          v-if="tabtn === 2"
+          type="primary"
+          class="tab_btn_t"
+          @click="handle(1)"
+          >评论数<i class="el-icon-caret-top"
+        /></el-button>
+        <el-button
+          v-if="tabtn1 === 1"
+          type="primary"
+          class="tab_btn_t"
+          @click="handle1(2)"
+          >价格<i class="el-icon-caret-bottom"
+        /></el-button>
+        <el-button
+          v-if="tabtn1 === 2"
+          type="primary"
+          class="tab_btn_t"
+          @click="handle1(1)"
+          >价格<i class="el-icon-caret-top"
+        /></el-button>
         <!-- <el-radio label="价格" border /> -->
       </el-radio-group>
       <el-divider />
@@ -111,20 +216,22 @@
       <!-- <waterfall :seen="seen" /> -->
 
       <el-row :gutter="10">
-        <template v-for="item in list">
-          <el-col v-if="seen" :span="seen ? 6 : 12" :gutter="5">
+        <template v-if="seen">
+          <el-col  v-for="(item,index) in list" :key="index" :span="seen ? 6 : 12" :gutter="5">
             <el-card shadow="hover" @click.native="handleClick(item.id)">
               <div class="shotbox">
-                <img class="img" src="static/img/a3.926621c6.png" alt="">
+                <img class="img" :src="item.img ?  item.img.split(',')[0] : 'static/img/a3.926621c6.png'" alt="" />
                 <div class="txt-five">
                   <div class="oneRow">{{ item.title }}</div>
                   <div>
                     <div class="fl">
-                      <div><img :src="item.avatar" alt=""
-                          class="bot-img"><span class="tyf12">{{ item.nick }}</span></div>
+                        <img :src="item.avatar || require('@/assets/img/spzy/defaultImg.png')" alt="" class="bot-img" /><span
+                          class="tyf12"
+                          >{{ item.nick || '默认用户' }}</span
+                        >
                     </div>
                     <div class="fr">
-                      <div class="pcmon phoneMon">{{item.zujin }}/天</div>
+                      <div class="pcmon phoneMon">{{ item.zujin }}/天</div>
                     </div>
                   </div>
                 </div>
@@ -138,196 +245,227 @@
 </template>
 
 <script>
-import waterfall from '@/components/waterfall'
-import { homezyList } from '@/api/home';
+import waterfall from "@/components/waterfall";
+import { homezyList } from "@/api/home";
+import { cateClassify } from "@/api/tenant";
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
-    waterfall
+    waterfall,
   },
   data() {
     return {
       tabtn: 1,
       tabtn1: 1,
-      radio: '1',
-      input2: '',
+      // radio: "1",
+      searchCate: "",
+      searchKeywords: "",
+      searchCateChild: [],
       seen: true,
       choList1: [
-        '不限',
-        '301-600m',
-        '601-1000m',
-        '1021-2000m',
-        '1011-2000m',
-        '2001-5000m',
-        '1031-2000m'
+        "不限",
+        "301-600m",
+        "601-1000m",
+        "1021-2000m",
+        "1011-2000m",
+        "2001-5000m",
+        "1031-2000m",
       ],
-      checkboxGroup1: [],
+      // checkboxGroup1: [],
       choList2: [
-        '不限',
-        '更衣间',
-        '洗手间',
-        '休息室',
-        '会议室',
-        '空调',
-        '暖气',
-        '电梯',
-        'WIFI',
-        '220V电力',
-        '停车位',
-        '停车场',
-        '饮水机',
-        '灭火器',
-        '化妆间'
+        "不限",
+        "更衣间",
+        "洗手间",
+        "休息室",
+        "会议室",
+        "空调",
+        "暖气",
+        "电梯",
+        "WIFI",
+        "220V电力",
+        "停车位",
+        "停车场",
+        "饮水机",
+        "灭火器",
+        "化妆间",
       ],
       checkboxGroup2: [],
       choList3: [
-        '不限',
-        '380V电力',
-        '高速网络',
-        '发电车',
-        '灯光器材',
-        '制片',
-        '技术员',
-        '看门员',
-        '保安'
+        "不限",
+        "380V电力",
+        "高速网络",
+        "发电车",
+        "灯光器材",
+        "制片",
+        "技术员",
+        "看门员",
+        "保安",
       ],
       checkboxGroup3: [],
       choList4: [
-        '不限',
-        '山林田园',
-        '暗河',
-        '村落',
-        '湖景',
-        '河堤',
-        '公园',
-        '舞蹈学校',
-        '公园',
-        '工厂',
-        '月子中心',
-        '美术馆',
-        '养生馆',
-        '茶庄',
-        '餐厅',
-        '网咖',
-        '花店',
-        '武馆',
-        '大平层',
-        '酒庄',
-        '小公寓',
-        '咖啡厅',
-        '写字楼',
-        '书吧',
-        '景棚',
-        '旧区宿舍',
-        '火车站',
-        '街道园区',
-        '运动场',
-        '古建筑',
-        '别墅',
-        '综合影视城',
-        '剧院',
-        '废弃建筑',
-        '会展',
-        '医院',
-        '学校',
-        '商场',
-        '停车场',
-        '天桥'
+        "不限",
+        "山林田园",
+        "暗河",
+        "村落",
+        "湖景",
+        "河堤",
+        "公园",
+        "舞蹈学校",
+        "公园",
+        "工厂",
+        "月子中心",
+        "美术馆",
+        "养生馆",
+        "茶庄",
+        "餐厅",
+        "网咖",
+        "花店",
+        "武馆",
+        "大平层",
+        "酒庄",
+        "小公寓",
+        "咖啡厅",
+        "写字楼",
+        "书吧",
+        "景棚",
+        "旧区宿舍",
+        "火车站",
+        "街道园区",
+        "运动场",
+        "古建筑",
+        "别墅",
+        "综合影视城",
+        "剧院",
+        "废弃建筑",
+        "会展",
+        "医院",
+        "学校",
+        "商场",
+        "停车场",
+        "天桥",
       ],
       checkboxGroup4: [],
-      tabRadio: '推荐',
+      tabRadio: "推荐",
       imgList: [
         {
-          url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
+          url: "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
         },
         {
-          url: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'
+          url: "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
         },
         {
-          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+          url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
         },
         {
-          url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
+          url: "https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg",
         },
         {
-          url: 'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg'
-        }
+          url: "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
+        },
       ],
       isOpen1: true,
       isOpen2: true,
       isOpen3: true,
       isOpen4: true,
-      list: null
-    }
+      list: null,
+      cateClassifyList: [],
+      cateClassifyChild1List: [],
+    };
   },
   watch: {
     $route: {
       handler: function (val, oldVal) {
         if (document.body.clientWidth > 700) {
-          this.seen = true
+          this.seen = true;
         } else {
-          this.seen = false
+          this.seen = false;
         }
       },
       // 深度观察监听
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {
     if (document.body.clientWidth > 700) {
-      this.seen = true
+      this.seen = true;
     } else {
-      this.seen = false
+      this.seen = false;
     }
-    window.addEventListener('setItem', () => {
-      const clientWidth = sessionStorage.getItem('seen')
+    window.addEventListener("setItem", () => {
+      const clientWidth = sessionStorage.getItem("seen");
       // console.log(clientWidth, 'this.seen')
       if (clientWidth > 700) {
-        this.seen = true
+        this.seen = true;
       } else {
-        this.seen = false
+        this.seen = false;
       }
-    })
+    });
   },
   mounted() {
     this.fetchData();
+    this.getCateClassify();
   },
   methods: {
-    async fetchData() {
-      let res = await homezyList();
-      console.log('res', res.data.data);
+    async fetchData(params) {
+      const paramsData = params ?? this.$route.query;
+      if(this.$route.query){
+        this.searchCate = Number(this.$route.query.cate);
+        this.searchKeywords = this.$route.query.keywords;
+      }
+      let res = await homezyList(paramsData);
 
       this.list = res.data.data;
     },
-    handle(val) {
-      this.tabtn = val
+    async getCateClassify() {
+      let res = await cateClassify();
+      // console.log("getCateClassify", res.data.data);
+      this.cateClassifyList = res.data.data;
+      this.cateClassifyList.forEach((item) => {
+        if (item.child) {
+          this.cateClassifyChild1List.push(...item.child);
+        }
+      });
+      // console.log('cateClassifyChild1List',this.cateClassifyChild1List);
     },
+    // 评论数
+    handle(val) {
+      this.tabtn = val;
+    },
+    // 价格
     handle1(val) {
-      this.tabtn1 = val
+      this.tabtn1 = val;
     },
     handleClick(val) {
       if (val === 0) {
-        this.isOpen1 = !this.isOpen1
+        this.isOpen1 = !this.isOpen1;
       } else if (val === 1) {
-        this.isOpen2 = !this.isOpen2
+        this.isOpen2 = !this.isOpen2;
       } else if (val === 2) {
-        this.isOpen3 = !this.isOpen3
+        this.isOpen3 = !this.isOpen3;
       } else if (val === 3) {
-        this.isOpen4 = !this.isOpen4
+        this.isOpen4 = !this.isOpen4;
       }
 
-      console.log('handleClick', val);
-
       this.$router.push({
-        path: '/shotDetails/details',
+        path: "/shotDetails/details",
         query: {
           id: val,
-          imgObj: ''
-        }
-      })
-    }
-  }
-}
+          imgObj: "",
+        },
+      });
+    },
+    search() {
+      const params = {
+        cate: this.searchCate,
+        keywords: this.searchKeywords,
+        cateChild: this.searchCateChild.join(","),
+        money: this.tabtn,
+        pinglun: this.tabtn1,
+      };
+      this.fetchData(params);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -356,7 +494,7 @@ export default {
   padding: 0 33px;
   text-align: center;
   color: #fff;
-  background: rgba(0, 0, 0, .6);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .shotbox .oneRow {
@@ -393,7 +531,7 @@ export default {
 .shotbox .pcmon {
   height: 22px;
   text-align: left;
-  opacity: .9;
+  opacity: 0.9;
 }
 
 .shotbox .fl {
@@ -445,7 +583,7 @@ div/deep/.right_search .el-input__inner {
   font-size: 16px;
 }
 
-div/deep/.el-radio__input.is-checked+.el-radio__label {
+div/deep/.el-radio__input.is-checked + .el-radio__label {
   color: #c37b21;
 }
 
@@ -531,7 +669,7 @@ div/deep/.tab_content .el-radio .el-radio__label {
   font-size: 16px;
 }
 
-div/deep/.choice_content .el-checkbox__input.is-checked+.el-checkbox__label {
+div/deep/.choice_content .el-checkbox__input.is-checked + .el-checkbox__label {
   color: #c37b21;
 }
 
@@ -546,7 +684,7 @@ div/deep/.tab_content .el-radio.is-bordered.is-checked {
   width: 98.5%;
 }
 
-div/deep/.choice_content .el-checkbox.is-bordered+.el-checkbox.is-bordered {
+div/deep/.choice_content .el-checkbox.is-bordered + .el-checkbox.is-bordered {
   margin-left: 0;
   transition: all 0.3s ease 0s;
 }
@@ -743,7 +881,7 @@ div/deep/.el-checkbox.is-bordered.is-checked span {
 .el-input-group__prepend {
   background-color: #c37b21;
   color: #ffffff;
-  border: none
+  border: none;
 }
 
 .seenCls .cho_img {
@@ -800,13 +938,13 @@ div/deep/.el-checkbox.is-bordered.is-checked span {
   right: 0;
 }
 
-@media(min-width:420px) and (max-width:442px) {
+@media (min-width: 420px) and (max-width: 442px) {
   .seenCls .rightI {
     top: 35px;
   }
 }
 
-@media(min-width:507px) and (max-width:530px) {
+@media (min-width: 507px) and (max-width: 530px) {
   .seenCls .rightI {
     top: 35px;
   }

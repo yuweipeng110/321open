@@ -8,13 +8,28 @@
 
         <el-form-item label="资源类型">
           <el-radio-group v-model="form.cate">
-            <el-radio :label="item.name" :value="item.name" v-for="(item, index) in ziyuanfenleiList"
-              @change="changeFun(index)" />
+            <el-radio
+              :label="item.id"
+              v-for="(item, index) in ziyuanfenleiList"
+              @change="changeFun(index)"
+              >{{ item.name }}</el-radio
+            >
           </el-radio-group>
         </el-form-item>
         <template v-if="defaultData">
-          <el-form-item :label="item.name" v-for="item in defaultData.child" :key="item.id">
-            <el-checkbox :label="item2.name" v-for="item2 in item.child" :key="item2.id"></el-checkbox>
+          <el-form-item
+            :label="item.name"
+            v-for="item in defaultData.child"
+            :key="item.id"
+          >
+            <el-checkbox-group v-model="form.cateChild">
+              <el-checkbox
+                :label="item2.id"
+                v-for="item2 in item.child"
+                :key="item2.id"
+                >{{ item2.name }}</el-checkbox
+              >
+            </el-checkbox-group>
           </el-form-item>
         </template>
         <!-- <el-form-item label="二级分类">
@@ -46,14 +61,29 @@
           </el-dialog>
         </el-form-item> -->
         <el-form-item label="资源图片">
-          <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
-            list-type="picture" :show-file-list="false">
-            <img v-if="form.img" :src="form.img" class="avatar" />
+          <el-upload
+            class="avatar-uploader"
+            multiple
+            action=""
+            :on-change="handleelchange"
+            :auto-upload="false"
+            list-type="picture"
+            :show-file-list="false"
+            :limit="7"
+          >
+            <!-- <img v-if="form.img" :src="form.img" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
+            <div v-if="form.img.length > 0">
+              <img
+                v-for="(item, index) in form.img"
+                :key="index"
+                :src="item"
+                class="avatar"
+              />
+            </div>
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
-
-
 
         <el-form-item label="每日租金">
           <el-input v-model="form.zujin" placeholder="请输入租金" />
@@ -65,24 +95,38 @@
           <el-input v-model="form.chao" placeholder="请输入超时费用" />
         </el-form-item>
       </el-form>
-      <quill-editor ref="mwQuillEditor" v-model="form.content" class="ml10" :options="editorOption" />
+      <quill-editor
+        ref="mwQuillEditorZyfb"
+        v-model="form.content"
+        class="ml10"
+        :options="editorOption"
+      />
+      <el-upload
+        style="display: none"
+        class="avatar-uploader2zyfb"
+        action=""
+        :on-change="handleelchange2zyfb"
+        :auto-upload="false"
+        list-type="picture"
+        :show-file-list="false"
+      ></el-upload>
       <div class="tc mb20" style="margin-left: 80px">
         <el-button type="warning" @click="handle">提交</el-button>
       </div>
     </div>
-    <el-result icon="info" title="请先完成商家入驻" v-else >
-    </el-result>
+    <el-result icon="info" title="请先完成商家入驻" v-else> </el-result>
   </div>
 </template>
 
 <script>
-import { quillEditor, Quill } from "vue-quill-editor";
+import { imageUpload } from "@/api/user";
 import { cateClassify, catePull, shangjiaruzhuLog } from "@/api/tenant";
-// import elinput from "./el_input";
+import { homezydetail } from "@/api/home";
+import { quillEditor, Quill } from "vue-quill-editor";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
-import axios from "axios"
+// import { enndRecord } from "@/api/user";
 // 设置字体大小
 const fontSizeStyle = Quill.import("attributors/style/size"); // 引入这个后会把样式写在style上
 fontSizeStyle.whitelist = [
@@ -108,11 +152,12 @@ const toolbarOptions = [
   [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色-----[{ color: [] }, { background: [] }]
   [{ align: [] }], // 对齐方式-----[{ align: [] }]
   [{ size: fontSizeStyle.whitelist }], // 字体大小-----[{ size: ['small', false, 'large', 'huge'] }]
-  [{ font: fonts }], // 字体种类-----[{ font: [] }]
-  [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+  // [{ font: fonts }], // 字体种类-----[{ font: [] }]
+  // [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+  ["image", "video"],
 ];
 export default {
-  name: "VueQuillEditor",
+  name: "zyfb",
   components: {
     quillEditor,
     // elinput,
@@ -122,6 +167,7 @@ export default {
       type: [Number, Object, Array, String],
       default: "",
     },
+    dataId: 0,
   },
   data() {
     return {
@@ -137,6 +183,16 @@ export default {
         modules: {
           toolbar: {
             container: toolbarOptions,
+            handlers: {
+              image: function (value) {
+                if (value) {
+                  // value === true
+                  document.querySelector(".avatar-uploader2zyfb input").click();
+                } else {
+                  this.quill.format("image", false);
+                }
+              },
+            },
           },
         },
       },
@@ -153,14 +209,14 @@ export default {
         cate: [],
         title: "",
         area_id: "1",
-        img: "",
+        img: [],
         yajin: "",
         zujin: "",
         chao: "",
         content: "",
-
+        cateChild: [],
       },
-      ruzhu:false
+      ruzhu: false,
     };
   },
   watch: {
@@ -176,63 +232,67 @@ export default {
       },
       deep: true,
     },
+    dataId(v) {
+      console.log("dataId", this.dataId);
+      // getDetail(v);
+      // if (this.dataId != 0) {
+      //   this.getDetail(this.dataId);
+      // }
+    },
   },
   computed: {
     id: function () {
-      return this.$store.state.user.id
-    }
+      return this.$store.state.user.id;
+    },
   },
   methods: {
+    async handleelchange2zyfb(file, fileList) {
+      let formdata = new FormData();
+      fileList.map((item) => {
+        formdata.append("file", item.raw); //将每一个文件图片都加进formdata
+      });
+
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
+        this.onUploadHandlerzyfb(res.data.url);
+      }
+    },
+    async onUploadHandlerzyfb(imageUrl) {
+      // 获取光标所在位置
+      let quill = this.$refs.mwQuillEditorZyfb.quill;
+      let length = quill.getSelection().index;
+
+      // 插入图片
+      quill.insertEmbed(length, "image", imageUrl);
+      // 调整光标到最后
+      quill.setSelection(length + 1);
+    },
     async getShangjiaruzhuLog() {
-      let res = await shangjiaruzhuLog({ uid: this.$store.state.user.id })
-      let {status} = res.data.data[0]
+      let res = await shangjiaruzhuLog({ uid: this.$store.state.user.id });
+      let { status } = res.data.data[0];
       if (res.status == 200) {
-        if (status ==1) {
+        if (status == 1) {
           this.ruzhu = true;
         }
-
       }
     },
     // 图片上传
 
-    handleelchange(file, fileList) {
-      // console.log("file", file);
-      // console.log("fililist", fileList);
-
+    async handleelchange(file, fileList) {
       let formdata = new FormData();
-      // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
 
-      formdata.forEach((item) => {
-        // console.log(item);
-      });
-
-      // console.log(e);
-      //   let {file}=e
-      axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        // console.log(res);
-        this.form.img = res.data.url;
-      });
-      // imageUpload(formdata).then(res=>{
-      //   console.log(res);
-      // })
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
+        this.form.img.push(res.data.url);
+      }
     },
-
-
-
-
-
-
-    //
     // 切换分类
-
     changeFun(e) {
       this.defaultData = this.ziyuanfenleiList[e];
-      // console.log("当前切换lable参数", e);
-      // console.log("当前参数值", this.defaultData);
     },
 
     handleClickcheck(item, index) {
@@ -274,10 +334,25 @@ export default {
       // setInterval(() => {
       //   this.load = false;
       // }, 1000);
-      this.form = { ...this.form, uid: this.id }
-      let res = await catePull(this.form)
+      this.form = {
+        ...this.form,
+        cateChild: this.form.cateChild.join(","),
+        img: this.form.img.join(","),
+        uid: this.id,
+      };
+      // console.log('form',this.form)
+      let res = await catePull(this.form);
       if (res) {
         this.load = false;
+        if (res.status == 200) {
+          this.$message({
+            type: "success",
+            message: "资源发布成功",
+          });
+          this.form.img = [];
+        } else {
+          this.$message.error("资源发布失败，请刷新重试");
+        }
         // console.log("拍摄资源",res);
       }
 
@@ -302,10 +377,19 @@ export default {
       }
       // console.log("res资源分类水水水水水水水水水水", res.data.data);
     },
+    async getDetail(id) {
+      console.log("homezydetail");
+      let res = await homezydetail({ id: id });
+      if (res.status == 200 && res.data.data.length) {
+        console.log("getDetail", res.data.data);
+      }
+    },
   },
   mounted() {
+    console.log("xxx");
     this.cartFenlei();
-    this.getShangjiaruzhuLog()
+    this.getShangjiaruzhuLog();
+
     // console.log("资源发布啦啦啦啦啦啦啦啦");
   },
 };

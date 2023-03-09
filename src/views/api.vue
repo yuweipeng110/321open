@@ -38,7 +38,7 @@ import * as home from "@/api/home";
 import * as table from "@/api/table";
 import * as tenant from "@/api/tenant";
 import * as user from "@/api/user";
-import axios from 'axios'
+import { imageUpload } from "@/api/user";
 
 import { quillEditor, Quill } from "vue-quill-editor";
 import 'quill/dist/quill.core.css'
@@ -234,34 +234,20 @@ export default {
     );
   },
   methods: {
-    handleelchange(file, fileList) {
-      // console.log("file", file);
-      // console.log("fililist", fileList);
-
+    async handleelchange(file, fileList) {
       let formdata = new FormData();
       // console.log("formdata", formdata);
       fileList.map((item) => {
         //fileList本来就是数组，就不用转为真数组了
         formdata.append("file", item.raw); //将每一个文件图片都加进formdata
       });
-
-      formdata.forEach((item) => {
-        // console.log(item);
-      });
-
-      // console.log(e);
-      //   let {file}=e
-      axios.post("http://kelerk.178tqw.com/api/index/upload", formdata).then((res) => {
-        // console.log(res);
-
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
         let imageUrl = res.data.url;
         this.imageUrl = imageUrl;
 
         this.onUploadHandler(imageUrl);
-      });
-      // imageUpload(formdata).then(res=>{
-      //   console.log(res);
-      // })
+      }
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);

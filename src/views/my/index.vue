@@ -4,39 +4,75 @@
       <el-row>
         <el-col :span="24">
           <div class="tabBtn">
-            <el-button type="warning" :class="{ active: tabVal === 0 }" plain @click="handleTab(0)">我是剧组</el-button>
-            <el-button type="warning" :class="{ active: tabVal === 1 }" plain @click="handleTab(1)">我是商户</el-button>
-            <el-button type="warning" :class="{ active: tabVal === 2 }" plain @click="handleTab(2)">我是企业</el-button>
+            <el-button
+              type="warning"
+              :class="{ active: tabVal === 0 }"
+              plain
+              @click="handleTab(0)"
+              >我是剧组</el-button
+            >
+            <el-button
+              type="warning"
+              :class="{ active: tabVal === 1 }"
+              plain
+              @click="handleTab(1)"
+              >我是商户</el-button
+            >
+            <el-button
+              type="warning"
+              :class="{ active: tabVal === 2 }"
+              plain
+              @click="handleTab(2)"
+              >我是企业</el-button
+            >
           </div>
         </el-col>
       </el-row>
 
       <transition name="bounce">
         <div v-show="isTab" class="dafsa">
-          <el-tabs v-show="tabVal === 0" v-model="activeName" tab-position="left" type="card" class=""
-            @tab-click="handleClick">
+          <el-tabs
+            v-show="tabVal === 0"
+            v-model="activeName"
+            tab-position="left"
+            type="card"
+            class=""
+            @tab-click="handleClick"
+          >
             <el-tab-pane name="grzx">
-              <span slot="label"> 个人信息 <i class="el-icon-arrow-right" /> </span>
-              <grzx />
+              <span slot="label">
+                个人信息 <i class="el-icon-arrow-right" />
+              </span>
+              <grzx @jumpSjrz="jumpSjrz" />
             </el-tab-pane>
             <el-tab-pane name="xqfb">
-              <span slot="label"> 需求发布 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                需求发布 <i class="el-icon-arrow-right" />
+              </span>
               <xqfb />
             </el-tab-pane>
             <el-tab-pane name="zyjl">
-              <span slot="label"> 需求记录 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                需求记录 <i class="el-icon-arrow-right" />
+              </span>
               <zyjl />
             </el-tab-pane>
             <el-tab-pane name="xqtb">
-              <span slot="label"> 投标记录 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                投标记录 <i class="el-icon-arrow-right" />
+              </span>
               <xqtb />
             </el-tab-pane>
             <el-tab-pane name="ddgl">
-              <span slot="label"> 订单管理 <i class="el-icon-arrow-right" /> </span>
-              <ddgl />
+              <span slot="label">
+                订单管理 <i class="el-icon-arrow-right" />
+              </span>
+              <ddgl ref="ddglChild" />
             </el-tab-pane>
             <el-tab-pane name="wdgz">
-              <span slot="label"> 我的关注 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                我的关注 <i class="el-icon-arrow-right" />
+              </span>
               <wdgz :guanzhu="myLikeList" />
             </el-tab-pane>
             <el-tab-pane name="wdsc">
@@ -46,39 +82,59 @@
               <wdsc />
             </el-tab-pane>
             <el-tab-pane name="tcdl">
-              <span slot="label"> 退出登录 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                退出登录 <i class="el-icon-arrow-right" />
+              </span>
             </el-tab-pane>
           </el-tabs>
-          <el-tabs v-show="tabVal === 1" v-model="activeName" tab-position="left" type="card" class=""
-            @tab-click="handleClick">
+          <el-tabs
+            v-show="tabVal === 1"
+            v-model="activeName"
+            tab-position="left"
+            type="card"
+            class=""
+            @tab-click="handleClick"
+          >
             <el-tab-pane name="grzx">
-              <span slot="label"> 个人信息 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                个人信息 <i class="el-icon-arrow-right" />
+              </span>
               <grzx />
             </el-tab-pane>
             <el-tab-pane name="zyfb">
-              <span slot="label"> 资源发布 <i class="el-icon-arrow-right" /> </span>
-              <zyfb />
+              <span slot="label">
+                资源发布 <i class="el-icon-arrow-right" />
+              </span>
+              <zyfb :dataId="zyfbId" />
             </el-tab-pane>
             <el-tab-pane name="xqjl">
               <span slot="label" @click="zyFun">
                 资源记录 <i class="el-icon-arrow-right" />
               </span>
-              <xqjl />
+              <xqjl @tabJump="tabJump" />
             </el-tab-pane>
             <el-tab-pane name="xqtb">
-              <span slot="label"> 投标记录 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                投标记录 <i class="el-icon-arrow-right" />
+              </span>
               <xqtb />
             </el-tab-pane>
             <el-tab-pane name="ddgl">
-              <span slot="label"> 订单管理 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                订单管理 <i class="el-icon-arrow-right" />
+              </span>
               <ddgl />
             </el-tab-pane>
             <el-tab-pane name="sjrz">
-              <span slot="label"> 商家入驻 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                商家入驻 <i class="el-icon-arrow-right" />
+              </span>
               <sjrz />
             </el-tab-pane>
             <el-tab-pane name="wdgz">
-              <span slot="label"> 我的关注 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                我的关注 <i class="el-icon-arrow-right" />
+              </span>
               <wdgz />
             </el-tab-pane>
             <el-tab-pane name="wdsc">
@@ -88,53 +144,83 @@
               <wdsc />
             </el-tab-pane>
             <el-tab-pane name="tcdl">
-              <span slot="label"> 退出登录 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                退出登录 <i class="el-icon-arrow-right" />
+              </span>
             </el-tab-pane>
           </el-tabs>
-          <el-tabs v-show="tabVal === 2" v-model="activeName" tab-position="left" type="card" class=""
-            @tab-click="handleClick">
+          <el-tabs
+            v-show="tabVal === 2"
+            v-model="activeName"
+            tab-position="left"
+            type="card"
+            class=""
+            @tab-click="handleClick"
+          >
             <el-tab-pane name="grzx">
-              <span slot="label"> 个人信息 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                个人信息 <i class="el-icon-arrow-right" />
+              </span>
               <grzx />
             </el-tab-pane>
             <el-tab-pane name="qyfw">
-              <span slot="label"> 企业服务 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                企业服务 <i class="el-icon-arrow-right" />
+              </span>
               <qyfw />
             </el-tab-pane>
             <el-tab-pane name="zzbl">
-              <span slot="label"> 资质办理 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                资质办理 <i class="el-icon-arrow-right" />
+              </span>
               <zzbl />
             </el-tab-pane>
             <el-tab-pane name="hdch">
-              <span slot="label"> 活动策划 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                活动策划 <i class="el-icon-arrow-right" />
+              </span>
               <hdch />
             </el-tab-pane>
             <el-tab-pane name="zczx">
-              <span slot="label"> 政策咨询 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                政策咨询 <i class="el-icon-arrow-right" />
+              </span>
               <zczx />
             </el-tab-pane>
             <el-tab-pane name="fwjd">
-              <span slot="label"> 服务进度 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                服务进度 <i class="el-icon-arrow-right" />
+              </span>
               <fwjd />
             </el-tab-pane>
             <el-tab-pane name="xqtb">
-              <span slot="label"> 投标记录 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                投标记录 <i class="el-icon-arrow-right" />
+              </span>
               <xqtb />
             </el-tab-pane>
-            <el-tab-pane name="ddgl">
-              <span slot="label"> 订单管理 <i class="el-icon-arrow-right" /> </span>
+            <!-- <el-tab-pane name="ddgl">
+              <span slot="label">
+                订单管理 <i class="el-icon-arrow-right" />
+              </span>
               <ddgl />
-            </el-tab-pane>
+            </el-tab-pane> -->
             <el-tab-pane name="wdgz">
-              <span slot="label"> 我的关注 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                我的关注 <i class="el-icon-arrow-right" />
+              </span>
               <wdgz />
             </el-tab-pane>
             <el-tab-pane name="wdsc">
-              <span slot="label"> 我的收藏 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                我的收藏 <i class="el-icon-arrow-right" />
+              </span>
               <wdsc />
             </el-tab-pane>
             <el-tab-pane name="tcdl">
-              <span slot="label"> 退出登录 <i class="el-icon-arrow-right" /> </span>
+              <span slot="label">
+                退出登录 <i class="el-icon-arrow-right" />
+              </span>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -203,6 +289,7 @@ export default {
       tabVal: 0,
       page: "1",
       limit: "10",
+      zyfbId: 0,
     };
   },
   watch: {
@@ -265,51 +352,48 @@ export default {
     },
 
     handleClick(tab, event) {
-
-
-
       switch (tab.name) {
         //个人信息
-        case 'grzx':
-        console.log('个人信息')
+        case "grzx":
+          console.log("个人信息");
           break;
         //需求发布
-        case 'xqfb':
-        console.log('需求发布')
+        case "xqfb":
+          console.log("需求发布");
           break;
         //需求记录
-        case 'zyjl':
-        console.log('需求记录')
+        case "zyjl":
+          console.log("需求记录");
           break;
         //投标记录
-        case 'xqtb':
-        console.log('投标记录')
+        case "xqtb":
+          console.log("投标记录");
           break;
         //订单管理
-        case 'ddgl':
-        console.log('订单管理')
+        case "ddgl":
+          console.log("订单管理");
+          this.$refs.ddglChild.handle(0);
           break;
         //我的关注
-        case 'wdgz':
-        console.log('我的关注')
+        case "wdgz":
+          console.log("我的关注");
           break;
         //我的收藏
-        case 'wdsc':
-        console.log('我的收藏')
+        case "wdsc":
+          console.log("我的收藏");
           break;
         //退出登录
-        case 'tcdl':
-        console.log('退出登录')
+        case "tcdl":
+          console.log("退出登录");
           break;
         //资源发布
-        case 'zyfb':
-        console.log('资源发布')
+        case "zyfb":
+          console.log("资源发布");
           break;
         //资源记录
-        case 'xqjl':
-        console.log('资源记录')
+        case "xqjl":
+          console.log("资源记录");
           break;
-
       }
 
       // // console.log(tab.index, event);
@@ -368,6 +452,7 @@ export default {
     },
     handleTab(val) {
       this.tabVal = val;
+      this.activeName = "grzx";
       this.isTab = false;
       setTimeout(() => {
         this.isTab = true;
@@ -398,7 +483,11 @@ export default {
     orderManagement() {
       // console.log("订单管理开始加载数据");
 
-      this.$store.dispatch("user/getUserLog", { uid: this.id, page: "1", limit: "10" });
+      this.$store.dispatch("user/getUserLog", {
+        uid: this.id,
+        page: "1",
+        limit: "10",
+      });
     },
 
     /** 登录基本信息 */
@@ -412,6 +501,20 @@ export default {
         this.$store.dispatch("user/getUserInfo", { id: id });
       }
     },
+
+    jumpSjrz() {
+      // codeing...
+      this.tabVal = 1;
+      this.activeName = "sjrz";
+    },
+    tabJump(tab,activeName,formData) {
+      this.tabVal = tab;
+      this.activeName = activeName;
+      if(activeName==="zyfb"){
+        this.zyfbId = formData;
+        console.log('formData',formData,this.zyfbId)
+      }
+    }
   },
   mounted() {
     //  this.id=localStorage.getItem("UodeId")
@@ -491,7 +594,8 @@ div/deep/.el-tabs__item:hover {
   /* box-shadow: 1px 0px 4px 0 rgb(0 0 0) */
 }
 
-div/deep/.el-tabs--left.el-tabs--card .el-tabs__item.is-left.is-active:first-child {
+div/deep/.el-tabs--left.el-tabs--card
+  .el-tabs__item.is-left.is-active:first-child {
   border-top: 1px solid #e4e7ed;
 }
 

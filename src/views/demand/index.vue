@@ -2,66 +2,126 @@
   <div class="demand_content" :class="{ seenCls: !seen }">
     <div class="box_10 flex-col">
       <div v-if="seen" class="group_14 flex-row">
-        <div v-if="btn1" class="text-wrapper_3 flex-col top_btn_l newtabBtn" :class="{ accc: param.status === '0' }"
-          @click="fetchData({ status: '0' })">
+        <div
+          v-if="btn1"
+          class="text-wrapper_3 flex-col top_btn_l newtabBtn"
+          :class="{ accc: param.status === '0' }"
+          @click="fetchData({ status: '0' })"
+        >
           <span class="text_12 f18 sadasd">进行中</span>
         </div>
-        <div v-if="!btn1" class="text-wrapper_3 flex-col top_btn_l newtabBtn" :class="{ accc: param.status === '0' }"
-          @click="fetchData({ status: '0' })">
+        <div
+          v-if="!btn1"
+          class="text-wrapper_3 flex-col top_btn_l newtabBtn"
+          :class="{ accc: param.status === '0' }"
+          @click="fetchData({ status: '0' })"
+        >
           <span class="text_12 f18 sadasd">进行中</span>
         </div>
-        <div v-if="!btn1" class="text-wrapper_3 flex-col top_btn_l newtabBtn" :class="{ accc: param.status === '1' }"
-          @click="fetchData({ status: '1' })">
+        <div
+          v-if="!btn1"
+          class="text-wrapper_3 flex-col top_btn_l newtabBtn"
+          :class="{ accc: param.status === '1' }"
+          @click="fetchData({ status: '1' })"
+        >
           <span class="text_12 f18 sadasd">圆满结束</span>
         </div>
-        <div v-if="btn1" class="text-wrapper_3 flex-col top_btn_l newtabBtn" :class="{ accc: param.status === '1' }"
-          @click="fetchData({ status: '1' })">
+        <div
+          v-if="btn1"
+          class="text-wrapper_3 flex-col top_btn_l newtabBtn"
+          :class="{ accc: param.status === '1' }"
+          @click="fetchData({ status: '1' })"
+        >
           <span class="text_12 f18 sadasd">圆满结束</span>
         </div>
-        <div v-if="tabtn === 1" class="box_1 flex-row top_btn_r" @click="handle(2)">
+        <div
+          v-if="tabtn === 1"
+          class="box_1 flex-row top_btn_r"
+          @click="handle(2)"
+        >
           <span class="text_13 f18 m13p">发布时间</span>
           <i class="el-icon-caret-bottom thumbnail_3" />
         </div>
-        <div v-if="tabtn === 2" class="box_1 flex-row top_btn_r" @click="handle(1)">
+        <div
+          v-if="tabtn === 2"
+          class="box_1 flex-row top_btn_r"
+          @click="handle(1)"
+        >
           <span class="text_13 f18 m13p">发布时间</span>
           <i class="el-icon-caret-top thumbnail_3" />
         </div>
-        <div v-if="tabtn1 === 1" class="box_2 flex-row top_btn_r" @click="handle1(2)">
+        <div
+          v-if="tabtn1 === 1"
+          class="box_2 flex-row top_btn_r"
+          @click="handle1(2)"
+        >
           <span class="text_14 f18 m48p">投标量</span>
           <i class="el-icon-caret-bottom thumbnail_3" />
         </div>
-        <div v-if="tabtn1 === 2" class="box_2 flex-row top_btn_r" @click="handle1(1)">
+        <div
+          v-if="tabtn1 === 2"
+          class="box_2 flex-row top_btn_r"
+          @click="handle1(1)"
+        >
           <span class="text_14 f18 m48p">投标量</span>
           <i class="el-icon-caret-top thumbnail_3" />
         </div>
-        <div v-if="tabtn2 === 1" class="box_3 flex-row top_btn_r" @click="handle2(2)">
+        <div
+          v-if="tabtn2 === 1"
+          class="box_3 flex-row top_btn_r"
+          @click="handle2(2)"
+        >
           <span class="text_15 f18 m59p">预算</span>
           <i class="el-icon-caret-bottom thumbnail_3" />
         </div>
-        <div v-if="tabtn2 === 2" class="box_3 flex-row top_btn_r" @click="handle2(1)">
+        <div
+          v-if="tabtn2 === 2"
+          class="box_3 flex-row top_btn_r"
+          @click="handle2(1)"
+        >
           <span class="text_15 f18 m59p">预算</span>
           <i class="el-icon-caret-top thumbnail_3" />
         </div>
       </div>
       <pho v-if="!seen" />
-      <img class="image_2" referrerpolicy="no-referrer"
-        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng52bfd8ea1b96be5c613c4e62f54b780066b3530017e03b29de9d2985430339fb">
+      <img
+        class="image_2"
+        referrerpolicy="no-referrer"
+        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng52bfd8ea1b96be5c613c4e62f54b780066b3530017e03b29de9d2985430339fb"
+      />
       <div class="card_cls">
         <el-row :gutter="10">
-          <template v-for="item in xuqiuHome">
-            <el-col v-if="seen" :span="seen ? 8 : 12">
+          <template v-if="seen">
+            <el-col v-for="(item,index) in xuqiuHome" :key="index" :span="seen ? 8 : 12">
               <el-card shadow="hover" @click.native="handleClick(item.id)">
-                <img :src="item.img" class="image">
+                <img :src="item.img" class="image" />
                 <div class="a_con" style="padding: 14px">
                   <span class="top_w_z">{{ item.title }}</span>
 
                   <div class="bottom clearfix">
-                    <span style="float:right;color:#c37b21;position:relative;top:15px;">预算:{{ parseInt(item.money) }}</span>
-                    <img class="bot-img" :src="item.img" alt="">
-                    <span class="tyf12">{{ item.nick || "默认发布人" + item.id }}</span>
+                    <span
+                      style="
+                        float: right;
+                        color: #c37b21;
+                        position: relative;
+                        top: 15px;
+                      "
+                      >预算:{{ parseInt(item.money) }}</span
+                    >
+                    <img
+                      class="bot-img"
+                      :src="
+                        item.avatar ||
+                        require('@/assets/img/spzy/defaultImg.png')
+                      "
+                      alt=""
+                    />
+                    <span class="tyf12">{{
+                      item.nick || "默认发布人" + item.id
+                    }}</span>
                   </div>
                   <div class="bottom clearfix">
-                    <time class="dow_w_z">发布时间：{{ item.zhao_start }}</time>
+                    <time class="dow_w_z">发布时间：{{ item.addtime }}</time>
                   </div>
                 </div>
               </el-card>
@@ -80,10 +140,10 @@
 </template>
 
 <script>
-import pho from './phone.vue'
+import pho from "./phone.vue";
 export default {
   components: {
-    pho
+    pho,
   },
   data() {
     return {
@@ -98,44 +158,44 @@ export default {
         status: "0",
         area_id: "1",
         addtime: "1",
-        t_num: "1"
-      }
-    }
+        t_num: "1",
+      },
+    };
   },
   computed: {
     xuqiuHome: function () {
       // console.log('this.$store.state.user.homeNeedCenter', this.$store.state.user.homeNeedCenter);
-      return this.$store.state.user.homeNeedCenter
-    }
+      return this.$store.state.user.homeNeedCenter;
+    },
   },
   watch: {
     $route: {
       handler: function (val, oldVal) {
         if (document.body.clientWidth > 700) {
-          this.seen = true
+          this.seen = true;
         } else {
-          this.seen = false
+          this.seen = false;
         }
       },
       // 深度观察监听
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {
     if (document.body.clientWidth > 700) {
-      this.seen = true
+      this.seen = true;
     } else {
-      this.seen = false
+      this.seen = false;
     }
-    window.addEventListener('setItem', () => {
-      const clientWidth = sessionStorage.getItem('seen')
+    window.addEventListener("setItem", () => {
+      const clientWidth = sessionStorage.getItem("seen");
       // console.log(clientWidth, 'this.seen')
       if (clientWidth > 700) {
-        this.seen = true
+        this.seen = true;
       } else {
-        this.seen = false
+        this.seen = false;
       }
-    })
+    });
 
     this.fetchData();
   },
@@ -145,17 +205,17 @@ export default {
         this.param.status = param.status;
       }
 
-      this.param.addtime = '' + this.tabtn;
-      this.param.t_num = '' + this.tabtn1;
-      this.param.money = '' + this.tabtn2;
-      console.log('fetchData', JSON.stringify(this.param));
-      this.$store.dispatch('user/get_contentAct', this.param);
+      this.param.addtime = "" + this.tabtn;
+      this.param.t_num = "" + this.tabtn1;
+      this.param.money = "" + this.tabtn2;
+      console.log("fetchData", JSON.stringify(this.param));
+      this.$store.dispatch("user/get_contentAct", this.param);
     },
     handleClick(id) {
       this.$router.push({
-        path: '/demand/details',
-        query: { id: id }
-      })
+        path: "/demand/details",
+        query: { id: id },
+      });
     },
     handle(val) {
       this.tabtn = val;
@@ -170,10 +230,10 @@ export default {
       this.fetchData();
     },
     handleCheck(val) {
-      this.btn1 = !this.btn1
-    }
-  }
-}
+      this.btn1 = !this.btn1;
+    },
+  },
+};
 </script>
 
 <style scoped>

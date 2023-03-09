@@ -159,7 +159,7 @@ export function imageUpload(data) {
   return request({
     url: '/api/index/upload',
     method: 'post',
-    params: data,
+    data,
     headers: { 'Content-Type': 'multipart/form-data' },
   })
 }
@@ -196,6 +196,15 @@ export function xiadan(data) {
 export function completeOrder(data) {
   return request({
     url: '/api/index/complete_order',
+    method: 'post',
+    params: data
+  })
+}
+
+// 评论
+export function orderCommenton(data) {
+  return request({
+    url: '/api/index/order_pinglun',
     method: 'post',
     params: data
   })

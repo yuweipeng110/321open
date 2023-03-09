@@ -10,6 +10,7 @@ import store from './store'
 import router from './router'
 import '@/icons'
 import countTo from 'vue-count-to'
+import moment from 'moment'
 // 引用富文本编辑器
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
@@ -44,7 +45,7 @@ Vue.prototype.setSessionItem = function(key, newVal) {
 Vue.use(VueQuillEditor)
 Vue.component('countTo', countTo)
 Vue.use(ElementUI, { locale })
-
+Vue.prototype.$moment = moment
 Vue.config.productionTip = false
 
 new Vue({

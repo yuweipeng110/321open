@@ -2,8 +2,13 @@
   <div class="header" :class="{ make: !seen }">
     <!-- web端菜单导航 -->
     <div v-if="seen" class="adress-sel">
-      <img class="ml59" src="@/assets/outline.png">
-      <el-select v-model="value" :popper-append-to-body="false" class="antiHuman" @change="setAddress()">
+      <img class="ml59" src="@/assets/outline.png" />
+      <el-select
+        v-model="value"
+        :popper-append-to-body="false"
+        class="antiHuman"
+        @change="setAddress()"
+      >
         <el-option
           v-for="item in options"
           :key="item.id"
@@ -15,7 +20,7 @@
     <div v-if="seen" class="logo_img" @click="logoClick">
       <div class="logo-contaion">
         <div class="header-logo">
-          <img id="header-img" src="@/assets/logo1.png">
+          <img id="header-img" src="@/assets/logo1.png" />
         </div>
       </div>
     </div>
@@ -30,70 +35,67 @@
         @select="handleSelect"
       >
         <el-menu-item index="/" class="header-title">首页</el-menu-item>
-        <el-menu-item
-          index="/shotResources/shot"
-          class="header-title"
-        >拍摄资源</el-menu-item>
+        <el-menu-item index="/shotResources/shot" class="header-title"
+          >拍摄资源</el-menu-item
+        >
         <el-menu-item
           index="/demand/demand"
           class="header-title"
           @click="xuqiuHome"
-        >需求中心</el-menu-item>
-        <el-menu-item
-          index="/goodOutreach/goodOutreach"
-          class="header-title"
-        >优质外联</el-menu-item>
-        <el-menu-item
-          index="/article/article/1"
-          class="header-title"
-        >政策资讯</el-menu-item>
-        <el-menu-item
-          index="/article/article/2"
-          class="header-title"
-        >行业新闻</el-menu-item>
-        <el-menu-item
-          index="/article/article/3"
-          class="header-title"
-        >服务项目</el-menu-item>
-        <el-menu-item
-          index="/article/article/4"
-          class="header-title"
-        >服务案例</el-menu-item>
+          >需求中心</el-menu-item
+        >
+        <el-menu-item index="/goodOutreach/goodOutreach" class="header-title"
+          >优质外联</el-menu-item
+        >
+        <el-menu-item index="/article/article/1" class="header-title"
+          >政策资讯</el-menu-item
+        >
+        <el-menu-item index="/article/article/2" class="header-title"
+          >行业新闻</el-menu-item
+        >
+        <el-menu-item index="/article/article/3" class="header-title"
+          >服务项目</el-menu-item
+        >
+        <el-menu-item index="/article/article/4" class="header-title"
+          >服务案例</el-menu-item
+        >
       </el-menu>
     </div>
-    <div v-if="!(userinfo&&userinfo.id)" class="right-nav">
-     <!-- {{ userinfo }} -->
+    <div v-if="!(userinfo && userinfo.id)" class="right-nav">
+      <!-- {{ userinfo }} -->
 
-      <img class="right-img-btn" src="@/assets/phone.png" @click="login">
-      <img class="right-img-btn" src="@/assets/wechat.png" @click="login">
+      <img class="right-img-btn" src="@/assets/phone.png" @click="login" />
+      <img class="right-img-btn" src="@/assets/wechat.png" @click="login" />
       <el-button
         type="text"
         style="margin-right: 20px"
         class="header-title login-btn"
         @click="login"
-      >登录 / 注册
+        >登录 / 注册
       </el-button>
       <!-- <el-button type="primary" class="header-title" @click="register" round>注册</el-button> -->
     </div>
     <!-- 登录成功之后的 -->
-   <div v-else class="right-nav">
+    <div v-else class="right-nav">
+      <!-- {{ userinfo }} -->
+      <img
+        class="right-img-btn"
+        @click="go"
+        :src="userinfo.avatar || defaultimg"
+        alt=""
+      />
+      <span @click="go" class="usernameCu">{{
+        userinfo.nick || "默认用户" + userinfo.id
+      }}</span>
 
-   <!-- {{ userinfo }} -->
-      <img class="right-img-btn" @click="go" :src="userinfo.avatar || defaultimg" alt="">
-   <span @click="go" class="usernameCu">{{userinfo.nick || "默认用户"+userinfo.id }}</span>
-
-
-   <el-button
+      <el-button
         type="text"
         style="margin-right: 20px"
         class="header-title login-btn"
         @click="exitLogin"
-      >退出
+        >退出
       </el-button>
-
-   </div>
-
-
+    </div>
 
     <!-- 手机端菜单导航 v-bind:style="{backgroundColor:'#409EFF'}" -->
     <div v-if="!seen" class="phone">
@@ -106,81 +108,96 @@
 </template>
 
 <script>
-import forma from './form.vue'
-import phone from './navPhone.vue'
-import { getAddressList } from '@/api/table'
-import { Message } from 'element-ui'
+import forma from "./form.vue";
+import phone from "./navPhone.vue";
+import { getAddressList } from "@/api/table";
+import { Message } from "element-ui";
 
 export default {
-  name: 'Layout',
+  name: "Layout",
   components: {
     forma,
-    phone
+    phone,
   },
   data() {
     return {
       dialogVisible: false,
       showWidth: 0, // 屏幕可视宽度
-      activeIndex: '/',
+      activeIndex: "/",
       options: [],
-      value: '佛山',
-      scroll: '',
-      timer: '',
+      value: "佛山",
+      scroll: "",
+      timer: "",
       screenWidth: 0,
       seen: true,
-      currentMenu: '首页',
-      defaultimg:require("@/assets/img/spzy/defaultImg.png"),
+      currentMenu: "首页",
+      defaultimg: require("@/assets/img/spzy/defaultImg.png"),
       // userinfo:null
-    }
+    };
   },
 
   computed: {
-    userinfo: function() {
-      return this.$store.state.user.userInfo
-    }
+    userinfo: function () {
+      return this.$store.state.user.userInfo;
+    },
   },
   watch: {
-    screenWidth: function(n, o) {
+    screenWidth: function (n, o) {
       if (n > 700) {
-        this.seen = true
-        this.setSessionItem('seen', document.body.clientWidth)
+        this.seen = true;
+        this.setSessionItem("seen", document.body.clientWidth);
       } else {
-        this.seen = false
-        this.setSessionItem('seen', document.body.clientWidth)
+        this.seen = false;
+        this.setSessionItem("seen", document.body.clientWidth);
       }
     },
     $route: {
-      handler: function(val, oldVal) {
-        if (document.body.clientWidth > 700) {
-          this.seen = true
+      handler: function (val, oldVal) {
+        console.log("bar route", val, oldVal);
+        if (val.name.includes("shotResources")) {
+          this.activeIndex = "/shotResources/shot";
+        } else if (val.name.includes("demand")) {
+          this.activeIndex = "/demand/demand";
+        } else if (val.name.includes("goodOutreach")) {
+          this.activeIndex = "/goodOutreach/goodOutreach";
+        } else if (val.name.includes("article")) {
+          this.activeIndex = "/article/article/1";
+        } else if (val.name.includes("article")) {
+          this.activeIndex = "/article/article/1";
         } else {
-          this.seen = false
+          this.activeIndex = "/";
+        }
+        if (document.body.clientWidth > 700) {
+          this.seen = true;
+        } else {
+          this.seen = false;
         }
       },
       // 深度观察监听
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {
-      // this.userinfo=this.$store.state.user.userInfo
+    // this.userinfo=this.$store.state.user.userInfo
     // console.log("userinfo",this.userinfo);
-    this.menuSeen()
-    window.addEventListener('setItem', () => {
-      const clientWidth = sessionStorage.getItem('seen')
+
+    this.menuSeen();
+    window.addEventListener("setItem", () => {
+      const clientWidth = sessionStorage.getItem("seen");
       // console.log(clientWidth, 'this.seen')
       if (clientWidth > 700) {
-        this.seen = true
+        this.seen = true;
       } else {
-        this.seen = false
+        this.seen = false;
       }
-    })
-    this.addressList()
+    });
+    this.addressList();
     // console.log("生命周期出发", this.userinfo);
 
     try {
-      if (JSON.parse(localStorage.getItem('address'))[0].name) {
+      if (JSON.parse(localStorage.getItem("address"))[0].name) {
         // console.log("取到了城市name====>",JSON.parse(localStorage.getItem("address"))[0].name);
-        this.value = JSON.parse(localStorage.getItem('address'))[0].name
+        this.value = JSON.parse(localStorage.getItem("address"))[0].name;
       }
       // console.log('城市默认值', this.value)
       // this.value="佛山"
@@ -199,50 +216,35 @@ export default {
   },
 
   methods: {
-
-    exitLogin(){
-
-      this.$confirm('此操作将退出当前登录, 是否继续?', '温馨提示提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-
+    exitLogin() {
+      this.$confirm("此操作将退出当前登录, 是否继续?", "温馨提示提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
           this.$message({
-            type: 'success',
-            message: '退出登录成功!'
+            type: "success",
+            message: "退出登录成功!",
           });
-           location.reload()
+          location.reload();
           // localStorage.clear()
-          this.$store.commit("user/SET_CLEAR")
-         this.$router.push({
-          name:"Dashboard"
-         })
-
-        }).catch(() => {
+          this.$store.commit("user/SET_CLEAR");
+          this.$router.push({
+            name: "Dashboard",
+          });
+        })
+        .catch(() => {
           this.$message({
-            type: 'info',
-            message: '已取消操作'
+            type: "info",
+            message: "已取消操作",
           });
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
     },
 
     zhengce() {
       // console.log("00000000000");
-      wenList({ id: '1' })
+      wenList({ id: "1" });
     },
 
     // 点击跳转到需求中心
@@ -253,154 +255,156 @@ export default {
 
     dialoFromShowFun(e) {
       // console.log(typeof e);
-      this.dialogVisible = e
+      this.dialogVisible = e;
       // console.log("子元素想发u元素专职",e);
       // this.$on("")
     },
 
     handleSelect(key) {
       switch (key) {
-        case '1':
-          this.$router.push({ name: 'Index' })
-          break
-        case '2-1':
-          window.location.hash = '#产品微观'
-          break
-        case '2-2':
-          this.$router.push({ name: 'Fruit' })
-          break
-        case '2-3':
-          this.$router.push({ name: 'Fashion' })
-          break
-        case '3':
-          this.$router.push({ name: 'Index' })
-          window.location.hash = '#产品特点'
-          break
-        case '4':
-          this.$router.push({ name: 'Index' })
-          window.location.hash = '#合作伙伴'
-          break
-        case '5':
-          this.$router.push({ name: 'Index' })
-          window.location.hash = '#关于我们'
-          break
+        case "1":
+          this.$router.push({ name: "Index" });
+          break;
+        case "2-1":
+          window.location.hash = "#产品微观";
+          break;
+        case "2-2":
+          this.$router.push({ name: "Fruit" });
+          break;
+        case "2-3":
+          this.$router.push({ name: "Fashion" });
+          break;
+        case "3":
+          this.$router.push({ name: "Index" });
+          window.location.hash = "#产品特点";
+          break;
+        case "4":
+          this.$router.push({ name: "Index" });
+          window.location.hash = "#合作伙伴";
+          break;
+        case "5":
+          this.$router.push({ name: "Index" });
+          window.location.hash = "#关于我们";
+          break;
       }
     },
     handleSelectMobile(key) {
       switch (key) {
-        case '1':
-          this.$router.push({ name: 'Index' })
-          this.currentMenu = '首页'
-          break
-        case '2-1':
-          this.$router.push({ name: 'Index' })
-          window.location.hash = '#产品微观'
-          this.currentMenu = '首页'
-          break
-        case '2-2':
-          this.$router.push({ name: 'Fruit' })
-          this.currentMenu = '生鲜果蔬'
-          break
-        case '2-3':
-          this.$router.push({ name: 'Fashion' })
-          break
-        case '3':
-          this.$router.push({ name: 'Index' })
-          window.location.hash = '#产品特点'
-          this.currentMenu = '首页'
-          break
-        case '4':
-          this.$router.push({ name: 'Index' })
-          window.location.hash = '#合作伙伴'
-          this.currentMenu = '首页'
-          break
-        case '5':
-          this.$router.push({ name: 'Index' })
-          window.location.hash = '#关于我们'
-          this.currentMenu = '首页'
-          break
+        case "1":
+          this.$router.push({ name: "Index" });
+          this.currentMenu = "首页";
+          break;
+        case "2-1":
+          this.$router.push({ name: "Index" });
+          window.location.hash = "#产品微观";
+          this.currentMenu = "首页";
+          break;
+        case "2-2":
+          this.$router.push({ name: "Fruit" });
+          this.currentMenu = "生鲜果蔬";
+          break;
+        case "2-3":
+          this.$router.push({ name: "Fashion" });
+          break;
+        case "3":
+          this.$router.push({ name: "Index" });
+          window.location.hash = "#产品特点";
+          this.currentMenu = "首页";
+          break;
+        case "4":
+          this.$router.push({ name: "Index" });
+          window.location.hash = "#合作伙伴";
+          this.currentMenu = "首页";
+          break;
+        case "5":
+          this.$router.push({ name: "Index" });
+          window.location.hash = "#关于我们";
+          this.currentMenu = "首页";
+          break;
       }
     },
     backTop() {
       // 当点击标签的时候,使用animate在200毫秒的时间内,滚到顶部
       this.timer = setInterval(() => {
-        const osTop = document.documentElement.scrollTop || document.body.scrollTop
-        const ispeed = Math.floor(-osTop / 5)
-        document.documentElement.scrollTop = document.body.scrollTop = osTop + ispeed
+        const osTop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        const ispeed = Math.floor(-osTop / 5);
+        document.documentElement.scrollTop = document.body.scrollTop =
+          osTop + ispeed;
         if (osTop === 0) {
-          clearInterval(this.timer)
+          clearInterval(this.timer);
         }
-      }, 30)
+      }, 30);
     },
     login() {
-      this.dialogVisible = true
+      this.dialogVisible = true;
     },
     go() {
       // console.log(this.userinfo);
 
       if (!this.userinfo && this.userinfo) {
         // 暂未登录
-        this.dialogVisible = true
+        this.dialogVisible = true;
       } else {
         // 已经登录
         this.$router.push({
-          path: '/my/my'
-        })
+          path: "/my/my",
+        });
       }
     },
     register() {
-      window.open('https://admin.fastice-tech.com/registe')
+      window.open("https://admin.fastice-tech.com/registe");
     },
     menuSeen() {
-      this.screenWidth = document.body.clientWidth
+      this.screenWidth = document.body.clientWidth;
       if (this.screenWidth > 700) {
-        this.seen = true
-        this.setSessionItem('seen', document.body.clientWidth)
+        this.seen = true;
+        this.setSessionItem("seen", document.body.clientWidth);
       } else {
-        this.seen = false
-        this.setSessionItem('seen', document.body.clientWidth)
+        this.seen = false;
+        this.setSessionItem("seen", document.body.clientWidth);
       }
       window.onresize = () => {
         return (() => {
           // that.showWidth = document.body.clientWidth
           // 屏幕尺寸
           if (document.body.clientWidth > 700) {
-            this.setSessionItem('seen', document.body.clientWidth)
+            this.setSessionItem("seen", document.body.clientWidth);
           } else {
-            this.seen = false
-            this.setSessionItem('seen', document.body.clientWidth)
+            this.seen = false;
+            this.setSessionItem("seen", document.body.clientWidth);
           }
-        })()
-      }
+        })();
+      };
     },
     logoClick() {
-      this.$router.push({ name: 'Index' })
-      this.currentMenu = '首页'
+      this.$router.push({ path: "/dashboard" });
+      this.currentMenu = "首页";
     },
     // 获取地区列表
     async addressList() {
-      const res = await getAddressList()
+      const res = await getAddressList();
       // console.log(res.data.data)
-      this.options = res.data.data
+      this.options = res.data.data;
     },
     // 点击切换地区
     setAddress() {
-      const v = this.value
+      const v = this.value;
       const res = this.options.filter((item) => {
-        return item.name == v
-      })
+        return item.name == v;
+      });
       // console.log("切换了地址",res);
       // console.log('res当前切换至', res[0].name)
       if (res[0].name) {
-        this.value = res[0].name
-        localStorage.setItem('address', JSON.stringify(res))
+        this.value = res[0].name;
+        localStorage.setItem("address", JSON.stringify(res));
       } else {
         // console.log("sssssssssssss");
-        this.value = '佛山'
+        this.value = "佛山";
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -419,7 +423,7 @@ export default {
   height: inherit;
   border: 0;
 }
-.usernameCu{
+.usernameCu {
   cursor: pointer;
   font-size: 16px;
   color: #c37b21;
@@ -748,7 +752,7 @@ div/deep/.el-dialog .el-dialog__header {
     width: 130px;
   }
 }
-div/deep/.antiHuman .el-select-dropdown__wrap{
-  max-height:fit-content
+div/deep/.antiHuman .el-select-dropdown__wrap {
+  max-height: fit-content;
 }
 </style>

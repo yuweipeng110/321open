@@ -99,7 +99,7 @@ export default {
 .text-group_20 {
   width: 273px;
   height: 124px;
-  margin: 45px 0 0 auto;
+  /* margin: 45px 0 0 auto; */
 }
 
 .text_64 {
@@ -337,6 +337,6 @@ export default {
   }
 }
 .text-group_20 {
-    margin: 45px 0 0 20px;
+    margin: 45px 0 0 200px;
   }
 </style>

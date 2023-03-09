@@ -4,28 +4,59 @@
       <span class="text_11">{{ objDetail.title }}</span>
       <div class="block_9 flex-row">
         <div class="text-wrapper_2">
-          <span class="text_12" style="color: rgba(177, 177, 177, 1);">首页</span> <span class="text_13">&gt;</span>
-          <span class="text_14" style="color: rgba(177, 177, 177, 1);">{{ objDetail.area_id }}</span>
+          <a
+            href="/#/dashboard"
+            class="text_12"
+            style="color: rgba(177, 177, 177, 1)"
+            >首页</a
+          >
+          <span class="text_13">&gt;</span>
+          <a
+            href="/#/shotResources/shot"
+            class="text_14"
+            style="color: rgba(177, 177, 177, 1)"
+            >拍摄资源</a
+          >
           <span class="text_15">&gt;{{ objDetail.title }}</span>
         </div>
-        <img class="thumbnail_3" referrerpolicy="no-referrer"
-          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng13cfb414e3485f262409593627660e63f1c67c03f10837d0df8e9468ea410094" />
+        <img
+          class="thumbnail_3"
+          referrerpolicy="no-referrer"
+          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng19caba79e88d36750cfc8d53b75592aec3e8d0988e8f6bde96b8b334ba7faf14"
+        />
         <span class="text_16">新上线特惠</span>
-        <img class="thumbnail_4" referrerpolicy="no-referrer"
-          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng19caba79e88d36750cfc8d53b75592aec3e8d0988e8f6bde96b8b334ba7faf14" />
+        <img
+          class="thumbnail_4"
+          referrerpolicy="no-referrer"
+          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng19caba79e88d36750cfc8d53b75592aec3e8d0988e8f6bde96b8b334ba7faf14"
+        />
         <span class="text_17">实拍</span>
-        <img class="thumbnail_5" referrerpolicy="no-referrer"
-          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng8596d8b9eaf19f22b3d17f334b9c9f8c9f86176ff30d1df4c5fea67bba9f8a3d" />
+        <img
+          class="thumbnail_5"
+          referrerpolicy="no-referrer"
+          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng8596d8b9eaf19f22b3d17f334b9c9f8c9f86176ff30d1df4c5fea67bba9f8a3d"
+        />
         <span class="text_18">优选</span>
-        <img class="thumbnail_6" referrerpolicy="no-referrer"
-          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng13363d6d8c589538194b6950ce94dc0ab158bda6da439a5a7d850d498ab358d8" />
+        <img
+          class="thumbnail_6"
+          referrerpolicy="no-referrer"
+          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng13363d6d8c589538194b6950ce94dc0ab158bda6da439a5a7d850d498ab358d8"
+        />
         <span class="text_19">验真</span>
       </div>
       <div class="block_10 flex-row">
         <div class="group_3 flex-col">
-          <el-carousel trigger="click" :interval="3000" arrow="always" style="width: 100%; height: 100%">
-            <el-carousel-item v-for="item in objDetail.img" :key="item">
-              <img :src="item.src" style="height: 100%; width: 100%" alt="图片丢失了" :title="item.title" />
+          <el-carousel
+            trigger="click"
+            :interval="3000"
+            arrow="always"
+            style="width: 100%; height: 100%"
+          >
+            <el-carousel-item
+              v-for="item in objDetail.img.split(',')"
+              :key="item"
+            >
+              <img :src="item" style="height: 100%; width: 100%" />
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -41,17 +72,23 @@
               <span class="text_24">¥{{ parseInt(objDetail.zujin) }}</span>
             </div>
             <div class="text-wrapper_5 flex-row justify-between des_tag">
-              <span class="text_25">27日</span>
+              <span class="text_25"
+                >{{ this.$moment().add(1, "days").format("DD") }}日</span
+              >
               <span class="text_26">¥{{ parseInt(objDetail.zujin) }}</span>
             </div>
           </div>
           <div class="box_24 flex-row justify-between">
             <div class="text-wrapper_6 flex-row justify-between des_tag">
-              <span class="text_27">29日</span>
+              <span class="text_27"
+                >{{ this.$moment().add(3, "days").format("DD") }}日</span
+              >
               <span class="text_28">¥{{ parseInt(objDetail.zujin) }}</span>
             </div>
             <div class="text-wrapper_7 flex-row justify-between des_tag">
-              <span class="text_29">30日</span>
+              <span class="text_29"
+                >{{ this.$moment().add(4, "days").format("DD") }}日</span
+              >
               <span class="text_30">¥{{ parseInt(objDetail.zujin) }}</span>
             </div>
           </div>
@@ -64,201 +101,172 @@
           </div>
           <div class="box_25 flex-row justify-between">
             <div class="image-text_24 flex-row justify-between">
-              <div class="box_1 flex-col" />
-              <span class="text-group_1">八门影棚</span>
+              <div class="box_1 flex-col">
+                <img
+                  :src="
+                    objDetail.avatar ||
+                    require('@/assets/img/spzy/defaultImg.png')
+                  "
+                />
+              </div>
+              <span class="text-group_1"
+                >&nbsp;{{ objDetail.nick || "默认用户" }}</span
+              >
             </div>
-            <span class="text_34">3分</span>
           </div>
         </div>
         <div class="section_13 flex-col">
           <span class="text_35">1天起订</span>
           <div class="text-wrapper_10 flex-row justify-between des_tag">
-            <span class="text_36">28日</span> <span class="text_37">¥8000</span>
+            <span class="text_36"
+              >{{ this.$moment().add(2, "days").format("DD") }}日</span
+            >
+            <span class="text_37">¥{{ parseInt(objDetail.zujin) }}</span>
           </div>
           <div class="text-wrapper_11 flex-row justify-between des_tag">
-            <span class="text_38">31日</span> <span class="text_39">¥8000</span>
+            <span class="text_38"
+              >{{ this.$moment().add(5, "days").format("DD") }}日</span
+            >
+            <span class="text_39">¥{{ parseInt(objDetail.zujin) }}</span>
           </div>
           <div class="image-wrapper_2 flex-row">
-            <img class="label_3" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng47a0e5ad956628aa58572ae15b014cb8bffb393e7e8685e030d84cfc259588fc" />
-            <img class="label_4" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng21748b8a8fd68bd0e7ed4a780724305edbf407bf5d892265834486b7e5e8d8e5" />
-            <img @click="jubao" class="label_5" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng0a6dfc18afd55bb96d77f36e2e437cca7af8747db3e2b1b4885294456e34825a" />
+            <img
+              class="label_3"
+              referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng47a0e5ad956628aa58572ae15b014cb8bffb393e7e8685e030d84cfc259588fc"
+            />
+            <el-popover placement="top" trigger="hover">
+              <img
+                class="label_4"
+                referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng21748b8a8fd68bd0e7ed4a780724305edbf407bf5d892265834486b7e5e8d8e5"
+                slot="reference"
+              /><qrCode :text="currentUrl" />
+            </el-popover>
+            <img
+              @click="jubao"
+              class="label_5"
+              referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng0a6dfc18afd55bb96d77f36e2e437cca7af8747db3e2b1b4885294456e34825a"
+            />
           </div>
         </div>
       </div>
       <!-- <div v-if="seen"> -->
       <div class="block_11 flex-row justify-between">
         <div class="block_1 flex-row sort_card">
-          <img class="image_3" referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnge66f37d648b3f5b11d33d206480877654dbc05a27ebbf501a372b2b37d8b8cc0" />
-          <div class="text-group_33 flex-col justify-between">
-            <span class="text_40">白棚</span>
+          <img
+            class="image_3"
+            referrerpolicy="no-referrer"
+            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnge66f37d648b3f5b11d33d206480877654dbc05a27ebbf501a372b2b37d8b8cc0"
+          />
+          <div class="text-group_33 flex-col justify-center">
+            <span class="text_40">{{ objDetail.fenlei.name }}</span>
             <!-- <span class="text_41">场景编号：000411</span> -->
           </div>
         </div>
         <div class="block_2 flex-row sort_card">
-          <img class="image_4" referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng706bd3f7f46b6c6d7bf124a6631b85cada096ba67fa73ced86bf116768daa1d5" />
+          <img
+            class="image_4"
+            referrerpolicy="no-referrer"
+            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng706bd3f7f46b6c6d7bf124a6631b85cada096ba67fa73ced86bf116768daa1d5"
+          />
           <div class="text-group_34 flex-col justify-between">
-            <span class="text_42">二级</span>
-            <span class="text_43">三级</span>
+            <span class="text_42" v-if="objDetail.fenlei2.length > 0">{{
+              objDetail.fenlei2[0].name
+            }}</span>
+            <span class="text_43" v-if="objDetail.fenlei2.length > 0">
+              <span v-if="!objDetail.fenlei2[0].fenlei3">
+                {{ objDetail.fenlei2[0].feilei3[0].name }}
+              </span>
+            </span>
           </div>
         </div>
         <div class="block_3 flex-row sort_card">
-          <img class="image_5" referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng576cfa03a874e1654087b70b4a17b440e4d08bccec89eb23443db989e0fa1c50" />
+          <img
+            class="image_5"
+            referrerpolicy="no-referrer"
+            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng576cfa03a874e1654087b70b4a17b440e4d08bccec89eb23443db989e0fa1c50"
+          />
           <div class="text-group_35 flex-col justify-between">
-            <span class="text_44">100%好评</span>
-            <span class="text_45">5.0分/0条评论</span>
+            <span class="text_44">{{ objDetail.haoping }}好评</span>
+            <span class="text_45"
+              >{{ objDetail.pingfen }}分/{{ objDetail.pl_num }}条评论</span
+            >
           </div>
         </div>
       </div>
       <div class="text-wrapper_12 flex-col">
         <span class="text_46">场景推荐</span>
       </div>
-      <img class="image_6" referrerpolicy="no-referrer"
-        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a" />
+      <img
+        class="image_6"
+        referrerpolicy="no-referrer"
+        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a"
+      />
 
-      <div class="block_12 flex-row">
+      <div
+        class="block_12 flex-row"
+        v-for="(item, index) in objDetail.fenlei2"
+        :key="index"
+      >
         <div class="box_2 flex-row">
-          <div class="image-text_25 flex-col justify-between">
-            <img class="image_7" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng65ec2c942c3471dd8d29aa4d92859604f9bf0b9178e40ae4fde25547146e7f04" />
-            <span class="text-group_5">设施服务</span>
+          <div class="image-text_25 flex-col justify-between flex-center">
+            <img
+              v-if="item.icon"
+              class="image_7"
+              referrerpolicy="no-referrer"
+              :src="item.icon"
+            />
+            <span
+              :class="
+                item.icon
+                  ? 'text-group_5 flex-center'
+                  : 'text-group_changjing flex-center'
+              "
+              >{{ item.name }}</span
+            >
           </div>
         </div>
-        <div class="group_28 flex-col">
-          <span class="text_47">基础设施</span>
-          <div class="image-text_26 flex-row justify-between">
-            <img class="image_8" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngfc24ee5b5df754065266b8d75a27206e9be20ec873a0f501bdfe2d7cff15755e" />
-            <span class="text-group_6">化妆间</span>
-          </div>
-          <div class="image-text_27 flex-row justify-between">
-            <img class="label_6" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng868d54c20611471fb2bc02d76da182c064cd94f326b97cc7b169f6f9ee8d41dc" />
-            <span class="text-group_7">停车位</span>
-          </div>
-          <span class="text_48">特色</span>
-          <div class="image-text_28 flex-row justify-between">
-            <img class="image_9" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngf2d50637c9af2c18495e18eb960be826a666b145fb9b1a341dba9e2d980c469b" />
-            <span class="text-group_8">380V电力</span>
-          </div>
-        </div>
-        <div class="group_29 flex-col">
-          <div class="image-text_29 flex-row justify-between">
-            <img class="image_10" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng30145ac8bc1e4869a05413e93f5f7cfb807108a865958363b9f1a7c9bafbae6a" />
-            <span class="text-group_9">更衣间</span>
-          </div>
-          <div class="image-text_30 flex-row justify-between">
-            <img class="image_11" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng29a8ff6fb569d6c416cdb7fba0bb42c35b74dc51242a260d2e2c0a9acadb2ec6" />
-            <span class="text-group_10">饮水机</span>
-          </div>
-          <div class="image-text_31 flex-row justify-between">
-            <img class="label_7" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngb80396f721c2e5d91e465e9bcd0d18834e183e64cc8981ca8ba790f88980a3df" />
-            <span class="text-group_11">高速网络</span>
-          </div>
-        </div>
-        <div class="group_30 flex-col">
-          <div class="image-text_32 flex-row justify-between">
-            <img class="label_8" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnga2f1fd517da3d99d182a8583bf306fc43c642c8eaa4f6ad678eda222a8be7ad7" />
-            <span class="text-group_12">洗手间</span>
-          </div>
-          <div class="image-text_33 flex-row justify-between">
-            <img class="label_9" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng76c9995fc89d74fec523095384157abc762a98316e67df7fa014ad3cd004ce1b" />
-            <span class="text-group_13">灭火器</span>
-          </div>
-          <div class="image-text_34 flex-row justify-between">
-            <img class="label_10" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng004991a8111a410e80a04cb663f1d461462f14fd173a0a217beb8f396e7d82cc" />
-            <span class="text-group_14">发电车</span>
-          </div>
-        </div>
-        <div class="group_31 flex-col justify-between">
-          <div class="section_14 flex-row justify-between">
-            <div class="image-text_35 flex-row justify-between">
-              <img class="label_11" referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng3f6d0e8d02ba3a7112ffc8fbafe1365837da68d984705e25664a29233745a72e" />
-              <span class="text-group_15">休息室</span>
-            </div>
-            <div class="image-text_36 flex-row justify-between">
-              <img class="label_12" referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng42f9faf080be73bcfab585147ea3e1b2a3346aafc5a4bf9a2a2315e6d9a676ec" />
-              <span class="text-group_16">会议室</span>
-            </div>
-          </div>
-          <div class="section_15 flex-row justify-between">
-            <div class="image-text_37 flex-row justify-between">
-              <img class="label_13" referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng4ebc2567126e4377ca4e35d760bcff1f29c728242beb02c175d36580353f71be" />
-              <span class="text-group_17">灯光器材</span>
-            </div>
-            <div class="image-text_38 flex-row justify-between">
-              <img class="image_12" referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng1f955d9d947832882b8738110c6733933acbe44173751a54feca92687f6ce29a" />
-              <span class="text-group_18">制片</span>
-            </div>
-          </div>
-        </div>
-        <div class="image-text_39 flex-row justify-between">
-          <img class="image_13" referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngfda3a5e103e02bc454b1cdcbd13a00bf218519982e7c0335e38282a442167ca1" />
-          <span class="text-group_19">空调</span>
-        </div>
-        <div class="image-text_40 flex-row justify-between">
-          <img class="image_14" referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng228c1cc455f6c8926b63ce68042eac32501c25da2a03eb47d0ae9bdd3385b38b" />
-          <span class="text-group_20">WIFI</span>
-        </div>
-        <div class="image-text_41 flex-row justify-between">
-          <img class="label_14" referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng899860802b324679824610492b9bd3d5dc7c2fb6c76fb2246e214aaabedb067c" />
-          <span class="text-group_21">暖气</span>
-        </div>
-        <div class="image-text_42 flex-row justify-between">
-          <img class="image_15" referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng8957322f7fc9a50e3574f89032541f0aac5a89f4159baf37a783cb7c760bd9da" />
-          <span class="text-group_22">220V电力</span>
+        <div
+          style="width: calc(100% - 183px); display: flex; align-items: center"
+        >
+          <ul>
+            <li
+              class="flex-row cjtj_li"
+              v-for="(childItem, childIndex) in item.feilei3"
+              :key="childIndex"
+            >
+              <img
+                v-if="childItem.icon"
+                class="image_8"
+                referrerpolicy="no-referrer"
+                :src="childItem.icon"
+              />
+              <span class="text-group_6" style="margin-left: 10px">{{
+                childItem.name
+              }}</span>
+            </li>
+          </ul>
         </div>
       </div>
-      <!-- <div class="block_13 flex-row justify-between">
-        <div class="section_6 flex-row">
-          <div class="image-text_43 flex-col justify-between">
-            <img
-              class="image_16"
-              referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng710d3df68c996f979e205402a4bf31f0b6cda1776ac70e2e62e9a779152b4a29"
-            />
-            <span class="text-group_23">场景描述</span>
-          </div>
-        </div>
-        <div class="group_32 flex-col justify-between">
-          <div class="text-group_36 flex-col justify-between">
-            <span class="text_49">场景特色</span>
-            <span class="text_50">专业的汽车平面拍摄棚，干净舒适，高档首选</span>
-          </div>
-          <span class="text_51">交通详情</span>
-          <span class="text_52">周边介绍</span>
-        </div>
-      </div> -->
+
       <div class="text-wrapper_13 flex-col">
         <span class="text_53">预定须知</span>
       </div>
-      <img class="image_17" referrerpolicy="no-referrer"
-        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a" />
+      <img
+        class="image_17"
+        referrerpolicy="no-referrer"
+        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a"
+      />
       <div class="block_14 flex-row justify-between">
         <div class="group_10 flex-row">
           <div class="image-text_44 flex-col justify-between">
-            <img class="image_18" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngf238e4410192e0881b6864a8a0f1a82544d5f2003d80d73c75587fc3a2585b4f" />
+            <img
+              class="image_18"
+              referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngf238e4410192e0881b6864a8a0f1a82544d5f2003d80d73c75587fc3a2585b4f"
+            />
             <span class="text-group_25">使用须知</span>
           </div>
         </div>
@@ -273,11 +281,15 @@
           </div>
           <div class="text-wrapper_16">
             <span class="text_58">退款规则：</span>
-            <span class="paragraph_1">取消订单，扣除100%的租金作为违约金支付给商家；如提前退租，扣除100%剩余租金作为违约金支付给商家。使用前2天6点前取消订单，租金可全额退还。</span>
+            <span class="paragraph_1"
+              >取消订单，扣除100%的租金作为违约金支付给商家；如提前退租，扣除100%剩余租金作为违约金支付给商家。使用前2天6点前取消订单，租金可全额退还。</span
+            >
           </div>
           <div class="text-wrapper_17">
             <span class="text_59">租用押金：</span>
-            <span class="text_60">线下支付押金￥4000.00。押金于使用当天交付商家。请在使用结束时与商家办理退押金手续。</span>
+            <span class="text_60"
+              >线下支付押金￥4000.00。押金于使用当天交付商家。请在使用结束时与商家办理退押金手续。</span
+            >
           </div>
           <div class="text-wrapper_18">
             <span class="text_61">不提供发票：</span>
@@ -288,8 +300,11 @@
       <div class="block_15 flex-row justify-between">
         <div class="box_9 flex-row">
           <div class="image-text_45 flex-col justify-between">
-            <img class="image_19" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng84eb4e8ea1ab4eb3f1fb312b4e6ce7ba1168284a35f0cd6543ac8c833366fb44" />
+            <img
+              class="image_19"
+              referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng84eb4e8ea1ab4eb3f1fb312b4e6ce7ba1168284a35f0cd6543ac8c833366fb44"
+            />
             <span class="text-group_26">额外费用</span>
           </div>
         </div>
@@ -309,23 +324,33 @@
         </div>
       </div>
       <div class="text-wrapper_22 flex-col">
-        <span class="text_69">描述内容</span>
-        <div style="padding:0 28px;" v-html="objDetail.content"></div>
+        <div>
+          <span class="text_69">描述内容</span>
+          <div class="content_text" v-html="objDetail.content"></div>
+        </div>
       </div>
-      <img class="image_20" referrerpolicy="no-referrer"
-        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a" />
-
+      <img
+        class="image_20"
+        referrerpolicy="no-referrer"
+        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a"
+      />
 
       <div class="text-wrapper_22 flex-col">
-        <span class="text_69">用户评价(0条)</span>
+        <span class="text_69">用户评价({{ objDetail.pl_num }}条)</span>
       </div>
-      <img class="image_20" referrerpolicy="no-referrer"
-        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a" />
+      <img
+        class="image_20"
+        referrerpolicy="no-referrer"
+        src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a"
+      />
       <div class="block_16 flex-row justify-between">
         <div class="box_10 flex-row">
           <div class="image-text_46 flex-col justify-between">
-            <img class="image_21" referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngc261c5caf405739fa60d0d2c679b67715a939922c599af626b8048bf557d4fe0" />
+            <img
+              class="image_21"
+              referrerpolicy="no-referrer"
+              src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPngc261c5caf405739fa60d0d2c679b67715a939922c599af626b8048bf557d4fe0"
+            />
             <span class="text-group_28">使用评价</span>
           </div>
         </div>
@@ -358,24 +383,71 @@
         <div class="group_14 flex-col" />
       </div>
 
-      <div class="block_17 flex-row">
-        <div class="group_16 flex-col cart_img" v-for="item in list" style="margin-right:20px;margin-bottom:20px;">
+      <el-row :gutter="10" v-if="list">
+        <el-col
+          v-for="(item, index) in list"
+          :key="index"
+          :span="6"
+          :gutter="5"
+        >
+          <el-card shadow="hover">
+            <div class="shotbox">
+              <img
+                class="img"
+                :src="
+                  item.img
+                    ? item.img.split(',')[0]
+                    : 'static/img/a3.926621c6.png'
+                "
+                alt=""
+              />
+              <div class="txt-five">
+                <div class="oneRow">{{ item.title }}</div>
+                <div>
+                  <div class="fl">
+                    <img
+                      :src="
+                        item.avatar ||
+                        require('@/assets/img/spzy/defaultImg.png')
+                      "
+                      alt=""
+                      class="bot-img"
+                    /><span class="tyf12">{{ item.nick || "默认用户" }}</span>
+                  </div>
+                  <div class="fr">
+                    <div class="pcmon phoneMon">{{ item.zujin }}/天</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
+      <!-- <div class="block_17 flex-row">
+        <div
+          class="group_16 flex-col cart_img"
+          v-for="(item,index) in list.slice(3)" :key="index"
+          style="margin-right: 20px; margin-bottom: 20px"
+        >
           <span class="text_78">{{ item.title }}</span>
           <div class="box_26 flex-row justify-between">
-            <div class="section_8 flex-col" :style="{ backgroundImage: 'url(' + item.avatar + ')' }" />
+            <div
+              class="section_8 flex-col"
+            />
             <span class="text_79">{{ item.nick }}</span>
           </div>
           <div class="box_27 flex-row justify-between">
             <span class="text_80">
-              <!-- 5分/0条点评 -->
+               5分/0条点评
             </span>
             <div class="text-wrapper_29">
-              <span class="text_81">¥</span> <span class="text_82">{{ parseInt(item.zujin) }}</span>
+              <span class="text_81">¥</span>
+              <span class="text_82">{{ parseInt(item.zujin) }}</span>
               <span class="text_83">/天</span>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <des v-else />
     <!-- </div> -->
@@ -383,10 +455,12 @@
 </template>
 <script>
 import des from "./des.vue";
+import qrCode from "@/components/qrCode";
 import { homezyList, homezydetail } from "@/api/home";
 export default {
   components: {
     des,
+    qrCode,
   },
   data() {
     return {
@@ -397,6 +471,7 @@ export default {
       list: null,
       textarea2: "",
       objDetail: null,
+      currentUrl: window.location.href,
       imgArr: [
         {
           src: require("@/assets/img/spzy/p2.png"),
@@ -436,6 +511,7 @@ export default {
   },
 
   mounted() {
+    // console.log('xxx',moment().add(1, 'days').format("DD"));
     this.imgObj = this.$route.query.imgObj || {};
     this.id = this.$route.query.id;
     this.zyDetail(this.id);
@@ -461,7 +537,6 @@ export default {
       if (list.length > 6) {
         list.length = 6;
       }
-      console.log('fetchData', list);
       this.list = list;
     },
 
@@ -469,36 +544,41 @@ export default {
       let res = await homezydetail({ id: String(id) });
 
       this.objDetail = res.data.data;
-      console.log("资源详情页面信息", this.objDetail);
+      // console.log("资源详情页面信息", this.objDetail,this.objDetail.fenlei2[0].feilei3[0].name);
     },
-
     jubao() {
       this.$msgbox({
-        title: '电话拨打',
-        message: '<span class="tc"><i class="el-icon-phone"></i> +86 1388888888888</span>',
+        title: "电话拨打",
+        message:
+          '<span class="tc"><i class="el-icon-phone"></i> +86 1388888888888</span>',
         dangerouslyUseHTMLString: true,
         showCancelButton: true,
-        cancelButtonText: '取消',
+        cancelButtonText: "取消",
         showConfirmButton: true,
-        confirmButtonText: '呼叫',
+        confirmButtonText: "呼叫",
         // callback(action, instance, done) {
         //     console.log('callback', action, instance, done);
         // },
         // beforeClose(action, instance, done) {
         //     console.log('beforeClose', action, instance, done);
         // }
-      }).then(() => {
-        console.log('确定');
-      }, () => {
-        console.log('取消');
-      })
+      }).then(
+        () => {
+          console.log("确定");
+        },
+        () => {
+          console.log("取消");
+        }
+      );
     },
 
     handleClick(id) {
-      this.$router.push({
-        path: "/shotForm/form",
-        query: { id: id },
-      });
+      if (this.$store.state.user.id) {
+        this.$router.push({
+          path: "/shotForm/form",
+          query: { id: id },
+        });
+      }
     },
   },
 };
@@ -511,8 +591,15 @@ body * {
 }
 
 body {
-  font-family: PingFangSC-Regular, Roboto, Helvetica Neue, Helvetica, Tahoma, Arial,
-    PingFang SC-Light, Microsoft YaHei;
+  font-family: PingFangSC-Regular, Roboto, Helvetica Neue, Helvetica, Tahoma,
+    Arial, PingFang SC-Light, Microsoft YaHei;
+}
+
+li {
+  list-style: none;
+  float: left;
+  margin-left: 15px;
+  width: 130px;
 }
 
 input {
@@ -965,7 +1052,8 @@ button:active {
 .group_3 {
   width: 947px;
   height: 466px;
-  background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng6670eafdeb9269350de0ce83127af90e109e5e131a446f1c91543f8195935d70) 100% no-repeat;
+  background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng6670eafdeb9269350de0ce83127af90e109e5e131a446f1c91543f8195935d70)
+    100% no-repeat;
   background-size: 100% 100%;
   margin-top: 3px;
 }
@@ -1249,9 +1337,17 @@ button:active {
 
 .box_1 {
   border-radius: 50%;
-  background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/ea9e91d636854eb3abed0f67402f1c12_mergeImage.png);
+  /* background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/ea9e91d636854eb3abed0f67402f1c12_mergeImage.png); */
   width: 80px;
   height: 80px;
+}
+.box_1 img {
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  /* border-radius: 100%;Z */
 }
 
 .text-group_1 {
@@ -4101,5 +4197,112 @@ div/deep/ .el-carousel__container {
 
 .seenCls .box_25 {
   width: 194px;
+}
+.content_text {
+  padding: 0px 28px;
+  overflow-wrap: break-word;
+  white-space: nowrap;
+  margin: 12px 0 0 28px;
+}
+
+.cjtj_li {
+  margin-top: 20px;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-group_changjing {
+  width: 98px;
+  height: 33px;
+  overflow-wrap: break-word;
+  color: rgba(33, 33, 33, 1);
+  font-size: 24px;
+  letter-spacing: 0.4000000059604645px;
+  font-weight: NaN;
+  text-align: left;
+  white-space: nowrap;
+  line-height: 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.el-row {
+  margin-bottom: 20px;
+}
+.el-col {
+  margin-bottom: 10px;
+}
+
+.shotbox {
+  position: relative;
+}
+
+.shotbox .img {
+  height: 222px;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.shotbox .txt-five {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 68px;
+  line-height: 37px;
+  padding: 0 33px;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.shotbox .oneRow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 29px;
+  font-size: 20px;
+  text-align: left;
+  width: 100%;
+}
+
+.shotbox .bot-img {
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 25px !important;
+  margin-top: 5px !important;
+  margin-right: 10px !important;
+  color: #070707;
+  font-size: 15px;
+  -webkit-transform: translateY(-7px);
+  transform: translateY(-6px);
+  object-fit: cover;
+}
+
+.shotbox .tyf12 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  width: 150px;
+}
+
+.shotbox .pcmon {
+  height: 22px;
+  text-align: left;
+  opacity: 0.9;
+}
+
+.shotbox .fl {
+  float: left;
+}
+
+.shotbox .fr {
+  float: right;
 }
 </style>

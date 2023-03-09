@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || '321开拍网' // page title
+const name = defaultSettings.title || '321开机网' // page title
 
 const port = process.env.port || process.env.npm_config_port || 9528
 

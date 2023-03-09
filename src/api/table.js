@@ -8,25 +8,25 @@ export function getList(params) {
   })
 }
 // 获取地区列表
-export function getAddressList(){
+export function getAddressList() {
   return request({
-    url:"/api/index/area",
-    method:"get"
+    url: "/api/index/area",
+    method: "get"
   })
 }
 // 获取文章分类
 
-export function essayClassify(){
+export function essayClassify() {
   return request({
-    url:"/api/index/art_cate",
-    method:"post"
+    url: "/api/index/art_cate",
+    method: "post"
   })
 }
 // 获取分类下的文章
-export function classifyEssay(params){
+export function classifyEssay(params) {
   return request({
-    url:"/api/index/art",
-    method:"post",
+    url: "/api/index/art",
+    method: "post",
     params
   })
 }
@@ -34,10 +34,10 @@ export function classifyEssay(params){
 
 // 商家入驻
 
-export function ruzhu(data){
+export function ruzhu(data) {
   return request({
-    url:"/api/index/add_user_detail",
-    method:"post",
-    params:data
+    url: "/api/index/add_user_detail",
+    method: "post",
+    params: data
   })
 }

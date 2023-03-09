@@ -2,7 +2,7 @@
   <div>
     <div v-if="seen" class="des_content flex-col">
       <div class="group_2 flex-col">
-        <span class="text_11">首页&gt;交易中心&gt;
+        <span class="text_11">首页&gt;需求中心&gt;
           {{ detial.title }}
         </span>
         <div class="box_9 flex-row justify-between">
@@ -28,10 +28,10 @@
                 <span class="text_20">{{ detial.view }}</span>
               </div>
               <div class="text-group_11 flex-col justify-between">
-                <div class="text-wrapper_5">
+                <!-- <div class="text-wrapper_5">
                   <span class="text_21">报名数量：</span>
                   <span class="text_22">{{ detial.toubiao_num || 0 }}</span>
-                </div>
+                </div> -->
                 <div class="text-wrapper_6">
                   <span class="text_23">使用时间：</span>
                   <span class="paragraph_1">{{ detial.use_start }}至{{
@@ -118,8 +118,8 @@
                 </div>
                 <div class=" flex-row mt10 block_5 " style="padding:20px 0;height:auto;overflow-x:auto;" :class="{ 'maskInfo20': item.isMask }">
                   <!-- :preview-src-list="srcList1" 点击的话 -->
-                  <el-image class="section_4 flex-col" :src="item.pic" />
-                  <video class="section_4 flex-col" :src="item.video" preload="auto" controls="controls" />
+                 <template v-if="item.pic"><el-image class="section_4 flex-col" v-for="(itemImg,indexImg) in item.pic.split(',')" :key="indexImg" :src="itemImg" /></template>
+                  <template v-if="item.video"><video class="section_4 flex-col" v-for="(itemVideo,indexVideo) in item.video.split(',')" :key="indexVideo" :src="itemVideo" controls="controls" /></template>
                 </div>
               </div>
             </div>
@@ -151,11 +151,12 @@
             <el-input v-model="form.message" type="textarea" autocomplete="off" />
           </el-form-item>
 
-          <el-form-item label="图片上传">
+          <el-form-item label="图片上传" style="overflow: hidden;">
             <el-upload class="avatar-uploader" action="" :on-change="handleelchange" :auto-upload="false"
-              list-type="picture" :show-file-list="false">
-              <img v-if="imageUrl" :src="imageUrl" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon" />
+            :multiple="true" list-type="picture-card">
+              <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon" /> -->
+              <i class="el-icon-plus"></i>
             </el-upload>
           </el-form-item>
           <el-form-item label="视频上传">
@@ -187,9 +188,8 @@
 import pho from './phoneDes.vue'
 import countDown from '@/components/countDown'
 import { demandDitial } from '@/api/home'
-
+import { imageUpload } from "@/api/user";
 import { toubiaoApi } from '@/api/tenant'
-import axios from 'axios'
 export default {
   components: {
     pho,
@@ -233,8 +233,10 @@ export default {
           }
         ]
       },
-      imageUrl: '',
-      fileUrl: '',
+      // imageUrl: '',
+      image:[],
+      file:[],
+      // fileUrl: '',
 
       form: {
         mobile: '',
@@ -330,8 +332,8 @@ export default {
       const obj = {
         r_id: this.$route.query.id,
         uid: this.uid,
-        pic: this.imageUrl,
-        video: this.fileUrl,
+        pic: this.image.join(','),
+        video: this.file.join(','),
         ...this.form
       }
       const res = await toubiaoApi(obj)
@@ -343,7 +345,7 @@ export default {
           message: ''
         }
         this.dialogFormVisible = false
-        this.imageUrl = ''
+        this.image = []
         this.$message({
           message: '投标成功',
           type: 'success'
@@ -360,41 +362,28 @@ export default {
 
     //  图片shangc
 
-    handleelchange(file, fileList) {
-      // console.log('file', file)
-      // console.log('fililist', fileList)
-
+    async handleelchange(file, fileList) {
       const formdata = new FormData()
-      // console.log('formdata', formdata)
       fileList.map((item) => {
         // fileList本来就是数组，就不用转为真数组了
         formdata.append('file', item.raw) // 将每一个文件图片都加进formdata
       })
-
-      formdata.forEach((item) => {
-        // console.log(item)
-      })
-
-      // console.log(e);
-      //   let {file}=e
-      axios.post('http://kelerk.178tqw.com/api/index/upload', formdata).then((res) => {
-        // console.log(res)
-        this.imageUrl = res.data.url
-      })
-      // imageUpload(formdata).then(res=>{
-      //   console.log(res);
-      // })
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
+        this.image.push(res.data.url);
+      }
     },
 
-    handleelchange2(file, fileList) {
+    async handleelchange2(file, fileList) {
       const formdata = new FormData()
       fileList.map((item) => {
         formdata.append('file', item.raw) // 将每一个文件图片都加进formdata
       })
+      const res = await imageUpload(formdata);
+      if (res && res.status === 200) {
+        this.file.push(res.data.url);
+      }
 
-      axios.post('http://kelerk.178tqw.com/api/index/upload', formdata).then((res) => {
-        this.fileUrl = res.data.url
-      })
     },
 
     async Detial(id) {

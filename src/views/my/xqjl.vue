@@ -4,47 +4,83 @@
       <!-- 文章列表模块 -->
       <ul class="note-list" infinite-scroll-url="/">
         <li v-for="(item, index) in imgsArr" :key="index" class="have-img">
-          <a class="wrap-img" href="#" target="_blank">
-            <img class="img-blur-done" :src="item.img" :alt="item.title" />
-          </a>
-          <div class="content">
-            <a href="#" class="title" target="_blank">{{ item.title }}</a>
-            <div class="meta">
-              <span class="jsd-meta"> <i class="el-icon-time" /> 发布时间 </span>
-              <a class="nickname" target="_blank" href="#">{{ item.addtime }}</a>
-              <a target="_blank" href="#">
-                <i class="el-icon-view" />
-                浏览量
-                {{ item.view }}
-              </a>
+            <a
+              class="wrap-img"
+              :href="
+                item.status === 1
+                  ? `#/shotDetails/details?id=${item.id}`
+                  : 'javaScript:void(0);'
+              "
+              :target="item.status == 1 ? '_blank' : '_self'"
+            >
+              <img class="img-blur-done" :src="item.img" :alt="item.title" />
+            </a>
+            <div class="content">
+              <a
+                :href="
+                  item.status === 1
+                    ? `#/shotDetails/details?id=${item.id}`
+                    : 'javaScript:void(0);'
+                "
+                :target="item.status == 1 ? '_blank' : '_self'"
+                class="title"
+                >{{ item.title }}</a
+              >
+              <div class="meta">
+                <span class="jsd-meta">
+                  <i class="el-icon-time" /> 发布时间
+                </span>
+                <span class="nickname">{{ item.addtime }}</span>
+                <span target="_blank" href="#">
+                  <i class="el-icon-view" />
+                  浏览量
+                  {{ item.view }}
+                </span>
 
-              <a target="_blank" href="#">
-                <i class="el-icon-coin" />
-                收益 588888 元
-              </a>
-              <a target="_blank" href="#">
-                <i class="el-icon-document-copy" />
-                订单量 8 单
-              </a>
+                <span target="_blank" href="#">
+                  <i class="el-icon-coin" />
+                  收益 {{ item.shouyi }} 元
+                </span>
+                <span target="_blank" href="#">
+                  <i class="el-icon-document-copy" />
+                  订单量 {{ item.order_num }} 单
+                </span>
+              </div>
+              <div class="meta mt0" />
             </div>
-            <div class="meta mt0" />
-          </div>
-          <div class="wrap-btn">
-            <el-row>
-              <el-col :span="24">
-                <el-button type="warning" class="wa_btn" size="mini">修 改</el-button>
-              </el-col>
-              <el-col :span="24">
-                <el-button type="danger" class="wa_btn" size="mini">删 除</el-button>
-              </el-col>
-              <el-col :span="24" class="tc">
-                <el-tag v-if="item.status == 0" class="wa_btn" type="danger" size="mini"
-                  >审核中</el-tag
-                >
-                <el-tag v-else class="wa_btn" type="success" size="mini">审核通过</el-tag>
-              </el-col>
-            </el-row>
-          </div>
+            <div class="wrap-btn">
+              <el-row>
+                <el-col :span="24">
+                  <el-button v-if="item.status !== 0" type="warning" class="wa_btn" size="mini"
+                   @click="editDetail(item.id)" >修 改</el-button
+                  >
+                </el-col>
+                <el-col :span="24">
+                  <el-button type="danger" class="wa_btn" size="mini"
+                    >删 除</el-button
+                  >
+                </el-col>
+                <el-col :span="24" class="tc">
+                  <el-tag
+                    v-if="item.status == 0"
+                    class="wa_btn"
+                    type="danger"
+                    size="mini"
+                    >审核中</el-tag
+                  >
+                  <el-tag
+                    v-else-if="item.status == 2"
+                    class="wa_btn"
+                    type="warning"
+                    size="mini"
+                    >未通过</el-tag
+                  >
+                  <el-tag v-else class="wa_btn" type="success" size="mini"
+                    >审核通过</el-tag
+                  >
+                </el-col>
+              </el-row>
+            </div>
         </li>
       </ul>
       <!-- 文章列表模块 -->
@@ -77,6 +113,9 @@ export default {
     onSubmit() {
       // console.log("submit!");
     },
+    editDetail(id) {
+      this.$emit("tabJump",1,"zyfb",id);
+    }
   },
 };
 </script>
@@ -254,8 +293,8 @@ img {
 body.reader-black-font .container .article .title,
 body.reader-black-font .main .title,
 body.reader-black-font .preview .title {
-  font-family: -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+  font-family: -apple-system, SF UI Display, Arial, PingFang SC,
+    Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
 }
 
 .note-list .title {
