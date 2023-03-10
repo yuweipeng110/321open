@@ -49,13 +49,13 @@
               <span slot="label">
                 需求发布 <i class="el-icon-arrow-right" />
               </span>
-              <xqfb />
+              <xqfb @tabJump="tabJump" :dataId="xqfbId" />
             </el-tab-pane>
             <el-tab-pane name="zyjl">
               <span slot="label">
                 需求记录 <i class="el-icon-arrow-right" />
               </span>
-              <zyjl />
+              <zyjl @tabJump="tabJump" ref="zyjlChild" />
             </el-tab-pane>
             <el-tab-pane name="xqtb">
               <span slot="label">
@@ -105,13 +105,13 @@
               <span slot="label">
                 资源发布 <i class="el-icon-arrow-right" />
               </span>
-              <zyfb :dataId="zyfbId" />
+              <zyfb @tabJump="tabJump" :dataId="zyfbId" />
             </el-tab-pane>
             <el-tab-pane name="xqjl">
               <span slot="label" @click="zyFun">
                 资源记录 <i class="el-icon-arrow-right" />
               </span>
-              <xqjl @tabJump="tabJump" />
+              <xqjl @tabJump="tabJump" ref="xqjlChild" />
             </el-tab-pane>
             <el-tab-pane name="xqtb">
               <span slot="label">
@@ -289,6 +289,7 @@ export default {
       tabVal: 0,
       page: "1",
       limit: "10",
+      xqfbId: 0,
       zyfbId: 0,
     };
   },
@@ -317,7 +318,6 @@ export default {
 
   mounted() {
     // console.log("ddgl订单管理");
-    this.orderManagement();
     this.myLike();
 
     if (document.body.clientWidth > 700) {
@@ -359,11 +359,13 @@ export default {
           break;
         //需求发布
         case "xqfb":
+          this.xqfbId = 0;
           console.log("需求发布");
           break;
         //需求记录
         case "zyjl":
           console.log("需求记录");
+          this.$refs.zyjlChild.getList();
           break;
         //投标记录
         case "xqtb":
@@ -373,6 +375,7 @@ export default {
         case "ddgl":
           console.log("订单管理");
           this.$refs.ddglChild.handle(0);
+          // this.$refs.ddglChild.requestOrderPlTag();
           break;
         //我的关注
         case "wdgz":
@@ -388,11 +391,13 @@ export default {
           break;
         //资源发布
         case "zyfb":
+          this.zyfbId = 0;
           console.log("资源发布");
           break;
         //资源记录
         case "xqjl":
           console.log("资源记录");
+          this.$refs.xqjlChild.getList();
           break;
       }
 
@@ -480,15 +485,14 @@ export default {
     },
 
     /** 订单管理 消费记录 consumeLog，收益记录YieldLog，提现记录withdrawDepositList*/
-    orderManagement() {
-      // console.log("订单管理开始加载数据");
-
-      this.$store.dispatch("user/getUserLog", {
-        uid: this.id,
-        page: "1",
-        limit: "10",
-      });
-    },
+    // orderManagement() {
+    //   // console.log("订单管理开始加载数据");
+    //   this.$store.dispatch("user/getUserLog", {
+    //     uid: this.id,
+    //     page: "1",
+    //     limit: "10",
+    //   });
+    // },
 
     /** 登录基本信息 */
     Login() {
@@ -507,14 +511,23 @@ export default {
       this.tabVal = 1;
       this.activeName = "sjrz";
     },
-    tabJump(tab,activeName,formData) {
+    tabJump(tab, activeName, formData = 0) {
       this.tabVal = tab;
       this.activeName = activeName;
-      if(activeName==="zyfb"){
+      if (activeName === "zyfb") {
         this.zyfbId = formData;
-        console.log('formData',formData,this.zyfbId)
+      } else if (activeName === "xqfb") {
+        this.xqfbId = formData;
+        // this.handleClick({ name: "zyjl" });
+      } else if (activeName === "zyjl") {
+        // 需求记录
+        this.$refs.zyjlChild.getList();
+      } else if (activeName === "xqjl") {
+        
+        // 资源记录
+        this.$refs.xqjlChild.getList();
       }
-    }
+    },
   },
   mounted() {
     //  this.id=localStorage.getItem("UodeId")

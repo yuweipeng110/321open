@@ -9,20 +9,20 @@
           <div>活动类型</div>
         </div>
         <div class="boxCheck">
-          <el-checkbox-group v-model="checkList6">
-            <el-checkbox label="首映礼/见面会/发布会" />
-            <el-checkbox label="行业论坛/沙龙/观影" />
-            <el-checkbox label="研学/文旅" />
+          <el-checkbox-group v-model="form.checkList">
+            <el-checkbox label="1">首映礼/见面会/发布会</el-checkbox>
+            <el-checkbox label="2">行业论坛/沙龙/观影</el-checkbox>
+            <el-checkbox label="3">研学/文旅</el-checkbox>
           </el-checkbox-group>
         </div>
         <div class="box">
           <div>影视项目立项备案</div>
         </div>
         <div class="boxCheck">
-          <el-checkbox-group v-model="checkList7">
-            <el-checkbox label="院线电影" />
-            <el-checkbox label="电视剧/网络电影/网络剧" />
-            <el-checkbox label="纪录片/短剧/动画片" />
+          <el-checkbox-group v-model="form.checkList1">
+            <el-checkbox label="1">院线电影</el-checkbox>
+            <el-checkbox label="2">电视剧/网络电影/网络剧</el-checkbox>
+            <el-checkbox label="3">纪录片/短剧/动画片</el-checkbox>
           </el-checkbox-group>
         </div>
 
@@ -31,14 +31,16 @@
         </div>
         <div class="boxText">
           <el-input
-            v-model="textarea2"
+            v-model="form.remark"
             type="textarea"
             :rows="6"
             placeholder="您可以填写更多的服务需求，我们收到反馈后根据您的需求及时与您联系。"
           />
         </div>
         <div class="tc mt20">
-          <el-button class="mbtn" type="warning" @click="pullServe">提交</el-button>
+          <el-button class="mbtn" type="warning" @click="pullServe"
+            >提交</el-button
+          >
         </div>
       </el-col>
     </el-row>
@@ -47,22 +49,17 @@
 
 <script>
 import { ServeCHApi } from "@/api/tenant";
+
+const defaultForm = {
+  checkList: [],
+  checkList1: [],
+  checkList2: [],
+  remark: "",
+};
 export default {
   data() {
     return {
-      checkList: ["小规模"],
-      checkList1: ["仅注册申报"],
-      checkList2: ["基础财税"],
-      textarea: "",
-      checkList3: ["《广播电视节目制作经营许可证》"],
-      checkList4: ["院线电影"],
-      checkList5: ["协助拍摄函"],
-      textarea1: "",
-      checkList6: ["首映礼/见面会/发布会"],
-      checkList7: ["院线电影"],
-      checkList8: ["影视行业政策解读"],
-      textarea3: "",
-      textarea2: "",
+      form: defaultForm,
     };
   },
   computed: {
@@ -72,13 +69,13 @@ export default {
   },
   methods: {
     async pullServe() {
-      let res = await ServeCHApi({
+      const paramsData = {
         uid: this.id,
-        type: this.checkList6,
-        ying: this.checkList7,
-
-        remark: this.textarea2,
-      });
+        type: this.form.checkList.join(","),
+        ying: this.form.checkList1.join(","),
+        remark: this.form.remark,
+      };
+      let res = await ServeCHApi(paramsData);
       if (res.status == 200) {
         // console.log("res", res);
         this.$message({

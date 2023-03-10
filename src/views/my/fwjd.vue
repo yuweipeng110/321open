@@ -3,11 +3,11 @@
     <template v-for="item in list">
       <el-row :gutter="20">
         <el-col :span="24" class="tc mt20 mb20">
-          <el-steps :active="1" align-center>
+          <el-steps :active="item.status + 1" align-center>
             <el-step :title="item.tname" :description="item.addtime" />
-            <el-step title="审核中" description="2023-2-14 15:15提交" />
-            <el-step title="处理中" description="2023-2-14 15:15提交" />
-            <el-step title="已完成" description="2023-2-14 15:15提交" />
+            <el-step title="审核中"  :description="item.checktime || ''" />
+            <el-step title="处理中"  :description="item.dotime || ''"/>
+            <el-step title="已完成"  :description="item.completetime || ''" />
           </el-steps>
         </el-col>
       </el-row>

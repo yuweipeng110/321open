@@ -35,8 +35,8 @@
         <div class="block_5 flex-col ">
           <span class="text_41 newA"></span>
           <div class="section_29 flex-row justify-between">
-            <div class="box_17 flex-col" />
-            <span class="text_42">{{ item.nick }}</span>
+            <div class="box_17 flex-row" ><img :src="item.avatar" style="width:41px; height:41px; border-radius: 25px !important;" /></div>
+            <span class="text_42">{{ item.nick || "默认用户" }}</span>
           </div>
           <span class="text_43">发布时间： {{ item.addtime }}</span>
         </div>
@@ -48,8 +48,8 @@
         <div class="block_5 flex-col">
           <span class="text_41 newA" ></span>
           <div class="section_29 flex-row justify-between">
-            <div class="box_17 flex-col" />
-            <span class="text_42">{{ item.nick }}</span>
+            <div class="box_17 flex-row" ><img :src="item.avatar" style="width:41px; height:41px; border-radius: 25px !important;" /></div>
+            <span class="text_42">{{ item.nick || "默认用户" }}</span>
           </div>
 
           <span class="text_43">发布时间：{{ item.addtime }}</span>

@@ -51,7 +51,7 @@
       </div>
       <outreach />
       <div class="text-wrapper_btn flex-col">
-        <span class="text_btn">查看更多&gt;</span>
+        <a href="#/goodOutreach/goodOutreach" class="text_btn">查看更多&gt;</a>
       </div>
       <div class="solve head-label ">
         <div class="font_size_24 server-p mt50">

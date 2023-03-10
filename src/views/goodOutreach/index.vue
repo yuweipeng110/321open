@@ -15,162 +15,105 @@
               </el-radio-group>
             </el-col>
             <el-col :span="12">
-              <el-input v-model="input2" placeholder="搜索场景关键词、编号" size="medium " class="right_search">
+              <el-input
+                v-model="input2"
+                placeholder="搜索场景关键词、编号"
+                size="medium "
+                class="right_search"
+              >
                 <template slot="append">搜索</template>
               </el-input>
             </el-col>
           </el-row>
         </div>
-        <div class="choice_content">
-          <div class="el-form-item">
-            <el-image class="cho_img" :src="require('@/assets/img/spzy/mj.png')" />
-            <label class="el-form-item__label w80"> 面积 </label>
-            <div class="el-form-item__content ml80">
-              <el-checkbox-group v-model="checkboxGroup1">
-                <el-checkbox v-for="(item, index) in choList1" :key="index" :label="item" name="type" border />
-              </el-checkbox-group>
-            </div>
-          </div>
-          <div class="el-form-item">
-            <el-image class="cho_img" :src="require('@/assets/img/spzy/pt.png')" />
-            <label class="el-form-item__label w80"> 配套 </label>
-            <div class="el-form-item__content ml80">
-              <el-checkbox-group v-model="checkboxGroup2">
-                <el-checkbox v-for="(item, index) in choList2" :key="index" :label="item" name="type" border />
-              </el-checkbox-group>
-            </div>
-          </div>
-          <div class="el-form-item">
-            <el-image class="cho_img" :src="require('@/assets/img/spzy/ts.png')" />
-            <label class="el-form-item__label w80"> 特色 </label>
-            <div class="el-form-item__content ml80">
-              <el-checkbox-group v-model="checkboxGroup3">
-                <el-checkbox v-for="(item, index) in choList3" :key="index" :label="item" name="type" border />
-              </el-checkbox-group>
-            </div>
-          </div>
-          <div class="el-form-item">
-            <el-image class="cho_img" :src="require('@/assets/img/spzy/cj.png')" />
-            <label class="el-form-item__label w80"> 场景 </label>
-            <div class="el-form-item__content ml80">
-              <el-checkbox-group v-model="checkboxGroup4">
-                <el-checkbox v-for="(item, index) in choList4" :key="index" :label="item" name="type" border />
-              </el-checkbox-group>
-            </div>
-          </div>
-        </div>
-        <div class="tab_content">
-          <el-radio-group v-model="tabRadio">
-            <!-- <el-radio label="推荐" border /> -->
-            <!-- <el-radio label="评论数" border ></el-radio> -->
-            <el-button type="primary" class="tab_btn_t">推荐</el-button>
-            <el-button v-if="tabtn === 1" type="primary" class="tab_btn_t" @click="handle(2)">评论数<i
-                class="el-icon-caret-bottom" /></el-button>
-            <el-button v-if="tabtn === 2" type="primary" class="tab_btn_t" @click="handle(1)">评论数<i
-                class="el-icon-caret-top" /></el-button>
-            <el-button v-if="tabtn1 === 1" type="primary" class="tab_btn_t" @click="handle1(2)">价格<i
-                class="el-icon-caret-bottom" /></el-button>
-            <el-button v-if="tabtn1 === 2" type="primary" class="tab_btn_t" @click="handle1(1)">价格<i
-                class="el-icon-caret-top" /></el-button>
-            <!-- <el-radio label="价格" border /> -->
-          </el-radio-group>
-          <el-divider />
-        </div>
-
-        <!-- <div class="box_8 flex-row justify-between wfc"  v-for="(item, index) in loopData0"
-            :key="index">
-          <div class="block_3 flex-col">
-            <div class="box_1 flex-col" />
-            <div class="text-group_11 flex-col justify-between">
-              <span class="text_14">工厂影像空间</span>
-              <span class="text_15">场景&nbsp;6｜评分3.0</span>
-            </div>
-            <div class="text-wrapper_5 flex-col gzBtn" :class="{ 'activeBtn': actBtn }" @click="handClickBtn()">
-              <span class="text_16">{{ actBtn ? '已关注' : '关注' }}</span>
-            </div>
-          </div>
-          <div class="section_15 flex-col justify-between">
-            <div class="block_13 flex-row justify-between w1100">
-              <div class="text-wrapper_6 flex-col card_cls w540" @click="handleClick">
-                <span class="text_17">影棚A</span>
-              </div>
-              <div class="text-wrapper_7 flex-col card_cls" @click="handleClick">
-                <span class="text_18">影棚B</span>
-              </div>
-            </div>
-            <div class="text-wrapper_8 flex-col card_cls w1100" @click="handleClick">
-              <span class="text_19">影棚C</span>
-            </div>
-          </div>
-        </div>
-        <div class="box_9 flex-row justify-between wfc">
-          <div class="group_4 flex-col">
-            <div class="block_5 flex-col" />
-            <div class="text-group_12 flex-col justify-between">
-              <span class="text_20">工厂影像空间</span>
-              <span class="text_21">场景&nbsp;6｜评分3.0</span>
-            </div>
-
-            <div class="text-wrapper_9 flex-col gzBtn" :class="{ 'activeBtn': actBtn1 }" @click="handClickBtn1()">
-              <span class="text_22">{{ actBtn1 ? '已关注' : '关注' }}</span>
-            </div>
-          </div>
-          <div class="group_12 flex-col justify-between">
-            <div class="box_10 flex-row justify-between w1100">
-              <div class="text-wrapper_10 flex-col card_cls w540" @click="handleClick">
-                <span class="text_23">影棚A</span>
-              </div>
-              <div class="text-wrapper_11 flex-col card_cls" @click="handleClick">
-                <span class="text_24">影棚B</span>
-              </div>
-            </div>
-            <div class="text-wrapper_12 flex-col card_cls w1100" @click="handleClick">
-              <span class="text_25">影棚C</span>
-            </div>
-          </div>
-        </div>
-        <div class="box_11 flex-row justify-between wfc">
-          <div class="box_3 flex-col">
-            <div class="group_7 flex-col" />
-            <div class="text-group_13 flex-col justify-between">
-              <span class="text_26">工厂影像空间</span>
-              <span class="text_27">场景&nbsp;6｜评分3.0</span>
-            </div>
-
-            <div class="text-wrapper_13 flex-col gzBtn" :class="{ 'activeBtn': actBtn2 }" @click="handClickBtn2()">
-              <span class="text_28">{{ actBtn2 ? '已关注' : '关注' }}</span>
-            </div>
-          </div>
-          <div class="group_13 flex-col justify-between">
-            <div class="section_16 flex-row justify-between w1100">
-              <div class="text-wrapper_14 flex-col card_cls w540" @click="handleClick">
-                <span class="text_29">影棚A</span>
-              </div>
-              <div class="text-wrapper_15 flex-col card_cls" @click="handleClick">
-                <span class="text_30">影棚B</span>
-              </div>
-            </div>
-            <div class="text-wrapper_16 flex-col card_cls w1100" @click="handleClick">
-              <span class="text_31">影棚C</span>
-            </div>
-          </div>
-        </div> -->
-
-        <div class="box_8 flex-row justify-between wfc" v-for="(item, index) in list" :key="index">
-          <div class="block_3 flex-col">
+        <div
+          class="box_8 flex-row justify-between wfc"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <div class="block_3 flex-col" style="height: 488px">
             <!-- <div class="box_1 flex-col" /> -->
-            <img :src="item.avatar" class="box_1 flex-col">
+            <router-link
+              :to="{
+                path: '/goodOutreach/details',
+                query: { id: item.id },
+              }"
+            >
+              <img :src="item.avatar" class="box_1 flex-col"
+            /></router-link>
             <div class="text-group_11 flex-col justify-between">
-              <span class="text_14">{{ item.nick }}</span>
-              <span class="text_15">场景&nbsp;{{ item.chang_num }} ｜评分 {{ item.eva }}</span>
+              <router-link
+                :to="{
+                  path: '/goodOutreach/details',
+                  query: { id: item.id },
+                }"
+              >
+                <span class="text_14">{{ item.nick }}</span></router-link
+              >
+              <span class="text_15"
+                >场景&nbsp;{{ item.chang_num }} ｜评分 {{ item.eva }}</span
+              >
             </div>
-            <div class="text-wrapper_5 flex-col gzBtn" :class="{ 'activeBtn': actBtn }" @click="handClickBtn()">
-              <span class="text_16">{{ actBtn ? '已关注' : '关注' }}</span>
+            <div
+              class="text-wrapper_5 flex-col gzBtn"
+              :class="{ activeBtn: actBtn }"
+              @click="concern(item.id)"
+            >
+              <span class="text_16">{{ actBtn ? "已关注" : "关注" }}</span>
             </div>
           </div>
           <div class="section_15 flex-col justify-between">
             <div class="block_13 flex-row justify-between w1100">
-              <div class="text-wrapper_6 flex-col card_cls w540" :class="{ textBlack: !item.chang[0].img }"
+              <el-row style="width: 100%" :gutter="20">
+                <el-col
+                  :span="8"
+                  style="padding-bottom: 20px"
+                  v-for="(changItem, changKey) in item.chang"
+                  :key="changKey"
+                >
+                  <router-link
+                    :to="{
+                      path: '/shotDetails/details',
+                      query: { id: changItem.id },
+                    }"
+                  >
+                    <div class="shotbox card_cls">
+                      <img
+                        class="img"
+                        :src="
+                          changItem.img
+                            ? changItem.img.split(',')[0]
+                            : 'static/img/a5.373f4f29.jpg'
+                        "
+                        alt=""
+                      />
+                      <div class="txt-five">
+                        <div class="oneRow">{{ changItem.title }}</div>
+                        <div>
+                          <div class="fl">
+                            <img
+                              :src="
+                                changItem.avatar ||
+                                require('@/assets/img/spzy/defaultImg.png')
+                              "
+                              alt=""
+                              class="bot-img"
+                            /><span class="tyf12">{{
+                              changItem.nick || "默认用户"
+                            }}</span>
+                          </div>
+                          <div class="fr">
+                            <div class="pcmon phoneMon">
+                              {{ changItem.zujin }}/天
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </router-link>
+                </el-col>
+              </el-row>
+              <!-- <div class="text-wrapper_6 flex-col card_cls w540" :class="{ textBlack: !item.chang[0].img }"
                 v-if="item.chang[0]" @click="handleClick(item)"
                 :style="{ backgroundImage: 'url(' + item.chang[0].img + ')' }">
                 <span class="text_17">{{ item.chang[0].title }}</span>
@@ -179,10 +122,15 @@
                 v-if="item.chang[1]" @click="handleClick(item)"
                 :style="{ backgroundImage: 'url(' + item.chang[1].img + ')' }">
                 <span class="text_18">{{ item.chang[1].title }}</span>
-              </div>
+              </div> -->
             </div>
-            <div class="text-wrapper_8 flex-col card_cls w1100" :class="{ textBlack: !item.chang[0].img }"
-              v-if="item.chang[2]" @click="handleClick(item)" :style="{ backgroundImage: `url(${item.chang[2].img})` }">
+            <div
+              class="text-wrapper_8 flex-col card_cls w1100"
+              :class="{ textBlack: !item.chang[0].img }"
+              v-if="item.chang[2]"
+              @click="handleClick(item)"
+              :style="{ backgroundImage: `url(${item.chang[2].img})` }"
+            >
               <span class="text_19">{{ item.chang[2].title }}</span>
             </div>
           </div>
@@ -194,144 +142,37 @@
 </template>
 <script>
 import { homeOuterLink } from "@/api/home";
-import des from './phoneDes.vue'
+import { addGuanzhu } from "@/api/user";
+import des from "./phoneDes.vue";
 export default {
   components: {
-    des
+    des,
   },
   data() {
     return {
-      tabtn: 1,
       actBtn: false,
-      actBtn1: false,
-      actBtn2: false,
-      actBtn3: false,
-      actBtn4: false,
-      actBtn5: false,
-      tabtn1: 1,
       seen: true,
       radio: 1,
-      input2: '',
+      input2: "",
       list: [],
-      choList1: [
-        '不限',
-        '301-600m',
-        '601-1000m',
-        '1021-2000m',
-        '1011-2000m',
-        '2001-5000m',
-        '1031-2000m'
-      ],
-      checkboxGroup1: [],
-      choList2: [
-        '不限',
-        '更衣间',
-        '洗手间',
-        '休息室',
-        '会议室',
-        '空调',
-        '暖气',
-        '电梯',
-        'WIFI',
-        '220V电力',
-        '停车位',
-        '停车场',
-        '饮水机',
-        '灭火器',
-        '化妆间'
-      ],
-      checkboxGroup2: [],
-      choList3: [
-        '不限',
-        '380V电力',
-        '高速网络',
-        '发电车',
-        '灯光器材',
-        '制片',
-        '技术员',
-        '看门员',
-        '保安'
-      ],
-      checkboxGroup3: [],
-      choList4: [
-        '不限',
-        '山林田园',
-        '暗河',
-        '村落',
-        '湖景',
-        '河堤',
-        '公园',
-        '舞蹈学校',
-        '公园',
-        '工厂',
-        '月子中心',
-        '美术馆',
-        '养生馆',
-        '茶庄',
-        '餐厅',
-        '网咖',
-        '花店',
-        '武馆',
-        '大平层',
-        '酒庄',
-        '小公寓',
-        '咖啡厅',
-        '写字楼',
-        '书吧',
-        '景棚',
-        '旧区宿舍',
-        '火车站',
-        '街道园区',
-        '运动场',
-        '古建筑',
-        '别墅',
-        '综合影视城',
-        '剧院',
-        '废弃建筑',
-        '会展',
-        '医院',
-        '学校',
-        '商场',
-        '停车场',
-        '天桥'
-      ],
-      checkboxGroup4: [],
-      tabRadio: '推荐',
-      imgList: [
-        {
-          url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
-        },
-        {
-          url: 'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'
-        },
-        {
-          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-        },
-        {
-          url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg'
-        },
-        {
-          url: 'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg'
-        }
-      ]
-    }
+    };
   },
   mounted() {
     this.getHomeOuterLink();
-    this.imgObj = this.$route.query.imgObj
+    this.imgObj = this.$route.query.imgObj;
     if (document.body.clientWidth > 700) {
-      this.seen = true
+      this.seen = true;
     } else {
-      this.seen = false
+      this.seen = false;
     }
-    window.addEventListener('setItem', () => {
-      const clientWidth = sessionStorage.getItem('seen')
+    window.addEventListener("setItem", () => {
+      const clientWidth = sessionStorage.getItem("seen");
       if (clientWidth > 700) {
-        this.seen = true
+        this.seen = true;
       } else {
-        this.seen = false
+        this.seen = false;
       }
-    })
+    });
   },
   methods: {
     async getHomeOuterLink() {
@@ -339,50 +180,39 @@ export default {
       if (res.status == 200) {
         this.list = res.data.data;
       }
-      // this.list.forEach(res => {
-      //     res.chang.forEach(res1 => {
-      //       res1.img = 'https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/e8906c062f684b5ca649b5529a59a5c4_mergeImage.png'
-      //     })
-      //   })
+    },
+    async concern(gid) {
+      const loginUserId = this.$store.state.user.id;
+      if (!loginUserId) {
+        this.$message.error("失败，请先登录");
+        return;
+      }
+      const paramsData = {
+        uid: loginUserId,
+        gid,
+      };
+      const res = await addGuanzhu(paramsData);
+      if (res.status == 200) {
+        this.$message({
+          type: "success",
+          message: "关注成功",
+        });
+        this.getHomeOuterLink();
+      } else {
+        this.$message.error("失败，请刷新重试");
+      }
     },
     handClickBtn() {
-      this.actBtn = true
+      this.actBtn = true;
     },
-    handClickBtn1() {
-      this.actBtn1 = true
-    },
-    handClickBtn2() {
-      this.actBtn2 = true
-    },
-    handClickBtn3() {
-      this.actBtn3 = true
-    },
-    handClickBtn4() {
-      this.actBtn4 = true
-    },
-    handClickBtn5() {
-      this.actBtn5 = true
-    },
-    handle(val) {
-      this.tabtn = val
-    },
-    handle1(val) {
-      this.tabtn1 = val
-    },
-    handleClick(item) {
-      // this.$router.push({
-      //   path: '/goodOutreach/details',
-      //   params: item
-      //   // query: { id: item.id }
-      // });
-
+    handleClick(id) {
       this.$router.push({
-        name: 'goodOutreachdetails',
-        params: {item}
-      })
-    }
-  }
-}
+        name: "goodOutreachdetails",
+        params: { id },
+      });
+    },
+  },
+};
 </script>
 <style scoped>
 .page {
@@ -1913,7 +1743,6 @@ export default {
 
 .top_btn_r:hover span {
   color: #c37b21;
-
 }
 
 .gzBtn {
@@ -1929,7 +1758,6 @@ export default {
 
 .gzBtn:hover span {
   color: #c37b21;
-
 }
 
 .card_cls {
@@ -1937,7 +1765,7 @@ export default {
 }
 
 .card_cls:hover {
-  box-shadow: 0 2px 12px 0 rgb(0 0 0)
+  box-shadow: 0 2px 12px 0 rgb(0 0 0);
 }
 
 .w1100 {
@@ -1952,7 +1780,7 @@ export default {
   max-width: 1400px;
   height: 120px;
   background-color: #f4f4f4;
-  margin-top: 20px
+  margin-top: 20px;
 }
 
 .m4050 {
@@ -1973,7 +1801,7 @@ div/deep/.right_search .el-input__inner {
   font-size: 16px;
 }
 
-div/deep/.el-radio__input.is-checked+.el-radio__label {
+div/deep/.el-radio__input.is-checked + .el-radio__label {
   color: #c37b21;
 }
 
@@ -2067,7 +1895,7 @@ div/deep/.tab_content .el-radio .el-radio__label {
   font-size: 16px;
 }
 
-div/deep/.choice_content .el-checkbox__input.is-checked+.el-checkbox__label {
+div/deep/.choice_content .el-checkbox__input.is-checked + .el-checkbox__label {
   color: #c37b21;
 }
 
@@ -2080,7 +1908,7 @@ div/deep/.tab_content .el-radio.is-bordered.is-checked {
   /* height: 2000px; */
 }
 
-div/deep/.choice_content .el-checkbox.is-bordered+.el-checkbox.is-bordered {
+div/deep/.choice_content .el-checkbox.is-bordered + .el-checkbox.is-bordered {
   margin-left: 0;
   transition: all 0.3s ease 0s;
 }
@@ -2168,14 +1996,12 @@ div/deep/.el-checkbox.is-bordered.is-checked span {
 }
 
 @media only screen and (min-width: 390px) and (max-width: 400px) {
-
   .section_11 {
     width: 100%;
     transform: translateX(21px) scaleX(1.05);
   }
 
   .section_10 {
-
     width: 94%;
     background-size: cover;
   }
@@ -2186,14 +2012,12 @@ div/deep/.el-checkbox.is-bordered.is-checked span {
 }
 
 @media only screen and (min-width: 401px) and (max-width: 460px) {
-
   .section_11 {
     width: 100%;
     transform: translateX(34px) scaleX(1.11);
   }
 
   .section_10 {
-
     width: 94%;
     background-size: cover;
   }
@@ -2201,5 +2025,73 @@ div/deep/.el-checkbox.is-bordered.is-checked span {
   .group_3 {
     margin: 7px 0 0 284px;
   }
+}
+
+.shotbox {
+  position: relative;
+}
+
+.shotbox .img {
+  height: 230px;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.shotbox .txt-five {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 68px;
+  line-height: 37px;
+  padding: 0 33px;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.shotbox .oneRow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 29px;
+  font-size: 20px;
+  text-align: left;
+  width: 100%;
+}
+
+.shotbox .bot-img {
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 25px !important;
+  margin-top: 5px !important;
+  margin-right: 10px !important;
+  color: #070707;
+  font-size: 15px;
+  -webkit-transform: translateY(-7px);
+  transform: translateY(-6px);
+  object-fit: cover;
+}
+
+.shotbox .tyf12 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.shotbox .pcmon {
+  height: 22px;
+  text-align: left;
+  opacity: 0.9;
+}
+
+.shotbox .fl {
+  float: left;
+}
+
+.shotbox .fr {
+  float: right;
 }
 </style>

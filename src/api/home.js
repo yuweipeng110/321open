@@ -42,10 +42,6 @@ export function homeQuantity(data) {
 
 
 export function demandDitial(data) {
-
-  //  console.log("需求详情参数",data);
-
-
   return request({
     url: "/api/index/request_detail",
     method: "post",
@@ -79,6 +75,16 @@ export function homeOuterLink() {
   return request({
     url: "/api/index/link",
     method: "post"
+  })
+}
+
+
+// 优质外链详情
+export function homeOuterLinkDetail(data) {
+  return request({
+    url: "/api/index/link_detail",
+    method: "post",
+    params: data
   })
 }
 
@@ -123,6 +129,15 @@ export function takeCollect(data) {
   })
 }
 
+// 需求取消收藏
+export function takeCancelCollect(data) {
+  return request({
+    url: "/api/index/collect_cancel",
+    method: "post",
+    params: data
+  })
+}
+
 
 // 获取分类文章
 
@@ -144,3 +159,4 @@ export function art_detail(data) {
     params: data
   })
 }
+

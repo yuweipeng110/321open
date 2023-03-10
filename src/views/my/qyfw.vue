@@ -9,38 +9,45 @@
           <div>工商注册</div>
         </div>
         <div class="boxCheck">
-          <el-checkbox-group v-model="checkList">
-            <el-checkbox label="小规模" />
-            <el-checkbox label="一般纳税人" />
+          <el-checkbox-group v-model="form.checkList">
+            <el-checkbox label="1">小规模</el-checkbox>
+            <el-checkbox label="2">一般纳税人</el-checkbox>
           </el-checkbox-group>
         </div>
         <div class="box">
           <div>场地租凭</div>
         </div>
         <div class="boxCheck">
-          <el-checkbox-group v-model="checkList1">
-            <el-checkbox label="仅注册申报" />
-            <el-checkbox label="长租" />
-            <el-checkbox label="短租" />
+          <el-checkbox-group v-model="form.checkList1">
+            <el-checkbox label="1">仅注册申报</el-checkbox>
+            <el-checkbox label="2">长租</el-checkbox>
+            <el-checkbox label="3">短租</el-checkbox>
           </el-checkbox-group>
         </div>
         <div class="box">
           <div>财税代账</div>
         </div>
         <div class="boxCheck">
-          <el-checkbox-group v-model="checkList2">
-            <el-checkbox label="基础财税" />
-            <el-checkbox label="财税筹划" />
+          <el-checkbox-group v-model="form.checkList2">
+            <el-checkbox label="1">基础财税</el-checkbox>
+            <el-checkbox label="2">财税筹划</el-checkbox>
           </el-checkbox-group>
         </div>
         <div class="box">
           <div>其他问题</div>
         </div>
         <div class="boxText">
-          <el-input v-model="textarea" type="textarea" :rows="6" placeholder="您可以填写更多的服务需求，我们收到反馈后根据您的需求及时与您联系。" />
+          <el-input
+            v-model="form.remark"
+            type="textarea"
+            :rows="6"
+            placeholder="您可以填写更多的服务需求，我们收到反馈后根据您的需求及时与您联系。"
+          />
         </div>
         <div class="tc mt20">
-          <el-button class="mbtn" type="warning" @click="pullServe">提交</el-button>
+          <el-button class="mbtn" type="warning" @click="pullServe"
+            >提交</el-button
+          >
         </div>
       </el-col>
     </el-row>
@@ -50,23 +57,16 @@
 <script lang="js">
 import { ServeRZApi } from "@/api/tenant";
 
+const defaultForm = {
+  checkList: [],
+  checkList1: [],
+  checkList2: [],
+  remark: "",
+};
 export default {
   data() {
     return {
-      checkList: ["小规模"],
-      checkList1: ["仅注册申报"],
-      checkList2: ["基础财税"],
-
-      textarea: "",
-      checkList3: ["《广播电视节目制作经营许可证》"],
-      checkList4: ["院线电影"],
-      checkList5: ["协助拍摄函"],
-      textarea1: "",
-      checkList6: ["首映礼/见面会/发布会"],
-      checkList7: ["院线电影"],
-      checkList8: ["影视行业政策解读"],
-      textarea3: "",
-      textarea2: "",
+      form: defaultForm
     };
   },
   computed: {
@@ -76,13 +76,14 @@ export default {
   },
   methods: {
     async pullServe() {
-      let res = await ServeRZApi({
+      const paramsData = {
         uid: this.id,
-        gong: this.checkList,
-        chang: this.checkList1,
-        cai: this.checkList2,
-        remark: this.textarea,
-      });
+        gong: this.form.checkList.join(','),
+        chang: this.form.checkList1.join(','),
+        cai: this.form.checkList2.join(','),
+        remark: this.form.remark,
+      }
+      let res = await ServeRZApi(paramsData);
 
       if (res.status == 200) {
         // console.log("res", res);

@@ -22,13 +22,13 @@
         <el-descriptions :column="1" class="mt72 des_my">
           <el-descriptions-item label="昵称 " label-class-name="lh39"
             >{{ (userinfo && userinfo.nick) || defaultName + userinfo.id }}
-            <el-button
+            <!-- <el-button
               type="warning"
               class="ml160 ty2 ty4 priIn"
               size="mini"
               @click="handleEditPassWord"
               >修改密码</el-button
-            >
+            > -->
           </el-descriptions-item>
           <el-descriptions-item label="手机 " label-class-name="lh30"
             >{{ userinfo && userinfo.mobile }}

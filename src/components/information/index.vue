@@ -10,7 +10,7 @@
               <div class="actiii" :class="{ 'mt130': index1 == 1, 'mt260': index1 == 2 }" v-for="(item1, index1) in item.list"
                 :key="index1">
                 <h3>
-                  {{ item1.title }}
+                  <a :href="`#/article/details?fid=${item.id}&id=${item1.id}`">{{ item1.title }}</a>
                 </h3>
                 <p>
                 {{ item1.description }}
@@ -249,7 +249,9 @@
               <li v-for="(item, index) in list" :key="index" :class="{ 'active': index == 0 }">
                 <i v-if="index > 0" :class="{ 'i2': index == 1, 'i3': index == 2, 'i4': index > 2 }" />
                 <!-- <el-button class="h80" type="warning" circle plain>政策资讯</el-button> -->
-                <button class="h80 hBtn">{{ item.cate_name }}</button>
+                <!-- <a :href="`#/article/article?fid=${item.id}`"> -->
+                  <router-link :to="{path:'/article/article',query:{fid:item.id}}">
+                <button class="h80 hBtn">{{ item.cate_name }}</button></router-link>
               </li>
             </ul>
           </div>

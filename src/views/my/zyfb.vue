@@ -120,12 +120,18 @@
 
 <script>
 import { imageUpload } from "@/api/user";
-import { cateClassify, catePull, shangjiaruzhuLog } from "@/api/tenant";
+import {
+  cateClassify,
+  catePull,
+  zyUpdate,
+  shangjiaruzhuLog,
+} from "@/api/tenant";
 import { homezydetail } from "@/api/home";
 import { quillEditor, Quill } from "vue-quill-editor";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+// import { forEach } from "mock/user";
 // import { enndRecord } from "@/api/user";
 // 设置字体大小
 const fontSizeStyle = Quill.import("attributors/style/size"); // 引入这个后会把样式写在style上
@@ -156,6 +162,17 @@ const toolbarOptions = [
   // [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
   ["image", "video"],
 ];
+const defaultForm = {
+  cate: [],
+  title: "",
+  area_id: "1",
+  img: [],
+  yajin: "",
+  zujin: "",
+  chao: "",
+  content: "",
+  cateChild: [],
+};
 export default {
   name: "zyfb",
   components: {
@@ -205,17 +222,7 @@ export default {
       ],
       load: false,
       inputVal: "",
-      form: {
-        cate: [],
-        title: "",
-        area_id: "1",
-        img: [],
-        yajin: "",
-        zujin: "",
-        chao: "",
-        content: "",
-        cateChild: [],
-      },
+      form: defaultForm,
       ruzhu: false,
     };
   },
@@ -232,12 +239,14 @@ export default {
       },
       deep: true,
     },
-    dataId(v) {
-      console.log("dataId", this.dataId);
-      // getDetail(v);
-      // if (this.dataId != 0) {
-      //   this.getDetail(this.dataId);
-      // }
+    dataId: {
+      handler(newValue, oldValue) {
+        this.form = defaultForm;
+        if (newValue > 0) {
+          this.getDetail(newValue);
+        }
+      },
+      deep: true,
     },
   },
   computed: {
@@ -329,34 +338,40 @@ export default {
     },
     async handle() {
       this.load = true;
-
-      // console.log(this.form);
-      // setInterval(() => {
-      //   this.load = false;
-      // }, 1000);
       this.form = {
         ...this.form,
         cateChild: this.form.cateChild.join(","),
         img: this.form.img.join(","),
         uid: this.id,
       };
-      // console.log('form',this.form)
-      let res = await catePull(this.form);
-      if (res) {
-        this.load = false;
+
+      if (this.dataId > 0) {
+        this.form.id = this.dataId;
+        // 修改
+        const editRes = await zyUpdate(this.form);
+        if (editRes.status == 200) {
+          this.$message({
+            type: "success",
+            message: "资源修改成功",
+          });
+          this.form = defaultForm;
+        } else {
+          this.$message.error("资源修改失败，请刷新重试");
+        }
+      } else {
+        let res = await catePull(this.form);
         if (res.status == 200) {
           this.$message({
             type: "success",
             message: "资源发布成功",
           });
-          this.form.img = [];
+          this.form = defaultForm;
         } else {
           this.$message.error("资源发布失败，请刷新重试");
         }
-        // console.log("拍摄资源",res);
       }
-
-      // console.log("拍摄资源详情",res);
+      this.load = false;
+      this.$emit("tabJump", 1, "xqjl");
     },
 
     // 上传图片函数
@@ -378,15 +393,32 @@ export default {
       // console.log("res资源分类水水水水水水水水水水", res.data.data);
     },
     async getDetail(id) {
-      console.log("homezydetail");
-      let res = await homezydetail({ id: id });
-      if (res.status == 200 && res.data.data.length) {
-        console.log("getDetail", res.data.data);
+      let res = await homezydetail({ id });
+      if (res.status == 200) {
+        const resData = res.data.data;
+        let cateChild = [];
+        resData.fenlei2.forEach((item) => {
+          if (item) {
+            item.feilei3.forEach((chiItem) => {
+              cateChild.push(chiItem.id);
+            });
+          }
+        });
+        this.form = {
+          img: resData.img.split(","),
+          cate: Number(resData.cate),
+          title: resData.title,
+          area_id: resData.area_id,
+          yajin: resData.yajin,
+          zujin: resData.zujin,
+          chao: resData.chao,
+          content: resData.content,
+          cateChild,
+        };
       }
     },
   },
   mounted() {
-    console.log("xxx");
     this.cartFenlei();
     this.getShangjiaruzhuLog();
 

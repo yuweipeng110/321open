@@ -134,6 +134,15 @@
               class="label_3"
               referrerpolicy="no-referrer"
               src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng47a0e5ad956628aa58572ae15b014cb8bffb393e7e8685e030d84cfc259588fc"
+              @click="requestCollect(objDetail.id)"
+              v-if="objDetail.type === 0"
+            />
+            <img
+              class="label_3"
+              src="./assets/collect_1.png"
+              style="width: 25px; height: 25px"
+              @click="requestCancelCollect(objDetail.id)"
+              v-if="objDetail.type === 1"
             />
             <el-popover placement="top" trigger="hover">
               <img
@@ -324,16 +333,16 @@
         </div>
       </div>
       <div class="text-wrapper_22 flex-col">
-        <div>
-          <span class="text_69">描述内容</span>
-          <div class="content_text" v-html="objDetail.content"></div>
-        </div>
+        <span class="text_69">描述内容</span>
       </div>
       <img
         class="image_20"
         referrerpolicy="no-referrer"
         src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a"
       />
+      <div class="block_16 flex-row justify-between" style="height: auto">
+        <div v-html="objDetail.content"></div>
+      </div>
 
       <div class="text-wrapper_22 flex-col">
         <span class="text_69">用户评价({{ objDetail.pl_num }}条)</span>
@@ -343,8 +352,48 @@
         referrerpolicy="no-referrer"
         src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng665d43ea590c6167b785fb9df57736fca18ffb424f8f5c5f59d7ce965460566a"
       />
-      <div class="block_16 flex-row justify-between">
-        <div class="box_10 flex-row">
+      <div class="flex-col justify-between" style="width: 100%; height: auto">
+        <div
+          class="appraise"
+          v-for="(item, index) in objDetail.order_pinglun"
+          :key="index"
+        >
+          <div class="appraise_left">
+            <div class="appraise_left_avatar">
+              <img
+                class="image_21"
+                style="width: 120px; height: 120px; border-radius: 100%"
+                referrerpolicy="no-referrer"
+                :src="item.avatar"
+              />
+              <span class="text-group_28">{{ item.nick }}</span>
+            </div>
+          </div>
+          <div class="appraise_right">
+            <div style="font-size: 24px">
+              <span>使用评价：</span>
+              <span style="color: #929292">{{ item.pinglun }} </span>
+            </div>
+            <div class="appraise_right_content_bottom">
+              <div style="display: flex; align-items: center">
+                <span style="color: #212121; font-size: 24px">评级:</span
+                ><el-rate :value="item.star" disabled> </el-rate>
+              </div>
+              <div style="display: flex">
+                <div
+                  class="text-wrapper_28 flex-col des_tag"
+                  style="width: auto"
+                  v-for="(tagItem, tagKey) in item.tag"
+                  :key="tagKey"
+                >
+                  <span class="text_76">{{ tagItem }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="box_10 flex-row">
           <div class="image-text_46 flex-col justify-between">
             <img
               class="image_21"
@@ -357,7 +406,7 @@
         <div class="group_33 flex-col justify-between">
           <div class="text-wrapper_23">
             <span class="text_70">使用评价：</span>
-            <span class="text_71">100%好评，5分</span>
+            <span class="text_71">100%好评100%好评100%好评100%好评100%好评100%好评100%好评100%好评100%好评100%好评，5分</span>
           </div>
           <div class="group_34 flex-row justify-between">
             <div class="text-wrapper_24 flex-col des_tag">
@@ -376,7 +425,7 @@
               <span class="text_76">干净整洁(0)</span>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="xg_span">
         <span class="text_77">相关推荐场景</span>
@@ -456,7 +505,12 @@
 <script>
 import des from "./des.vue";
 import qrCode from "@/components/qrCode";
-import { homezyList, homezydetail } from "@/api/home";
+import {
+  homezyList,
+  homezydetail,
+  takeCollect,
+  takeCancelCollect,
+} from "@/api/home";
 export default {
   components: {
     des,
@@ -578,6 +632,49 @@ export default {
           path: "/shotForm/form",
           query: { id: id },
         });
+      }
+    },
+
+    async requestCollect(zid) {
+      const loginUserId = this.$store.state.user.id;
+      if (!loginUserId) {
+        this.$message.error("失败，请先登录");
+        return;
+      }
+      const paramsData = {
+        uid: loginUserId,
+        zid,
+      };
+      const res = await takeCollect(paramsData);
+      if (res.status == 200) {
+        this.$message({
+          type: "success",
+          message: "收藏成功",
+        });
+        this.zyDetail(zid);
+      } else {
+        this.$message.error("失败，请刷新重试");
+      }
+    },
+    async requestCancelCollect(zid) {
+      const loginUserId = this.$store.state.user.id;
+      if (!loginUserId) {
+        this.$message.error("失败，请先登录");
+        return;
+      }
+      const paramsData = {
+        uid: loginUserId,
+        zid,
+      };
+      const res = await takeCancelCollect(paramsData);
+      if (res.status == 200) {
+        this.$message({
+          type: "success",
+          message: "取消收藏成功",
+        });
+        this.zyDetail(zid);
+      } else {
+        this.$message.error("失败，请刷新重试");
       }
     },
   },
@@ -4304,5 +4401,44 @@ div/deep/ .el-carousel__container {
 
 .shotbox .fr {
   float: right;
+}
+
+.appraise {
+  display: flex;
+  width: 100%;
+  height: 204px;
+  padding: 10px 0;
+  border-bottom: 1px dashed #f4f4f4;
+}
+.appraise_left {
+  /* background-color: #f4f4f4; */
+  border-radius: 159px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 183px;
+}
+.appraise_left_avatar {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.appraise_right {
+  width: calc(100% - 200px);
+  margin-left: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.appraise_right_content_bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+/deep/ .el-rate {
+  height: auto;
+}
+/deep/ .el-rate__icon {
+  font-size: 35px;
 }
 </style>

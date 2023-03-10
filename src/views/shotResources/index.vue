@@ -75,104 +75,6 @@
             <i v-else class="el-icon-arrow-up" />
           </div>
         </div>
-        <!-- 
-        <div class="el-form-item">
-          <el-image
-            class="cho_img"
-            :src="require('@/assets/img/spzy/mj.png')"
-          />
-          <label class="el-form-item__label w80"> 面积 </label>
-          <div class="el-form-item__content ml80">
-            <el-checkbox-group
-              v-model="checkboxGroup1"
-              :class="{ isOpen1: isOpen1 }"
-            >
-              <el-checkbox
-                v-for="(item, index) in choList1"
-                :key="index"
-                :label="item"
-                name="type"
-                border
-              />
-            </el-checkbox-group>
-          </div>
-          <div v-if="!seen" class="rightI" @click="handleClick(0)">
-            <i v-if="isOpen1" class="el-icon-arrow-down" />
-            <i v-else class="el-icon-arrow-up" />
-          </div>
-        </div>
-        <div class="el-form-item">
-          <el-image
-            class="cho_img"
-            :src="require('@/assets/img/spzy/pt.png')"
-          />
-          <label class="el-form-item__label w80"> 配套 </label>
-          <div class="el-form-item__content ml80">
-            <el-checkbox-group
-              v-model="checkboxGroup2"
-              :class="{ isOpen2: isOpen2 }"
-            >
-              <el-checkbox
-                v-for="(item, index) in choList2"
-                :key="index"
-                :label="item"
-                name="type"
-                border
-              />
-            </el-checkbox-group>
-          </div>
-          <div v-if="!seen" class="rightI" @click="handleClick(1)">
-            <i v-if="isOpen2" class="el-icon-arrow-down" />
-            <i v-else class="el-icon-arrow-up" />
-          </div>
-        </div>
-        <div class="el-form-item">
-          <el-image
-            class="cho_img"
-            :src="require('@/assets/img/spzy/ts.png')"
-          />
-          <label class="el-form-item__label w80"> 特色 </label>
-          <div class="el-form-item__content ml80">
-            <el-checkbox-group
-              v-model="checkboxGroup3"
-              :class="{ isOpen3: isOpen3 }"
-            >
-              <el-checkbox
-                v-for="(item, index) in choList3"
-                :key="index"
-                :label="item"
-                name="type"
-                border
-              />
-            </el-checkbox-group>
-          </div>
-          <div v-if="!seen" class="rightI" @click="handleClick(2)">
-            <i v-if="isOpen3" class="el-icon-arrow-down" />
-            <i v-else class="el-icon-arrow-up" />
-          </div>
-        </div>
-        <div class="el-form-item">
-          <el-image
-            class="cho_img"
-            :src="require('@/assets/img/spzy/cj.png')"
-          />
-          <label class="el-form-item__label w80"> 场景 </label>
-          <div class="el-form-item__content ml80" :class="{ isOpen4: isOpen4 }">
-            <el-checkbox-group v-model="checkboxGroup4">
-              <el-checkbox
-                v-for="(item, index) in choList4"
-                :key="index"
-                :label="item"
-                name="type"
-                border
-              />
-            </el-checkbox-group>
-          </div>
-          <div v-if="!seen" class="rightI" @click="handleClick(3)">
-            <i v-if="isOpen4" class="el-icon-arrow-down" />
-            <i v-else class="el-icon-arrow-up" />
-          </div>
-        </div> -->
       </div>
     </div>
     <div class="tab_content">
@@ -525,7 +427,6 @@ export default {
   white-space: nowrap;
   text-overflow: ellipsis;
   display: inline-block;
-  width: 150px;
 }
 
 .shotbox .pcmon {

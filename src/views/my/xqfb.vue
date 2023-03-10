@@ -80,7 +80,7 @@
 
           <quill-editor
             ref="mwQuillEditorXqfb"
-            v-model="html"
+            v-model="form.content"
             class="ml10"
             :options="editorOption"
           />
@@ -105,6 +105,7 @@
 <script>
 import { quillEditor, Quill } from "vue-quill-editor";
 import { enndPull, imageUpload } from "@/api/user";
+import { updateDitial, demandDitial } from "@/api/home";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
@@ -139,6 +140,19 @@ const toolbarOptions = [
   // [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
   ["image", "video"],
 ];
+const defaultForm = {
+  title: "",
+  zhao_start: "",
+  zhao_end: "",
+  use_start: "",
+  use_end: "",
+  money: "",
+  uid: "",
+  content: "",
+  area_id: "",
+  img: "",
+  description: "",
+};
 export default {
   name: "xqfb",
   components: {
@@ -149,6 +163,7 @@ export default {
       type: [Number, Object, Array, String],
       default: "",
     },
+    dataId: 0,
   },
   data() {
     return {
@@ -174,28 +189,16 @@ export default {
         },
       },
 
-
       datepickerOptions: {
         disabledDate(time) {
           // 设置选择今天以及今天之后的日期
           return time.getTime() < Date.now() - 8.64e7;
-        }
+        },
       },
       objHeader: {
         "Content-Type": "multipart/form-data",
       },
-      form: {
-        title: "",
-        imglist: "",
-        zhao_start: "",
-        zhao_end: "",
-        use_start: "",
-        use_end: "",
-        money: "",
-        img: "",
-
-        description: "",
-      },
+      form: defaultForm,
     };
   },
   watch: {
@@ -208,6 +211,16 @@ export default {
     value: {
       handler(newValue, oldValue) {
         if (newValue !== oldValue) this.html = newValue;
+      },
+      deep: true,
+    },
+    dataId: {
+      handler(newValue, oldValue) {
+        this.imageUrl = "";
+        this.form = defaultForm;
+        if (newValue > 0) {
+          this.getDetail(newValue);
+        }
       },
       deep: true,
     },
@@ -248,7 +261,7 @@ export default {
       }
     },
 
-    onSubmitFun() {
+    async onSubmitFun() {
       this.form = {
         title: this.form.title,
         zhao_start: moment(this.form.zhao_start).format("YYYY-MM-DD HH:mm:ss"),
@@ -257,44 +270,45 @@ export default {
         use_end: moment(this.form.use_end).format("YYYY-MM-DD HH:mm:ss"),
         money: this.form.money,
         uid: this.$store.state.user.id,
-        content: this.html,
+        content: this.form.content,
+        // content: this.html,
         area_id: String(this.area_id),
         img: this.imageUrl,
         description: this.form.description,
       };
+      if (this.dataId > 0) {
+        this.form.id = this.dataId;
+        // 修改
 
-      // console.log("格式化时间之后的请求参数", this.form);
-      // console.log(this.form);
-      enndPull(this.form).then((res) => {
-        // console.log(res);
-        if (res.status == 200) {
+        const editRes = await updateDitial(this.form);
+        if (editRes.status == 200) {
           this.$message({
             type: "success",
-            message: "需求发布成功",
+            message: "需求修改成功",
           });
           this.imageUrl = "";
           this.html = "";
         } else {
-          this.$message.error("需求发布失败，请刷新重试");
+          this.$message.error("需求修改失败，请刷新重试");
         }
-
-        // 格式化表单内容
-
-        this.form = {
-          title: "",
-          zhao_start: "",
-          zhao_end: "",
-          use_start: "",
-          use_end: "",
-          money: "",
-          uid: "",
-          content: "",
-          area_id: "",
-          img: "",
-          description: "",
-        };
-      });
-      //  console.log(resault);
+        this.form = defaultForm;
+      } else {
+        enndPull(this.form).then((res) => {
+          if (res.status == 200) {
+            this.$message({
+              type: "success",
+              message: "需求发布成功",
+            });
+            this.imageUrl = "";
+            this.html = "";
+          } else {
+            this.$message.error("需求发布失败，请刷新重试");
+          }
+          this.form = defaultForm;
+        });
+      }
+      this.$emit("tabJump", 0, "zyjl");
+      return;
     },
     handleAvatarSuccess(res, file) {
       // console.log("file", file);
@@ -313,6 +327,25 @@ export default {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
       return isJPG && isLt2M;
+    },
+    async getDetail(id) {
+      let res = await demandDitial({ id });
+      if (res.status == 200) {
+        const resData = res.data.data;
+        this.imageUrl = resData.img;
+        this.form = {
+          id: resData.id,
+          title: resData.title,
+          zhao_start: resData.zhao_start,
+          zhao_end: resData.zhao_end,
+          use_start: resData.use_start,
+          use_end: resData.use_end,
+          money: resData.money,
+          img: resData.img,
+          description: resData.description,
+          content: resData.content,
+        };
+      }
     },
   },
   mounted() {

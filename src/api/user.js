@@ -209,3 +209,12 @@ export function orderCommenton(data) {
     params: data
   })
 }
+
+// 评论标签
+export function orderPltag(data) {
+  return request({
+    url: '/api/index/pttag',
+    method: 'post',
+    params: data
+  })
+}

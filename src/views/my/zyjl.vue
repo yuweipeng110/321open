@@ -56,9 +56,8 @@
                   type="warning"
                   class="wa_btn"
                   size="mini"
-                  @click="
-                    item.type !== 0 ? update(item.id) : 'javascript:void(0)'
-                  "
+                  v-if="item.type !== 0"
+                  @click="editDetail(item.id)"
                   >修 改</el-button
                 >
               </el-col>
@@ -246,6 +245,9 @@ export default {
   components: {
     quillEditor,
   },
+  // props: {
+  //   activeName: "",
+  // },
   data() {
     return {
       // 需求默认图片
@@ -289,11 +291,25 @@ export default {
       return this.$store.state.user.needList;
     },
   },
+  // watch: {
+  //   activeName: {
+  //     handler(newValue) {
+  //       if (newValue === "zyjl") {
+  //         this.getList();
+  //       }
+  //     },
+  //     deep: true,
+  //   },
+  // },
   methods: {
+    editDetail(id) {
+      this.$emit("tabJump", 0, "xqfb", id);
+    },
     onSubmit() {
       // console.log("submit!");
     },
     getList() {
+      console.log('user/getEnndAct');
       this.$store.dispatch("user/getEnndAct", { uid: String(this.id) });
     },
     update(id) {
@@ -416,10 +432,9 @@ export default {
       }
     },
   },
-  mounted() {
-    this.getList();
-    console.log("imgsArr", this.imgsArr);
-  },
+  // mounted() {
+  //   this.getList();
+  // },
 };
 </script>
 

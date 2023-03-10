@@ -104,14 +104,14 @@
         </div>
         <div v-show="!show4" class="section_9 flex-col justify-between box_hover" @mouseleave="handleLeave(4)">
           <div class="group_6 flex-row justify-between">
-            <div class="group_7 flex-row hover-box" @click="go('/article/article/1')">
+            <div class="group_7 flex-row hover-box" @click="go('/article/article?fid=1')">
               <div class="image-text_10 flex-row justify-between">
                 <img class="image_6" referrerpolicy="no-referrer"
                   src="./assets/img/SketchPngab35d1a6af01630966b3498ced558b61c7cbab861cc5592a9b15dc728e48fde0.png">
                 <span class="text-group_10">政策资讯</span>
               </div>
             </div>
-            <div class="group_8 flex-row hover-box" @click="go('/article/article/1')">
+            <div class="group_8 flex-row hover-box" @click="go('/article/article?fid=2')">
               <div class="image-text_11 flex-row justify-between">
                 <img class="image_7" referrerpolicy="no-referrer"
                   src="./assets/img/SketchPngcc30c7701c3078203161126969240ad6154ca62262b325aa56d42ca9af78330c.png">
@@ -119,7 +119,7 @@
               </div>
             </div>
           </div>
-          <div class="group_9 flex-row hover-box" @click="go('/article/article/4')">
+          <div class="group_9 flex-row hover-box" @click="go('/article/article?fid=4')">
             <div class="image-text_12 flex-row justify-between">
               <img class="label_4" referrerpolicy="no-referrer"
                 src="./assets/img/SketchPnga499400665244b8f040b1f7ef86461fbc41b0eccda0a18263337041c6ac3823f.png">

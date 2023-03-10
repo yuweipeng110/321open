@@ -9,10 +9,10 @@
           <div>咨询内容</div>
         </div>
         <div class="boxCheck">
-          <el-checkbox-group v-model="checkList8">
-            <el-checkbox label="影视行业政策解读" />
-            <el-checkbox label="影视专项资金申报方案" />
-            <el-checkbox label="法务咨询" />
+          <el-checkbox-group v-model="form.checkList">
+            <el-checkbox label="1">影视行业政策解读</el-checkbox>
+            <el-checkbox label="2">影视专项资金申报方案</el-checkbox>
+            <el-checkbox label="3">法务咨询</el-checkbox>
           </el-checkbox-group>
         </div>
 
@@ -21,14 +21,16 @@
         </div>
         <div class="boxText">
           <el-input
-            v-model="textarea3"
+            v-model="form.remark"
             type="textarea"
             :rows="6"
             placeholder="您可以填写更多的服务需求，我们收到反馈后根据您的需求及时与您联系。"
           />
         </div>
         <div class="tc mt20">
-          <el-button class="mbtn" type="warning" @click="pullServe">提交</el-button>
+          <el-button class="mbtn" type="warning" @click="pullServe"
+            >提交</el-button
+          >
         </div>
       </el-col>
     </el-row>
@@ -37,22 +39,14 @@
 
 <script>
 import { ServeZXApi } from "@/api/tenant";
+const defaultForm = {
+  checkList: [],
+  remark: "",
+};
 export default {
   data() {
     return {
-      checkList: ["小规模"],
-      checkList1: ["仅注册申报"],
-      checkList2: ["基础财税"],
-      textarea: "",
-      checkList3: ["《广播电视节目制作经营许可证》"],
-      checkList4: ["院线电影"],
-      checkList5: ["协助拍摄函"],
-      textarea1: "",
-      checkList6: ["首映礼/见面会/发布会"],
-      checkList7: ["院线电影"],
-      checkList8: ["影视行业政策解读"],
-      textarea3: "",
-      textarea2: "",
+      form: defaultForm,
     };
   },
   computed: {
@@ -62,11 +56,12 @@ export default {
   },
   methods: {
     async pullServe() {
-      let res = await ServeZXApi({
+      const paramsData = {
         uid: this.id,
-        zi: this.checkList8.toString() ,
-        remark: this.textarea2,
-      });
+        zi: this.form.checkList.join(","),
+        remark: this.form.remark,
+      };
+      let res = await ServeZXApi(paramsData);
       if (res.status == 200) {
         // console.log("res", res);
         this.$message({

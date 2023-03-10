@@ -3,10 +3,10 @@
     <div v-if="seen">
       <span class="text_11"
         >首页 &gt;
-        <template v-if="id == '1'">政策资讯</template>
-        <template v-else-if="id == '2'">行业新闻</template>
-        <template v-else-if="id == '3'">服务项目</template>
-        <template v-else-if="id == '4'">服务案例</template>
+        <template v-if="fid == '1'">政策资讯</template>
+        <template v-else-if="fid == '2'">行业新闻</template>
+        <template v-else-if="fid == '3'">服务项目</template>
+        <template v-else-if="fid == '4'">服务案例</template>
       </span>
     </div>
     <div class="list-container">
@@ -30,7 +30,9 @@
               <span class="jsd-meta">
                 <i class="el-icon-time" />
               </span>
-              <a class="nickname" target="_blank" href="#">{{ item.addtime }}</a>
+              <a class="nickname" target="_blank" href="#">{{
+                item.addtime
+              }}</a>
               <a target="_blank" href="#">
                 <i class="el-icon-view" /> {{ item.reader }}
               </a>
@@ -53,7 +55,7 @@ import { wenList } from "@/api/home";
 export default {
   data() {
     return {
-      id: "1",
+      fid: "1",
       seen: true,
       imgsArr: [],
     };
@@ -69,6 +71,10 @@ export default {
       },
       // 深度观察监听
       deep: true,
+    },
+    $route() {
+      this.fid = this.$route.query.fid;
+      this.zhengc(this.fid);
     },
   },
   mounted() {
@@ -86,20 +92,8 @@ export default {
         this.seen = false;
       }
     });
-    // console.log(this.$route.params.id)
-    this.id = this.$route.params.id;
-    if (this.id === "2") {
-      // console.log("9999999999999999999");
-      this.zhengc("2");
-    } else if (this.id === "3") {
-      this.zhengc("3");
-    } else if (this.id === "4") {
-      this.zhengc("4");
-    } else {
-      this.zhengc("1");
-    }
-
-    // console.log(this.imgsArr);
+    this.fid = this.$route.query.fid;
+    this.zhengc(this.fid);
   },
   methods: {
     async zhengc(id) {
@@ -110,7 +104,7 @@ export default {
       // console.log(id);
       this.$router.push({
         path: "/article/details",
-        query: { id: id },
+        query: { fid: this.fid, id: id },
       });
     },
   },
@@ -142,7 +136,6 @@ export default {
   padding: 0;
   list-style: none;
 }
-
 
 ul {
   padding-left: 0;
@@ -177,11 +170,10 @@ li {
   width: 150px;
 }
 
-
 .note-list .have-img::after {
-  content:'';
-  display:block;
-  clear:both;
+  content: "";
+  display: block;
+  clear: both;
 }
 .note-list .have-img .wrap-img {
   /* position: absolute;
@@ -190,7 +182,7 @@ li {
   left: 15px; */
   width: 206px;
   height: 135px;
-  float:left;
+  float: left;
 }
 
 a {
@@ -225,8 +217,8 @@ img {
 body.reader-black-font .container .article .title,
 body.reader-black-font .main .title,
 body.reader-black-font .preview .title {
-  font-family: -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+  font-family: -apple-system, SF UI Display, Arial, PingFang SC,
+    Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
 }
 
 .note-list .title {

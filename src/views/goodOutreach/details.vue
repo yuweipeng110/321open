@@ -1,68 +1,100 @@
 <template>
   <div>
-    <div v-if="seen && detail" class="page flex-col">
+    <div v-if="seen" class="page flex-col">
       <div class="group_5 flex-col">
         <div class="box_1 flex-row">
-          <div class="box_2 flex-col" />
+          <div class="box_2" >
+            <img :src="detail.avatar || require('@/assets/img/spzy/defaultImg.png')" />
+        </div>
           <div class="section_4 flex-col justify-between">
             <div class="section_5 flex-row">
-              <span class="text_11">{{ detail.nick }}</span>
-              <img class="label_3" referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnga0ed5a19746374fe5af5430d0cf3ac6d10b4608aef02422a466db4d5f68d930d">
-              <img class="image_2" referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng59a5b9c82a4bd30748c82d3694de71969bf45a102764a8cc4c0f1c17f0dd9ebc">
-              <span class="text_12">实名认证</span>
-              <img class="thumbnail_3" referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng864db6eba90f65d7aedf199058cab4ae316477c6f87761bfbb286bf7ad61b4ea">
-              <span class="text_13">企业认证</span>
+              <span class="text_11">{{ detail.nick || '默认用户' }}</span>
             </div>
-            <span class="text_14">{{ detail.chang_num
-            }}场景&nbsp;｜&nbsp;2粉丝&nbsp;｜&nbsp;0关注&nbsp;｜&nbsp;60%好评&nbsp;｜&nbsp;{{ detail.eva }}分&nbsp;｜&nbsp;{{
-  detail.eva_num }}评论</span>
+            <span class="text_14"
+              >{{
+                detail.chang_num
+              }}{{ detail.chang.length }}场景&nbsp;｜&nbsp;{{ detail.like }}关注&nbsp;｜&nbsp;{{ detail.haoping }}好评&nbsp;｜&nbsp;{{
+                detail.pingfen
+              }}分
+
+            <el-popover placement="top" trigger="hover">
+              <img
+                class="label_3"
+                referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnga0ed5a19746374fe5af5430d0cf3ac6d10b4608aef02422a466db4d5f68d930d"
+                slot="reference"
+              /><qrCode :text="currentUrl" />
+            </el-popover>
+              <template v-if="detail.renzheng === 1">
+              <img
+                class="image_2"
+                referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng59a5b9c82a4bd30748c82d3694de71969bf45a102764a8cc4c0f1c17f0dd9ebc"
+              />
+              <span class="text_12">实名认证</span>
+              <img
+                class="thumbnail_3"
+                referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng864db6eba90f65d7aedf199058cab4ae316477c6f87761bfbb286bf7ad61b4ea"
+              />
+              <span class="text_13">企业认证</span>
+            </template>
+              </span
+            >
           </div>
           <div class="text-wrapper_2 flex-col gzBtn" @click="isFollow = true">
-            <span class="text_15"> {{ isFollow ? '已关注' : '关注' }}</span>
+            <span class="text_15"> {{ isFollow ? "已关注" : "关注" }}</span>
           </div>
           <div class="text-wrapper_3 flex-col gzBtn" @click="handleClickCall">
             <span class="text_16">拨打电话</span>
           </div>
         </div>
+        <div style="width: 1421px">
+          <el-row style="width: 100%" :gutter="20">
+            <el-col
+              :span="8"
+              style="padding-bottom: 20px"
+              v-for="(item, key) in detail.chang"
+              :key="key"
+            >
+              <div class="shotbox card_cls">
+                <img
+                  class="img"
+                  :src="
+                    item.img
+                      ? item.img.split(',')[0]
+                      : 'static/img/a5.373f4f29.jpg'
+                  "
+                  alt=""
+                />
+                <div class="txt-five">
+                  <div class="fl" style="font-size: 20px">{{ item.title }}</div>
 
-        <div v-if="detail.chang && detail.chang[0] && hasFiest"
-          :style="{ backgroundImage: 'url(' + detail.chang[0].img + ')', backgroundColor: '#f1f1f1' }"
-          class="box_6 flex-col card_cls box_centent_pro card_hover">
-          <div class="text-group_17 flex-col justify-between ">
-            <span class="text_37">{{ detail.chang[0].title }}</span>
-            <span class="text_38">{{ detail.nick }}</span>
-            <span class="text_39">5分｜0条评论</span>
-          </div>
-          <div class="text-wrapper_9">
-            <span class="text_40">¥</span> <span class="text_41">{{ parseInt(detail.chang[0].zujin) }}</span>
-            <span class="text_42">/天</span>
-          </div>
-        </div>
-        <div v-if="hasFiest && detail.chang && detail.chang.length > 1" class="box_15 flex-row box_centent card_hover"
-          style="flex-flow:wrap;width:100%;height:auto;">
-          <div v-for="v in detail.chang.slice(1)" :key="v.id"
-            :style="{ backgroundImage: 'url(' + v.img + ')', backgroundColor: '#f1f1f1', marginRight: '20px' }"
-            class="box_8 flex-row card_cls">
-            <div class="text-group_18 flex-col justify-between">
-              <span class="text_43">{{ v.title }}</span>
-              <span class="text_44">{{ detail.nick }}</span>
-              <span class="text_45">5分｜0条评论</span>
-            </div>
-            <div class="text-wrapper_10">
-              <span class="text_46">¥</span> <span class="text_47">{{ parseInt(v.zujin) }}</span>
-              <span class="text_48">/天</span>
-            </div>
-          </div>
+                  <div class="fr">{{ item.zujin }}</div>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
         </div>
       </div>
-      <el-dialog title="电话拨打" :visible.sync="centerDialogVisible" width="30%" center class="desDio">
+      <el-dialog
+        title="电话拨打"
+        :visible.sync="centerDialogVisible"
+        width="30%"
+        center
+        class="desDio"
+      >
         <span class="tc"> <i class="el-icon-phone" /> +86 1388888888888</span>
         <span slot="footer" class="dialog-footer tc">
-          <el-button class="btn" @click="centerDialogVisible = false">取 消</el-button>
-          <el-button class="btn" type="primary" @click="centerDialogVisible = false">呼 叫</el-button>
+          <el-button class="btn" @click="centerDialogVisible = false"
+            >取 消</el-button
+          >
+          <el-button
+            class="btn"
+            type="primary"
+            @click="centerDialogVisible = false"
+            >呼 叫</el-button
+          >
         </span>
       </el-dialog>
       <div class="mb50 tc mt50">
@@ -73,75 +105,90 @@
   </div>
 </template>
 <script>
-import des from './desdes.vue'
+import des from "./desdes.vue";
+import { homeOuterLinkDetail } from "@/api/home";
+import qrCode from "@/components/qrCode";
 export default {
   components: {
-    des
+    des,
+    qrCode,
   },
   data() {
     return {
       seen: true,
       constants: {},
-      tabRadio: '分类',
+      tabRadio: "分类",
       isFollow: false,
       hasFiest: true,
       centerDialogVisible: false,
-      detail: this.$route.params.item
-    }
+      detail: {},
+      currentUrl: window.location.href,
+    };
   },
   watch: {
     seen: {
       handler: function (val, oldVal) {
         if (document.body.clientWidth > 700) {
-          this.seen = true
+          this.seen = true;
         } else {
-          this.seen = false
+          this.seen = false;
         }
+        console.log("this.seen ", this.seen);
       },
       // 深度观察监听
-      deep: true
-    }
+      deep: true,
+    },
   },
 
   mounted() {
+    this.getDetial(this.$route.query.id);
     // console.log(this.detail);
     // // this.imgObj = this.$route.query.imgObj
     // this.imgObj = this.$route.query.imgObj
     if (document.body.clientWidth > 700) {
-      this.seen = true
+      this.seen = true;
     } else {
-      this.seen = false
+      this.seen = false;
     }
-    window.addEventListener('setItem', () => {
-      const clientWidth = sessionStorage.getItem('seen')
+    window.addEventListener("setItem", () => {
+      const clientWidth = sessionStorage.getItem("seen");
       if (clientWidth > 700) {
-        this.seen = true
+        this.seen = true;
       } else {
-        this.seen = false
+        this.seen = false;
       }
-    })
+    });
   },
   methods: {
     handleClickCall() {
-      this.centerDialogVisible = true
+      this.centerDialogVisible = true;
     },
     handleChange(val) {
-      if (val === '棚(6)') {
-        this.hasFiest = false
+      if (val === "棚(6)") {
+        this.hasFiest = false;
       } else {
-        this.hasFiest = true
+        this.hasFiest = true;
       }
-    }
-  }
-}
+    },
+
+    async getDetial(id) {
+      const res = await homeOuterLinkDetail({ uid: id });
+      if (res.status == 200 && res.data.data) {
+        console.log('detail',res.data.data);
+        this.detail = res.data.data;
+        console.log('detail',this.detail);
+      }
+    },
+  },
+};
 </script>
 <style scoped>
 .aa-enter-active {
-  animation: aniName 0.5s linear
+  animation: aniName 0.5s linear;
 }
 
 .aa-leave-active {
-  animation: aniName 0.5s linear reverse
+  animation: aniName 0.5s linear reverse;
 }
 
 @keyframes aniName {
@@ -362,11 +409,22 @@ export default {
 }
 
 .box_2 {
-  border-radius: 50%;
-  background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/994bdd6072524efc9063d2125e0f37b6_mergeImage.png);
+  /* border-radius: 50%; */
+  /* background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/994bdd6072524efc9063d2125e0f37b6_mergeImage.png); */
   width: 128px;
-  height: 128px;
-  margin: 32px 0 0 41px;
+  margin-left:40px;
+  /* margin: 32px 0 0 41px; */
+  display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+.box_2 img{
+  border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    width: 128px;
+    height: 128px;
 }
 
 .section_4 {
@@ -1660,7 +1718,6 @@ export default {
 
 .gzBtn:hover span {
   color: #c37b21;
-
 }
 
 .top_btn_r {
@@ -1675,7 +1732,6 @@ export default {
 
 .top_btn_r:hover span {
   color: #c37b21;
-
 }
 
 .card_cls {
@@ -1683,7 +1739,7 @@ export default {
 }
 
 .card_cls:hover {
-  box-shadow: 0 2px 12px 0 rgb(0 0 0)
+  box-shadow: 0 2px 12px 0 rgb(0 0 0);
 }
 
 .tc {
@@ -1730,7 +1786,7 @@ div/deep/.tab_content .el-radio .el-radio__label {
   font-size: 16px;
 }
 
-div/deep/.choice_content .el-checkbox__input.is-checked+.el-checkbox__label {
+div/deep/.choice_content .el-checkbox__input.is-checked + .el-checkbox__label {
   color: #c37b21;
 }
 
@@ -1738,7 +1794,7 @@ div/deep/.tab_content .el-radio.is-bordered.is-checked {
   background: #c37b21;
 }
 
-div/deep/.tab_content .el-radio__input.is-checked+.el-radio__label {
+div/deep/.tab_content .el-radio__input.is-checked + .el-radio__label {
   color: #f6f0e8;
 }
 
@@ -1747,7 +1803,7 @@ div/deep/.tab_content .el-radio__input.is-checked+.el-radio__label {
   /* height: 2000px; */
 }
 
-div/deep/.choice_content .el-checkbox.is-bordered+.el-checkbox.is-bordered {
+div/deep/.choice_content .el-checkbox.is-bordered + .el-checkbox.is-bordered {
   margin-left: 0;
   transition: all 0.3s ease 0s;
 }
@@ -1779,7 +1835,7 @@ div/deep/.tab_content .el-radio.is-bordered:hover {
   color: #f6f0e8;
 }
 
-.box_centent>div {
+.box_centent > div {
   width: 436px;
 }
 
@@ -1787,7 +1843,7 @@ div/deep/.tab_content .el-radio.is-bordered:hover {
   width: fit-content;
 }
 
-.box_centent>div:first-child {
+.box_centent > div:first-child {
   margin-left: 20px;
 }
 
@@ -1799,7 +1855,6 @@ div/deep/.tab_content .el-radio.is-bordered:hover {
 .card_hover {
   opacity: 1;
   animation: fadedev 1s linear;
-
 }
 
 .box_hover {
@@ -1809,13 +1864,12 @@ div/deep/.tab_content .el-radio.is-bordered:hover {
 
 @keyframes fadedev {
   0% {
-    opacity: 0
+    opacity: 0;
   }
 
   100% {
-    opacity: 1
+    opacity: 1;
   }
-
 }
 
 .btn {
@@ -1831,4 +1885,76 @@ div/deep/.tab_content .el-radio.is-bordered:hover {
   .tab_content {
     transform: translateX(-14px) scaleX(0.96);
   }
-}</style>
+}
+
+.shotbox {
+  position: relative;
+}
+
+.shotbox .img {
+  height: 297px;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.shotbox .txt-five {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 68px;
+  line-height: 37px;
+  padding: 0 33px;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shotbox .oneRow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 29px;
+  font-size: 20px;
+  text-align: left;
+  width: 100%;
+}
+
+.shotbox .bot-img {
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 25px !important;
+  margin-top: 5px !important;
+  margin-right: 10px !important;
+  color: #070707;
+  font-size: 15px;
+  -webkit-transform: translateY(-7px);
+  transform: translateY(-6px);
+  object-fit: cover;
+}
+
+.shotbox .tyf12 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.shotbox .pcmon {
+  height: 22px;
+  text-align: left;
+  opacity: 0.9;
+}
+
+.shotbox .fl {
+  float: left;
+}
+
+.shotbox .fr {
+  float: right;
+}
+</style>

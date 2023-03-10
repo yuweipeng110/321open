@@ -12,6 +12,15 @@ export function catePull(data) {
     // }
   })
 }
+
+// 资源修改
+export function zyUpdate(data) {
+  return request({
+    url: "/api/index/zy_update",
+    method: "post",
+    params: data
+  })
+}
 // 资源记录接口
 export function cateLog(data) {
   return request({

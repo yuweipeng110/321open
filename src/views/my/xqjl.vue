@@ -105,6 +105,9 @@ export default {
     };
   },
   computed: {
+    id: function () {
+      return this.$store.state.user.id;
+    },
     imgsArr: function () {
       return this.$store.state.user.ziyuan;
     },
@@ -115,7 +118,10 @@ export default {
     },
     editDetail(id) {
       this.$emit("tabJump",1,"zyfb",id);
-    }
+    },
+    getList() {
+      this.$store.dispatch("user/getZy", { uid: String(this.id) });
+    },
   },
 };
 </script>

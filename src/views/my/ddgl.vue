@@ -26,9 +26,14 @@
           <el-descriptions
             v-for="(item, index) in xiaofei"
             :key="index"
-            :title="item.title"
             :colon="false"
           >
+            <template #title>
+              <router-link
+                :to="{ path: '/shotDetails/details', query: { id: item.zid } }"
+                >{{ item.title }}</router-link
+              >
+            </template>
             <el-descriptions-item label="下单时间">{{
               item.addtime
             }}</el-descriptions-item>
@@ -115,10 +120,15 @@
           <el-descriptions
             v-for="(item, index) in shouyi"
             :key="index"
-            :title="item.title"
             :colon="false"
             class="shouyi_jil"
           >
+            <template #title>
+              <router-link
+                :to="{ path: '/shotDetails/details', query: { id: item.zid } }"
+                >{{ item.title }}</router-link
+              >
+            </template>
             <el-descriptions-item label="下单时间">{{
               item.addtime
             }}</el-descriptions-item>
@@ -250,25 +260,21 @@
         </el-col>
         <el-col :span="24">
           <el-form :model="form">
-            <el-form-item label="商家评价：" :label-width="130">
+            <el-form-item label="商家评价：">
               <el-rate v-model="form.star" class="mt10" />
             </el-form-item>
           </el-form>
         </el-col>
       </el-row>
-      <el-tag class="mr10 cu" @click="handlePl('评论一')">评论一</el-tag>
-      <el-tag type="success" class="mr10 cu" @click="handlePl('评论二')"
-        >评论二</el-tag
-      >
-      <el-tag type="info" class="mr10 cu" @click="handlePl('评论三')"
-        >评论三</el-tag
-      >
-      <el-tag type="warning" class="mr10 cu" @click="handlePl('评论四')"
-        >评论四</el-tag
-      >
-      <el-tag type="danger" class="mr10 cu" @click="handlePl('评论五')"
-        >评论五</el-tag
-      >
+      <el-checkbox-group v-model="form.plTagList">
+        <el-checkbox
+          v-for="(item, index) in orderPltagList"
+          :label="item.id"
+          :key="index"
+          :border="true"
+          >{{ item.tag }}</el-checkbox
+        >
+      </el-checkbox-group>
       <span slot="footer" class="dialog-footer">
         <el-button class="w160" @click="dialog = false">取 消</el-button>
         <el-button type="primary" class="w160" @click="requestCommenton"
@@ -280,7 +286,13 @@
 </template>
 
 <script>
-import { completeOrder, orderCommenton } from "@/api/user";
+import { completeOrder, orderCommenton, orderPltag } from "@/api/user";
+
+const defaultForm = {
+  textarea: "",
+  star: 0,
+  plTagList: [],
+};
 export default {
   data() {
     return {
@@ -289,167 +301,9 @@ export default {
       pl: "",
       tabb: 0,
       search: "",
-      form: {
-        textarea: "",
-        star: "",
-      },
+      form: defaultForm,
       pingjiaOrderId: "",
-      // tableData: [
-      //   {
-      //     date: '2016-05-02 11-256',
-      //     id: 'KPLV2023011103',
-      //     name: '上海市普陀区出租阿松大3424',
-      //     pj: '还行',
-      //     status: true,
-      //     btn: 0,
-      //     time: '2天',
-      //     money: '10000元',
-      //     yj: '5000元'
-
-      //   },
-      //   {
-      //     date: '2016-05-02 11-25',
-      //     id: 'KPLV2023011103',
-      //     name: '上海市普陀区出租111111',
-      //     pj: '还行',
-      //     time: '2天',
-      //     status: false,
-      //     money: '10000元',
-      //     yj: '5000元',
-      //     btn: 0
-
-      //   },
-      //   {
-      //     date: '2016-05-02 11-25',
-      //     id: 'KPLV2023011103',
-      //     name: '上海市普陀区出租222222222',
-      //     pj: '还行',
-      //     time: '2天',
-      //     status: true,
-      //     money: '10000元',
-      //     yj: '5000元',
-      //     btn: 0
-
-      //   },
-      //   {
-      //     date: '2016-05-02 11-25',
-      //     id: 'KPLV2023011103',
-      //     name: '上海市普陀区出租',
-      //     pj: '还行',
-      //     time: '2天',
-      //     status: true,
-      //     money: '10000元',
-      //     yj: '5000元',
-      //     btn: 0
-
-      //   },
-      //   {
-      //     date: '2016-05-02 11-25',
-      //     id: 'KPLV2023011103',
-      //     name: '上海市普陀区出租',
-      //     pj: '还行',
-      //     status: true,
-      //     time: '2天',
-      //     money: '10000元',
-      //     yj: '5000元',
-      //     btn: 0
-
-      //   }
-      // ],
-      tableData1: [
-        {
-          date: "2016-05-02 11-25",
-          id: "KPLV2023011103",
-          name: "上海市普陀区出租阿松大43424",
-          pj: "还行",
-          status: true,
-          time: "2天",
-          money: "10000元",
-          yj: "5000元",
-        },
-        {
-          date: "2016-05-02 11-25",
-          id: "KPLV2023011103",
-          name: "上海市普陀区出租111111",
-          pj: "还行",
-          time: "2天",
-          status: false,
-          money: "10000元",
-          yj: "5000元",
-        },
-        {
-          date: "2016-05-02 11-25",
-          id: "KPLV2023011103",
-          name: "上海市普陀区出租222222222",
-          pj: "还行",
-          time: "2天",
-          status: true,
-          money: "10000元",
-          yj: "5000元",
-        },
-        {
-          date: "2016-05-02 11-25",
-          id: "KPLV2023011103",
-          name: "上海市普陀区出租",
-          pj: "还行",
-          time: "2天",
-          status: true,
-          money: "10000元",
-          yj: "5000元",
-        },
-        {
-          date: "2016-05-02 11-25",
-          id: "KPLV2023011103",
-          name: "上海市普陀区出租",
-          pj: "还行",
-          status: true,
-          time: "2天",
-          money: "10000元",
-          yj: "5000元",
-        },
-      ],
-      tableData2: [
-        {
-          date: "2016-05-02 11-25",
-          id: "220336559",
-          xdr: "张三",
-          phone: "15888888888",
-          name: "上海市普陀区大项目",
-          time: "2天",
-          status: true,
-          money: "10000元",
-        },
-        {
-          date: "2016-05-02 11-25",
-          id: "220336559",
-          xdr: "张三",
-          phone: "15888888888",
-          name: "上海市普陀区大项目",
-          time: "2天",
-          status: false,
-          money: "10000元",
-        },
-        {
-          date: "2016-05-02 11-25",
-          id: "220336559",
-          xdr: "张三",
-          status: true,
-          phone: "15888888888",
-          name: "上海市普陀区大项目",
-          time: "2天",
-          money: "10000元",
-        },
-        {
-          date: "2016-05-02 11-25",
-          id: "220336559",
-          xdr: "张三",
-          phone: "15888888888",
-          name: "上海市普陀区大项目",
-          time: "2天",
-          status: false,
-          money: "10000元",
-        },
-      ],
+      orderPltagList: [],
     };
   },
   computed: {
@@ -522,6 +376,7 @@ export default {
         order_id: this.pingjiaOrderId,
         pinglun: this.form.textarea,
         star: this.form.star,
+        tag_id: this.form.plTagList.join(","),
       };
       const res = await orderCommenton(params);
       if (res.status == 200 && res.data.code === 1) {
@@ -534,9 +389,23 @@ export default {
       } else {
         this.$message.error(res.data.msg);
       }
+      this.form = {
+        textarea: "",
+        star: 0,
+        plTagList: [],
+      };
+      console.log("ok form", this.form);
+    },
+    async requestOrderPlTag() {
+      const res = await orderPltag();
+      if (res.status == 200 && res.data.code === 1) {
+        this.orderPltagList = res.data.data;
+      }
     },
   },
-  mounted() {},
+  mounted() {
+    this.requestOrderPlTag();
+  },
 };
 </script>
 

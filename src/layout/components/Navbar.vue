@@ -47,16 +47,16 @@
         <el-menu-item index="/goodOutreach/goodOutreach" class="header-title"
           >优质外联</el-menu-item
         >
-        <el-menu-item index="/article/article/1" class="header-title"
+        <el-menu-item index="/article/article?fid=1" class="header-title"
           >政策资讯</el-menu-item
         >
-        <el-menu-item index="/article/article/2" class="header-title"
+        <el-menu-item index="/article/article?fid=2" class="header-title"
           >行业新闻</el-menu-item
         >
-        <el-menu-item index="/article/article/3" class="header-title"
+        <el-menu-item index="/article/article?fid=3" class="header-title"
           >服务项目</el-menu-item
         >
-        <el-menu-item index="/article/article/4" class="header-title"
+        <el-menu-item index="/article/article?fid=4" class="header-title"
           >服务案例</el-menu-item
         >
       </el-menu>
@@ -153,20 +153,7 @@ export default {
     },
     $route: {
       handler: function (val, oldVal) {
-        console.log("bar route", val, oldVal);
-        if (val.name.includes("shotResources")) {
-          this.activeIndex = "/shotResources/shot";
-        } else if (val.name.includes("demand")) {
-          this.activeIndex = "/demand/demand";
-        } else if (val.name.includes("goodOutreach")) {
-          this.activeIndex = "/goodOutreach/goodOutreach";
-        } else if (val.name.includes("article")) {
-          this.activeIndex = "/article/article/1";
-        } else if (val.name.includes("article")) {
-          this.activeIndex = "/article/article/1";
-        } else {
-          this.activeIndex = "/";
-        }
+        this.menuFixed();
         if (document.body.clientWidth > 700) {
           this.seen = true;
         } else {
@@ -178,6 +165,7 @@ export default {
     },
   },
   mounted() {
+    this.menuFixed();
     // this.userinfo=this.$store.state.user.userInfo
     // console.log("userinfo",this.userinfo);
 
@@ -216,6 +204,20 @@ export default {
   },
 
   methods: {
+    menuFixed(){
+      const val = this.$route;
+      if (val.name.includes("shotResources")) {
+          this.activeIndex = "/shotResources/shot";
+        } else if (val.name.includes("demand")) {
+          this.activeIndex = "/demand/demand";
+        } else if (val.name.includes("goodOutreach")) {
+          this.activeIndex = "/goodOutreach/goodOutreach";
+        } else if (val.name.includes("article")) {
+          this.activeIndex = `/article/article?fid=${this.$route.query.fid}`;
+        } else {
+          this.activeIndex = "/";
+        }
+    },
     exitLogin() {
       this.$confirm("此操作将退出当前登录, 是否继续?", "温馨提示提示", {
         confirmButtonText: "确定",

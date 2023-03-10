@@ -18,7 +18,7 @@
               <span class="text_15">{{ detial.description }}</span>
               <span class="text_16">如果您也在寻求类似帮助，我们可以为您轻松搞定！</span>
               <div class="text-wrapper_3">
-                <span class="text_17">还有：</span>
+                <span class="text_17">截止时间：</span>
                 <span class="text_18">
                   <count-down :endTime="new Date(detial.zhao_end).getTime() / 1000 +  ' '" endText="--" />
                 </span>
@@ -118,7 +118,7 @@
                 </div>
                 <div class=" flex-row mt10 block_5 " style="padding:20px 0;height:auto;overflow-x:auto;" :class="{ 'maskInfo20': item.isMask }">
                   <!-- :preview-src-list="srcList1" 点击的话 -->
-                 <template v-if="item.pic"><el-image class="section_4 flex-col" v-for="(itemImg,indexImg) in item.pic.split(',')" :key="indexImg" :src="itemImg" /></template>
+                 <template v-if="item.pic"><el-image class="section_4 flex-col" v-for="(itemImg,indexImg) in item.pic.split(',')" :key="indexImg" :src="itemImg" :preview-src-list="item.pic.split(',')" /></template>
                   <template v-if="item.video"><video class="section_4 flex-col" v-for="(itemVideo,indexVideo) in item.video.split(',')" :key="indexVideo" :src="itemVideo" controls="controls" /></template>
                 </div>
               </div>

@@ -117,7 +117,8 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'article/:id(\\d+)',
+        // path: 'article/:id(\\d+)',
+        path: 'article',
         component: () => import('@/views/article/index'),
         name: 'articleindex',
         meta: { title: '文章' }
